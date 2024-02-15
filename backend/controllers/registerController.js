@@ -8,11 +8,12 @@ const register = async (req, res) => {
         return res.status(400).json("All fields are required")
     }
     // const duplicate = User.find({email:email}||{username:username})
-    const duplicate = await User.find({ $or: [{email: email}, {username: username}] });
-    if(duplicate.length!==0){
-        return res.status(409).json("User already exists")
-    }
     try {
+    // const duplicate = await User.find({ $or: [{email: email}, {username: username}] });
+    // if(duplicate.length!==0){
+    //     return res.status(409).json("User already exists")
+    // }
+    
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
         const roles={}
@@ -29,7 +30,7 @@ const register = async (req, res) => {
         })
 
         const user = await newUser.save();
-        res.status(200).json("user has been created successfully");
+        res.status(200).json("user has been created successfully",user);
     } catch (err) {
         res.status(500).json(err.message);
     }
