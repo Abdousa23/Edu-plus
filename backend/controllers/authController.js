@@ -1,9 +1,9 @@
-const User = require('../models/User');
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const auth = async (req,res,next)=>{
+const handleAuth = async (req,res)=>{
     const cookies = req.cookies
     const {email,password}=req.body
     if(!email || !password){
@@ -53,3 +53,5 @@ const auth = async (req,res,next)=>{
 
 
 }
+
+module.exports={handleAuth}

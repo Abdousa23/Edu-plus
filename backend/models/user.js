@@ -54,8 +54,8 @@ const userSchema = new schema ({
 
     },
     refreshtoken : {
-        type : Array[String],
-        default : []
+        type : [String],
+        default : ""
     }
 } , 
 {timestamps : true}
