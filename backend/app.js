@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const corsOptions = require('./config/corsOptions');
 const credentials = require('./middlewares/credentials');
 const cors = require("cors")
-const mongoose = require("mongoose")
 dotenv.config();
 
 app.use(credentials)
