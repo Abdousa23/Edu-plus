@@ -39,6 +39,10 @@ const userSchema = new schema ({
         lowercase: true,
         match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     },
+    password : {
+        type : String,
+        required : true
+    },
     courses : {
         type : schema.Types.ObjectId,
         ref : 'courses'
