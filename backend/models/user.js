@@ -52,8 +52,13 @@ const userSchema = new schema ({
         required : false,
         default : "",
 
+    },
+    refreshtoken : {
+        type : Array[String],
+        default : []
     }
 } , 
 {timestamps : true}
 )
 
+module.exports = mongoose.model('User' , userSchema)
