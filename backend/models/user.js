@@ -44,7 +44,7 @@ const userSchema = new schema ({
         required : true
     },
     courses : {
-        type : schema.Types.ObjectId,
+        type : [schema.Types.ObjectId],
         ref : 'courses'
     },
     phonenumber : {
