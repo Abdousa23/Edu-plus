@@ -61,3 +61,4 @@ const userSchema = new schema ({
 {timestamps : true}
 )
 
+module.exports = userSchema
