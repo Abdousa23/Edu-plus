@@ -41,7 +41,9 @@ const userSchema = new schema ({
     },
     password : {
         type : String,
-        required : true
+        required : true,
+        minlength : 8,
+        match : /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/
     },
     courses : {
         type : [schema.Types.ObjectId],
