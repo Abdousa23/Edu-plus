@@ -1,71 +1,82 @@
 const mongoose = require('mongoose');
-const chapterSchema = require('./chapterSchema')
-const lessonSchema = require('./lessonSchema')
-const courseSchema = new mongoose.Schema({
-
-
-        title: {
-            type: String,
-            required: true,
-            },
+const schema = mongoose.Schema
+const course = new schema({
+    title: {
+        type: String,
+        required: true,
+        },
         
-        type:{
-            type:String,
-            required:true,
+    category:{
+        type:[schema.Types.ObjectId],
+        required:true,
         },
 
-        description:{type:String,},
-
-
-
-        schoolname: {type:String,},
-
-
-        teacher: {
-            type: String,
-            required: true,},
-            chapters: [chapterSchema],
-            lessons: [lessonSchema],
-            level:{type:String,},
-            language:{type:String,},
-            categorie:{type:String,},
-
-
-            studentEnrolled:{
-                type:number,
-                default :0,
+    description:{
+        type:String,
+    },
+    
+    owner: {
+        type:[schema.Types.ObjectId],
+        required : true,
+        ref: 'users'
+    },
+    
+    lessons:{
+        type:[schema.Types.ObjectId],
+        ref:'lessons'
+    },
+    level: {
+        type: String,
+        enum: ['beginner', 'intermediate', 'pro']
+    },
+    language:{
+        type:String,
+    },
+            
+    studentEnrolled:{
+            type:Number,
+            default :0,
             },
             
-            rating:{
-                type:number
-            },
+    rating:{
+        type:Number,
+        default:0,
+        },
+    reviews:[{        
+        type: schema.Types.ObjectId,
+        ref: 'reviews'
+    }],
 
-        reviews:[{
-            username:{type:String,},
-            rating:{
-                    type:number,
-                    min : 1,
-                    max: 5,
-                    },
-            reviewText:{type:String,},
-            date:{
-                    type: Date,
-                    default : Date.now ,
-                    },
-                }],
+    imageUrl:{
+        type:String,
+    },
 
+    price : { 
+        type: Number ,
+        default : 0, },
 
-            imageUrl:{type:String,},
+    liveVideo: {
+            title: String,
+            url: String,
+            scheduledTime: Date
+    },
+    location: {
+        type: String,
+        
+    },
+    date:{
+        type: Date,
+    },
+    availableSeats:{
+        type: Number,
+    },
+    isAvailable:{
+        type:Boolean,
+        default:true,
+    }
+    },
+    {timestamps:true});
 
-
-            price : { 
-            type: number ,
-            default : 0, }
-            },
-
-
-            {timestamps:true});
-
-const Course = mongoose.model('Course', courseSchema);
+const Course= mongoose.model('Course', course);
 
 module.exports = Course;

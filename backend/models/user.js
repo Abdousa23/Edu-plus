@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
-
 const userSchema = new schema ({
     firstname : {
         type : String,
@@ -25,6 +24,7 @@ const userSchema = new schema ({
     roles : {
         User : {
             type : Number,
+            default : 2000
         },
         Admin : Number,
         Editor : Number,
@@ -55,9 +55,9 @@ const userSchema = new schema ({
         default : "",
 
     },
-    refreshtoken : {
-        type : Array[String],
-        default : []
+    refreshToken : {
+        type : [String],
+        default : ""
     }
 } , 
 {timestamps : true}
