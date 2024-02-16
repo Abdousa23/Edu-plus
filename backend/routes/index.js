@@ -5,6 +5,8 @@ const refreshToken = require('./refresh');
 const auth = require('./auth');
 const logout = require('./logout');
 const homeRoutes = require('./api/homeRoutes');
+const usersController= require('../controllers/usersController')
+
 router.use('/home', homeRoutes);
 router.use('/login', auth);
 router.use('/logout', logout);
