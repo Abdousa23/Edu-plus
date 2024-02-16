@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const schema = mongoose.Schema
 
-const categoriesSchema = {
+const categorieSchema = {
     name : {
         type : String,
         required : true,
@@ -16,3 +16,4 @@ const categoriesSchema = {
         ref : 'courses'
     }
 }
+module.exports = categorieSchema
