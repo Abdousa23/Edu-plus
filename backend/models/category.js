@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const schema = mongoose.Schema
 
-const categorySchema = {
+const categorySchema = new schema ({
     name : {
         type : String,
         required : true,
@@ -16,6 +16,6 @@ const categorySchema = {
         ref : 'courses',
         default : []
     }
-}
+})
 const category = mongoose.model('category', categorySchema);
 module.exports = category ;
