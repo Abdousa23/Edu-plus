@@ -9,6 +9,7 @@ const course = new schema({
     category:{
         type:[schema.Types.ObjectId],
         required:true,
+        ref:"category"
         },
 
     description:{
