@@ -33,8 +33,6 @@ const addCourse = async (req, res) => {
         res.status(200).json(Course);
     }  catch(err){
         console.log(err)
-
-
     }}
 
 module.exports = {addCourse}

@@ -2,8 +2,10 @@ const router = require('express').Router();
 const User = require('../models/course');
 const addCourseController= require('../controllers/addCourseController')
 require('dotenv').config();
-router.post('/addCourse',addCourseController)
+router.post('/addCourse',addCourseController.addCourse)
 
+
+module.exports = router
 
 
 
