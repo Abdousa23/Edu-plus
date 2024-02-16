@@ -14,13 +14,15 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get('/', (_req, res) => {
-  res.send('Welcome to my API');
+    res.send('Welcome to my API');
 });
 
 app.use('/api', router);
 
 app.use(credentials)
 app.use(cors(corsOptions))
+app.use()
+app.post(addCourse)
 connectDB()
 .then(() => {
     app.listen(3000, () => {
