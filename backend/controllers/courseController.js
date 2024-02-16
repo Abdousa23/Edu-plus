@@ -94,20 +94,9 @@ const addOnlineCourse =async (req, res) => {
 const addOnlinelesson =async (req, res) => {
     const courseId = req.params.courseId; // Assuming courseId is passed as a parameter
     const { title, description} = req.body;
-    // const path = req.file?.path;
-    // let image;
-    //     if(path){
-    //         let result = await cloudinary.uploader.upload(path, {
-    //             resource_type: "image",
-    //         });
-    //         await fs.unlink(path, (err) => {
-    //             if (err) {
-    //                 console.error(err)
-    //                 return
-    //                 }
-    //             })
-    //         videoUrl = result.secure_url;
-    //     }
+    const result = req.fileUrl;
+    const videoUrl = result
+    
     const username = req.user;
     try {
         const course = await Course.findById(courseId);
