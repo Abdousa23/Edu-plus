@@ -3,14 +3,14 @@ const router = express.Router()
 const register = require('./register') 
 const refreshToken = require('./refresh');
 const auth = require('./auth');
-const addCourse = require('./addCourse')
-
 const logout = require('./logout');
+const homeRoutes = require('./api/homeRoutes');
+const usersController= require('../controllers/usersController')
 
+router.use('/home', homeRoutes);
 router.use('/login', auth);
 router.use('/logout', logout);
 router.use('/refresh', refreshToken);
 router.use('/register', register);
-router.use('./addCourse.js',addCourse)
 
 module.exports = router

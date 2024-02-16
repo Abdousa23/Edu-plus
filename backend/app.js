@@ -2,14 +2,8 @@ const connectDB = require('./config/connectDB');
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-const corsOptions = require('./config/corsOptions');
-const credentials = require('./middlewares/credentials');
-const cors = require("cors")
 const router = require("./routes/index")
 const cookieParser = require('cookie-parser')
-const corsOptions = require('./config/corsOptions');
-const credentials = require('./middlewares/credentials');
-const cors = require("cors")
 dotenv.config();
 
 app.use(express.urlencoded({ extended: true }));
