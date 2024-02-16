@@ -2,6 +2,9 @@ const connectDB = require('./config/connectDB');
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
+const corsOptions = require('./config/corsOptions');
+const credentials = require('./middlewares/credentials');
+const cors = require("cors")
 const router = require("./routes/index")
 const cookieParser = require('cookie-parser')
 dotenv.config();
@@ -16,7 +19,8 @@ app.get('/', (_req, res) => {
 
 app.use('/api', router);
 
-
+app.use(credentials)
+app.use(cors(corsOptions))
 connectDB()
 .then(() => {
     app.listen(3000, () => {
