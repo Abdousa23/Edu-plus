@@ -43,7 +43,7 @@ const userSchema = new schema ({
         type : String,
         required : true,
         minlength : 8,
-        match : /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/
+        // match : /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/
     },
     courses : {
         type : [schema.Types.ObjectId],

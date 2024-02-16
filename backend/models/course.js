@@ -7,7 +7,7 @@ const course = new schema({
         },
         
     category:{
-        type:[schema.Types.ObjectId],
+        type:schema.Types.ObjectId,
         required:true,
         },
 
@@ -16,7 +16,7 @@ const course = new schema({
     },
     
     owner: {
-        type:[schema.Types.ObjectId],
+        type:schema.Types.ObjectId,
         required : true,
         ref: 'users'
     },

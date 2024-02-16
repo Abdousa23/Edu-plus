@@ -13,7 +13,8 @@ const categorySchema = {
     },
     courses : {
         type : [schema.Types.ObjectId],
-        ref : 'courses'
+        ref : 'courses',
+        default : []
     }
 }
 const category = mongoose.model('category', categorySchema);
