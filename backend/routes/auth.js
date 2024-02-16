@@ -6,4 +6,6 @@ const authController = require('../controllers/authController');
 require('dotenv').config();
 
 
-router.post('/auth', authController.handleAuth);
+router.post('/', authController.handleAuth);
+
+module.exports = router;

@@ -25,6 +25,7 @@ const userSchema = new schema ({
     roles : {
         User : {
             type : Number,
+            default : 2000
         },
         Admin : Number,
         Editor : Number,
@@ -53,7 +54,7 @@ const userSchema = new schema ({
         default : "",
 
     },
-    refreshtoken : {
+    refreshToken : {
         type : [String],
         default : ""
     }
