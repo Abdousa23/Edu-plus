@@ -5,6 +5,7 @@ const Lesson = require('../models/lesson');
 const { ObjectId } = require('mongoose').Types;
 const getAllCourses = async (req, res) => {
     try {
+        
         const courses = await Course.find()
         res.status(200).json(courses)
     } catch (error) {

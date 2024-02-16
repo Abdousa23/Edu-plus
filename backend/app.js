@@ -18,6 +18,15 @@ app.use('/api', router);
 
 app.use(credentials)
 app.use(cors(corsOptions))
+
+
+app.post('/upload',fileExtLimiter ,upload.single("image"),
+cloudinaryMW, (req, res) => {
+    console.log(req.fileUrls);
+    res.send('Image uploaded');
+});
+
+
 connectDB()
 .then(() => {
     app.listen(3000, () => {
