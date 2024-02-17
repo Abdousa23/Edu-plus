@@ -1,6 +1,6 @@
-const Cart = require('../models/cartModel');
-const Course = require('../models/courseModel');
-const User = require('../models/userModel');
+const Cart = require('../models/cart');
+const Course = require('../models/course');
+const User = require('../models/user');
 const { ObjectId } = require('mongoose').Types;
 
 

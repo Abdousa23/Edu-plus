@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const user = require('./user');
 const schema = mongoose.Schema
 const course = new schema({
     title: {
@@ -35,8 +36,14 @@ const course = new schema({
     },
             
     studentEnrolled:{
-            type:Number,
+            students : {
+                type :[schema.Types.ObjectId],
+                ref:"users", // maybe have a problem with ss
+            },
+            studentsNumber : {
+            type :Number,
             default :0,
+            }
             },
             
     rating:{

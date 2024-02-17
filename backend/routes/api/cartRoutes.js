@@ -7,13 +7,16 @@ const verifyRoles = require('../../middlewares/verifyRoles');
 
 
 // Add course to cart
-router.post('/cart/add', authMiddleware, cartController.addToCart);
+router.post('/add',verifyJWT, cartController.addToCart);
 
 // Remove course from cart
-router.delete('/cart/remove/:courseId', authMiddleware, cartController.removeFromCart);
+router.delete('/remove/:courseId',verifyJWT, cartController.removeFromCart);
 
 // Update course quantity in cart
-router.put('/cart/update/:courseId', authMiddleware, cartController.updateCartItem);
+router.put('/update/:courseId',verifyJWT, cartController.UpdateCart);
 
 // View cart
-router.get('/cart', authMiddleware, cartController.getCart);
+router.get('/',verifyJWT, cartController.getCart);
+
+
+module.exports = router
