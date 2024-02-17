@@ -4,7 +4,6 @@ const express=require("express")
 
 
 const updateUser = async (req, res) => {
-    console.log("GgGGG")
     const { id } = req.params
     const { firstname, lastname, username, email, password, phonenumber } = req.body
     try {

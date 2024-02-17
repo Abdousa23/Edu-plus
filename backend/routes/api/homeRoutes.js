@@ -6,9 +6,6 @@ const ROLES_LIST = require('../../config/rolesList');
 const verifyJWT = require('../../middlewares/verifyJWT');
 const verifyRoles = require('../../middlewares/verifyRoles');
 
-
-//test routes
-
 // verifyJWT
 router.get('/',courseController.getAllCourses);
 router.get('/search/:name', courseController.getCoursesByName);
