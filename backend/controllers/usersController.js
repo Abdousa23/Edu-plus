@@ -14,7 +14,7 @@ const updateUser = async (req, res) => {
             username,
             email,
             password,
-            phonenumber
+            phonenumber,
         }, { new: true }) // { new: true } returns the updated document
 
         res.status(200).json(updatedUser)
@@ -50,3 +50,13 @@ const delateUser = async (req,res)=>{
         delateUser,
         changeRols
     }
+const addCourseToUser = async (req , res)=>{
+    const {id} = req.params
+    const {courseId} = req.body.courseId
+    try{
+        const addCourse = User.findByIdAndUpdate(id,{$push:{courses:courseId}},{new:true})
+        res.status(200).json(addCourse)
+    }catch{
+        res.status(500).json({error:error,message:"Something went wrong"})
+    }
+}

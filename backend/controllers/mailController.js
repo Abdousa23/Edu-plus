@@ -13,7 +13,7 @@ const createQr = async (data) => {
 
 const buyMail = (req , res , next) => {
     const  email  = req.body.email;
-    const courseId = req.body.course.id
+    const courseId = req.body.course.id;
     const options = require("../utils/mailOptions").options;
     const username = req.body.username;
     options.to = email;

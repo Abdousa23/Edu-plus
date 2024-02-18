@@ -193,6 +193,8 @@ const getCoursesByCategory = async (req, res) => {
     }
 }
 
+
+
 // const buyCourse = async (req,res) {
 //     try {
 //     } catch (error) {
