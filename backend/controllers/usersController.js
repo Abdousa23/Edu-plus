@@ -54,7 +54,7 @@ const addCourseToUser = async (req , res)=>{
     const {id} = req.params
     const {courseId} = req.body.courseId
     try{
-        const addCourse = User.findByIdAndUpdate(id,{$push:{courses:courseId}},{new:true})
+        const addCourse = User.findByIdAndUpdate(id,{$push:{purchasedcourses:courseId}},{new:true})
         res.status(200).json(addCourse)
     }catch{
         res.status(500).json({error:error,message:"Something went wrong"})

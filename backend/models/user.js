@@ -50,6 +50,10 @@ const userSchema = new schema ({
         type : [schema.Types.ObjectId],
         ref : 'courses'
     },
+    purchasedcourses : {
+        type : [schema.Types.ObjectId],
+        ref : 'courses'
+    },
     phonenumber : {
         type : String,///make it an Array later
         required : false,

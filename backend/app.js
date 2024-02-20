@@ -21,6 +21,7 @@ app.use('/api', router);
 
 app.use(credentials)
 app.use(cors(corsOptions))
+app.
 
 
 // app.post('/upload',fileExtLimiter ,upload.single("image"),
