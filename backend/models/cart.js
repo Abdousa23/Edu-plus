@@ -1,17 +1,16 @@
 const mongoose = require('mongoose')
 const schema=mongoose.Schema
-const mongoose = require('mongoose');
 
 const cartSchema = new schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
         required: true
     },
     items: [{
         courseId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Course',
+            ref: 'course',
             required: true
         },
     }],},

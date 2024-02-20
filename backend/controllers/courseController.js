@@ -52,7 +52,7 @@ const addOfflineCourse =async (req, res) => {
     const courseCategory = await Category.findOne({name:category})
     const user = await User.findOne({username:owner})
     if(!user){
-       return res.status(404).json({message:"something wrong , user not found please reconnect to your account"})
+        return res.status(404).json({message:"something wrong , user not found please reconnect to your account"})
     }
     if(!courseCategory){
         return res.status(404).json({message:"Category not found , please choose an existing category"})
@@ -192,6 +192,16 @@ const getCoursesByCategory = async (req, res) => {
         res.status(500).json({error:error,message:"Something went wrong"})
     }
 }
+
+
+
+// const buyCourse = async (req,res) {
+//     try {
+//     } catch (error) {
+//         res.status(500).json("error")
+//     }
+// }
+
 module.exports = {
     getAllCourses,
     getCoursesByName,
@@ -203,5 +213,6 @@ module.exports = {
     deleteLesson,
     addOfflineCourse,
     addOnlineCourse,
-    addOnlinelesson
+    addOnlinelesson,
+    buyCourse
 }
