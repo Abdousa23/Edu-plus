@@ -63,7 +63,11 @@ const userSchema = new schema ({
     refreshToken : {
         type : [String],
         default : ""
-    }
+    },
+    pfp : {
+        type : String,
+        default : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+    },
 } , 
 {timestamps : true}
 )

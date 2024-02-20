@@ -6,7 +6,7 @@ const express=require("express")
 const updateUser = async (req, res) => {
     console.log("GgGGG")
     const { id } = req.params
-    const { firstname, lastname, username, email, password, phonenumber } = req.body
+    const { firstname, lastname, username, email, password, phonenumber , pfp } = req.body
     try {
         const updatedUser = await User.findByIdAndUpdate(id, {
             firstname,
@@ -15,6 +15,7 @@ const updateUser = async (req, res) => {
             email,
             password,
             phonenumber,
+            pfp,
         }, { new: true }) // { new: true } returns the updated document
 
         res.status(200).json(updatedUser)
