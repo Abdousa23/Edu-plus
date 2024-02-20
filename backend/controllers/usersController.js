@@ -27,17 +27,17 @@ const updateUser = async (req, res) => {
 }
 
 
-const delateUser = async (req,res)=>{
+const deleteUser = async (req,res)=>{
     const {id}=req.params
     try{
-        const User = await User.ByIdAndDelete(id)
+        const User = await User.findByIdAndDelete(id)
         res.status(200).json(User)
     }catch{
         res.status(500).json({error:error,mssage:"somthing gooes wrong "})
     }
 }
 
-    const changeRols = async (req,res)=>{
+    const changeRoles = async (req,res)=>{
         const {id}=req.params
     const {roles} = req.body
     try{
@@ -48,8 +48,8 @@ const delateUser = async (req,res)=>{
     }}
     module.exports={
         updateUser,
-        delateUser,
-        changeRols
+        deleteUser,
+        changeRoles
     }
 const addCourseToUser = async (req , res)=>{
     const {id} = req.params
