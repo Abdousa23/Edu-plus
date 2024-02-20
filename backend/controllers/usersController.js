@@ -2,7 +2,15 @@ const User = require('../models/user');
 require('dotenv').config();
 const express=require("express") 
 
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find().exec()
+        res.status(200).json(users)
+    } catch (error) {
+        res.status(500).json({ error: error, message: "Something went wrong" })
+    }
 
+}
 const updateUser = async (req, res) => {
     console.log("GgGGG")
     const { id } = req.params
