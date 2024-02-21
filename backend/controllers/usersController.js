@@ -23,7 +23,7 @@ const updateUser = async (req, res) => {
             email,
             password,
             phonenumber,
-            pfp,
+            pfp,///I dont think that this is an efficient way...
         }, { new: true }) // { new: true } returns the updated document
 
         res.status(200).json(updatedUser)
