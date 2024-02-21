@@ -12,7 +12,6 @@ const getAllUsers = async (req, res) => {
 
 }
 const updateUser = async (req, res) => {
-    console.log("GgGGG")
     const { id } = req.params
     const { firstname, lastname, username, email, password, phonenumber , pfp } = req.body
     try {
@@ -54,11 +53,7 @@ const deleteUser = async (req,res)=>{
     }catch{
         res.status(500).json({error:error,message:"Something went wrong"})
     }}
-    module.exports={
-        updateUser,
-        deleteUser,
-        changeRoles
-    }
+
 const addCourseToUser = async (req , res)=>{
     const {id} = req.params
     const {courseId} = req.body.courseId
@@ -68,4 +63,13 @@ const addCourseToUser = async (req , res)=>{
     }catch{
         res.status(500).json({error:error,message:"Something went wrong"})
     }
+}
+
+
+module.exports={
+    updateUser,
+    deleteUser,
+    changeRoles,
+    addCourseToUser,
+    getAllUsers
 }
