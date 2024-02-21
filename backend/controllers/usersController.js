@@ -1,6 +1,7 @@
 const User = require('../models/user');
 require('dotenv').config();
 const express=require("express") 
+const bcrypt = require('bcrypt');
 
 const getAllUsers = async (req, res) => {
     try {
@@ -11,16 +12,20 @@ const getAllUsers = async (req, res) => {
     }
 
 }
+// Regex verification and handling of the password and pfp later y
 const updateUser = async (req, res) => {
     const { id } = req.params
-    const { firstname, lastname, username, email, password, phonenumber , pfp } = req.body
+    const { firstname, lastname, username, email, password, phonenumber } = req.body
+    const pfp = req.fileUrls
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(password, salt);
     try {
         const updatedUser = await User.findByIdAndUpdate(id, {
             firstname,
             lastname,
             username,
             email,
-            password,
+            password:hashedPass,
             phonenumber,
             pfp,
         }, { new: true }) // { new: true } returns the updated document
@@ -46,10 +51,10 @@ const deleteUser = async (req,res)=>{
 
     const changeRoles = async (req,res)=>{
         const {id}=req.params
-    const {roles} = req.body
+        const {role} = req.body
     try{
-        const User = await User.findByIdAndUpdate(role)
-        res.status(200).json(user)
+        const user = await User.findByIdAndUpdate(id,{roles :role},{new:true})
+        res.status(200).json({user,message:`User role has been changed to ${role}`})
     }catch{
         res.status(500).json({error:error,message:"Something went wrong"})
     }}
@@ -64,12 +69,30 @@ const addCourseToUser = async (req , res)=>{
         res.status(500).json({error:error,message:"Something went wrong"})
     }
 }
-
+const getUserById = async (req,res)=>{
+    const {id}=req.params
+    try{
+        const user = await User.findById(id)
+        res.status(200).json(user)
+    }catch(error){
+        res.status(500).json({error:error,message:"Something went wrong"})
+    }
+}
+const getUserByName = async (req,res)=>{
+    const {username}=req.params
+    try{
+        const user = await User.find({username :{ $regex: username, $options: 'i' }})
+        res.status(200).json(user)
+    }catch(error){
+        res.status(500).json({error:error,message:"Something went wrong"})
+    }}
 
 module.exports={
     updateUser,
     deleteUser,
     changeRoles,
     addCourseToUser,
-    getAllUsers
+    getAllUsers,
+    getUserById,
+    getUserByName
 }
