@@ -1,6 +1,9 @@
 const connectDB = require('./config/connectDB');
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
+const credentials = require('./middlewares/credentials');
 const dotenv = require('dotenv');
 const router = require("./routes/index")
 const cookieParser = require('cookie-parser')
@@ -18,6 +21,16 @@ app.use('/api', router);
 
 app.use(credentials)
 app.use(cors(corsOptions))
+app.
+
+
+// app.post('/upload',fileExtLimiter ,upload.single("image"),
+// cloudinaryMW, (req, res) => {
+//     console.log(req.fileUrls);
+//     res.send('Image uploaded');
+// });
+
+
 connectDB()
 .then(() => {
     app.listen(3000, () => {

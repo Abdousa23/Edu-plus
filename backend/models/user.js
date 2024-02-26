@@ -50,6 +50,10 @@ const userSchema = new schema ({
         type : [schema.Types.ObjectId],
         ref : 'courses'
     },
+    purchasedcourses : {
+        type : [schema.Types.ObjectId],
+        ref : 'courses'
+    },
     phonenumber : {
         type : String,///make it an Array later
         required : false,
@@ -59,7 +63,11 @@ const userSchema = new schema ({
     refreshToken : {
         type : [String],
         default : ""
-    }
+    },
+    pfp : {
+        type : String,
+        default : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+    },
 } , 
 {timestamps : true}
 )

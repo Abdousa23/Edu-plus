@@ -8,7 +8,7 @@ const getAllCategories = async (req,res) => {
         res.status(500).json({error:error,message:"Something went wrong"})
     }
 }
-   
+
 const addCategory = async (req,res) => {
     const {name,description} = req.body
     try {
