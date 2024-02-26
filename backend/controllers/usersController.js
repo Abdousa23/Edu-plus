@@ -87,6 +87,7 @@ const getUserByName = async (req,res)=>{
         res.status(500).json({error:error,message:"Something went wrong"})
     }}
 
+
 module.exports={
     updateUser,
     deleteUser,
@@ -94,5 +95,5 @@ module.exports={
     addCourseToUser,
     getAllUsers,
     getUserById,
-    getUserByName
+    getUserByName,
 }
