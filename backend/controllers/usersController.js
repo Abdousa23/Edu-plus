@@ -113,7 +113,7 @@ const getUserByName = async (req, res) => {
     }
 };
 
-module.exports = {
+module.exports={
     updateUser,
     deleteUser,
     changeRoles,

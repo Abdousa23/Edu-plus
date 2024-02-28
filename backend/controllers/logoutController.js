@@ -2,6 +2,7 @@ const User = require('../models/user');
 
 
 const handleLogout =  (req, res,next) => {
+    if(req.session) req.session.destroy();
     const cookies = req.cookies
     if(!cookies?.jwt){
         return res.sendStatus(204)
