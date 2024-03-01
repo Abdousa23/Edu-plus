@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const router = require("./routes/index")
 const cookieParser = require('cookie-parser')
 dotenv.config();
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -13,18 +12,18 @@ app.use(cookieParser());
 app.get('/', (_req, res) => {
     res.send('Welcome to my API');
 });
-
 app.use('/api', router);
 
-app.use(credentials)
-app.use(cors(corsOptions))
+
+// app.use(credentials)
+// app.use(cors(corsOptions))
 
 
-app.post('/upload',fileExtLimiter ,upload.single("image"),
-cloudinaryMW, (req, res) => {
-    console.log(req.fileUrls);
-    res.send('Image uploaded');
-});
+// app.post('/upload',fileExtLimiter ,upload.single("image"),
+// cloudinaryMW, (req, res) => {
+//     console.log(req.fileUrls);
+//     res.send('Image uploaded');
+// });
 
 
 connectDB()

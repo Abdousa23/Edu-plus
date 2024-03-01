@@ -48,7 +48,7 @@ const userSchema = new schema ({
     },
     courses : {
         type : [schema.Types.ObjectId],
-        ref : 'courses'
+        ref : 'courses',
     },
     phonenumber : {
         type : String,///make it an Array later
