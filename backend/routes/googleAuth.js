@@ -1,11 +1,11 @@
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-const signToken = require('../controllers/authController').signToken;
+const authController = require('../controllers/authController');
 require('dotenv').config();
-require('./auth');
+require('../controllers/googleAuthController');
 
-const router = express.Router;
+const router = express.Router();
 
 function isLoggedIn(req, res, next) {
     req.user ? next() : res.sendStatus(401);
@@ -17,8 +17,8 @@ router.get('/',
 
 router.get('/callback',
     passport.authenticate('google', {
-        failureRedirect: '/auth/google/failure'
-    }),signToken
+        failureRedirect: '/failure'
+    }),authController.signToken
 );
 
 

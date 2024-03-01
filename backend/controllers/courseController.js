@@ -297,5 +297,4 @@ module.exports = {
     addOfflineCourse,
     addOnlineCourse,
     addOnlinelesson,
-    buyCourse
 }

@@ -1,6 +1,9 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const session = require('express-session');
+const passport = require('passport');
+const { json } = require('express');
 require('dotenv').config();
 
 const handleAuth = async (req,res)=>{
@@ -12,6 +15,7 @@ const handleAuth = async (req,res)=>{
 
     const foundUser = await User.findOne({ email:email }).exec();
     if (!foundUser) return res.sendStatus(401); //Unauthorized 
+    if(bcrypt.compare(process.env.RPWD ,foundUser.password)) res.status(401).send(json({"message" : "access denied"}))
     // evaluate password 
     const match = await bcrypt.compare(password, foundUser.password);
     if (match) {
@@ -80,9 +84,11 @@ const handleAuth = async (req,res)=>{
 }
 
 const signToken = async (req, res) => {
-    const foundUser = await User.find({ email: req.user.email }).exec();
+    let foundUser = await User.find({ email: req.user.email }).exec();
+    foundUser = foundUser[0]
+    const cookies = req.cookies
     const roles = Object.values(foundUser.roles).filter(Boolean)
-    jwt.sign(
+    const accessToken = jwt.sign(
         {
             "UserInfo": {
                 "username": foundUser.username,
@@ -91,13 +97,13 @@ const signToken = async (req, res) => {
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '45s' }
-    ), (err, token) => {
+    , (err, token) => {
         if(err){
             res.sendStatus(500);
         } else {
             res.json({token});
         }
-    };
+    });
     const newRefreshToken = jwt.sign(
         { "username": foundUser.username },
         process.env.REFRESH_TOKEN_SECRET,
