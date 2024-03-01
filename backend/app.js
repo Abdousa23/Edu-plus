@@ -7,11 +7,19 @@ const dotenv = require('dotenv');
 const router = require("./routes/index")
 const cookieParser = require('cookie-parser')
 const connectDB = require('./config/connectDB');
+const session = require('express-session');
+const passport = require('passport');
+const signToken = require('../controllers/authController').signToken;
+require('./auth');
 dotenv.config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET, resave: false, saveUninitialized: true ,cookie: { maxAge: 60000 }}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(credentials)
 app.use(cors(corsOptions))

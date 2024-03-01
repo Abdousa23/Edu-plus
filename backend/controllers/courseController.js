@@ -222,18 +222,21 @@ const deleteCourse = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error, message: "Something went wrong" });
     }
-};
-const updateLesson = async (req, res) => {
-    const { id } = req.params;
+}
+const updateLesson =async (req, res) => {
+    const {id} = req.params
     console.log(id);
-    const { title, description, videoUrl } = req.body;
+    const {title,description,videoUrl} = req.body
     try {
-        // const course = await Course.findById(courseId)
-        const lesson = await Lesson.findByIdAndUpdate(
-            courseId,
-            { title, description, videoUrl },
-            { new: true }
-        );
+        const course = await Course.findOne({title:courseName})
+        if(!title || !description || !videoUrl || !courseName){
+            return res.status(404).json({message:"All fields are required"})
+        }
+        if(!course){
+            return res.status(404).json({message:"Course doesn't exist"})
+        }
+        const courseId = course?._id
+        const lesson = await Lesson.findByIdAndUpdate(id,{title,description,videoUrl,course:courseId},{ new: true })
         console.log(lesson);
         await lesson.save();
         console.log(lesson);
@@ -271,7 +274,9 @@ const getCoursesByCategory = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error, message: "Something went wrong" });
     }
-};
+}
+
+
 
 // const buyCourse = async (req,res) {
 //     try {
@@ -292,5 +297,5 @@ module.exports = {
     addOfflineCourse,
     addOnlineCourse,
     addOnlinelesson,
-    buyCourse,
-};
+    buyCourse
+}
