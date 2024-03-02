@@ -26,7 +26,6 @@ return (
                 <h1 className='text-2xl ' > Sed et mattis urna. Sed tempus fermentum est, eu lobortis nibh consequat eu.</h1>
             
             </div>
-
             <div className='flex flex-col justify-center gap-5' >
                 
                 <Image src="/CheckCircle.png" alt='icon' height={30} width={30}/>
@@ -40,7 +39,6 @@ return (
                 <h1 className='text-3xl ' >1- applay to become instructor</h1>
                 <h1 className='text-2xl ' > Sed et mattis urna. Sed tempus fermentum est, eu lobortis nibh consequat eu.</h1>
             </div>
-
         </div>
     </div>
 
