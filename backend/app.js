@@ -8,7 +8,6 @@ const router = require("./routes/index")
 const cookieParser = require('cookie-parser')
 const connectDB = require('./config/connectDB');
 dotenv.config();
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());

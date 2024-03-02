@@ -29,12 +29,9 @@
     "nodemailer": "^6.9.11",
     "nodemon": "^3.0.3",
     "nopt": "^7.2.0",
-<<<<<<< HEAD
     "qrcode": "^1.5.3",
-    "uuid": "^9.0.1"
-=======
+    "uuid": "^9.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0"
->>>>>>> e7a473005e06739f545617491abbc87b8847f825
   }
 }

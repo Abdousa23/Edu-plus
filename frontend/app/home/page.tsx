@@ -1,10 +1,13 @@
 'use client'
 import React from 'react'
+import { useAuth } from '@/context/authContext';
 
 export default function Home() {
+    const {auth} = useAuth();
+    const user=auth?.user;
   return (
     <div>
-      welcome to home page
+        {`hello ${user.username}`}
     </div>
   )
 }
