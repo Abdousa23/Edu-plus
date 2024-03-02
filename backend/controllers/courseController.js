@@ -52,7 +52,7 @@ const addOfflineCourse =async (req, res) => {
     const courseCategory = await Category.findOne({name:category})
     const user = await User.findOne({username:owner})
     if(!user){
-       return res.status(404).json({message:"something wrong , user not found please reconnect to your account"})
+        return res.status(404).json({message:"something wrong , user not found please reconnect to your account"})
     }
     if(!courseCategory){
         return res.status(404).json({message:"Category not found , please choose an existing category"})
@@ -151,11 +151,17 @@ const deleteCourse =async (req, res) => {
 }
 const updateLesson =async (req, res) => {
     const {id} = req.params
-    console.log(id);
-    const {title,description,videoUrl} = req.body
+    const {title,description,videoUrl,courseName} = req.body
     try {
-        // const course = await Course.findById(courseId)
-        const lesson = await Lesson.findByIdAndUpdate(courseId,{title,description,videoUrl},{ new: true })
+        const course = await Course.findOne({title:courseName})
+        if(!title || !description || !videoUrl || !courseName){
+            return res.status(404).json({message:"All fields are required"})
+        }
+        if(!course){
+            return res.status(404).json({message:"Course doesn't exist"})
+        }
+        const courseId = course?._id
+        const lesson = await Lesson.findByIdAndUpdate(id,{title,description,videoUrl,course:courseId},{ new: true })
         console.log(lesson);
         await lesson.save()
         console.log(lesson);
@@ -192,6 +198,8 @@ const getCoursesByCategory = async (req, res) => {
         res.status(500).json({error:error,message:"Something went wrong"})
     }
 }
+
+
 module.exports = {
     getAllCourses,
     getCoursesByName,
@@ -203,5 +211,5 @@ module.exports = {
     deleteLesson,
     addOfflineCourse,
     addOnlineCourse,
-    addOnlinelesson
+    addOnlinelesson,
 }

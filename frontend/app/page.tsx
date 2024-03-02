@@ -1,11 +1,15 @@
-import Image from "next/image";
-
+'use client'
+import { useAuth } from "@/context/authContext";
+import Navbar from "./components/Navbar";
 export default function Home() {
-  return (
-   
-    <div>
+    const auth = useAuth();
+    console.log(auth);
 
-      
-    </div>
-  );
+    return (
+        <div >
+            <Navbar/>
+        </div>
+    )
+        
+    
 }
