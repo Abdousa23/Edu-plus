@@ -57,17 +57,17 @@ export default function Login() {
     }
     const content =(
         <main className='flex h-screen '>
-            <div className="flex w-1/2 flex-1 flex-col justify-center items-center ">
-                <h1 className='font-bold text-center text-[42px] text-black'>Welcome Back</h1>
+            <div className="flex w-[55%] flex-1 flex-col justify-center items-center ">
+                <h1 className='font-bold text-center text-[42px] text-black'>Welcome </h1>
                 <p className='font-normal text-[18px] text-black'>Please log in to continue</p>
-                <form method='POST'className='w-[90%] mx-auto' onSubmit={handleSubmit}>
+                <form method='POST'className='w-[80%] mx-auto' onSubmit={handleSubmit}>
                     <div className='flex flex-col'>
-                        <label htmlFor='email' className='text-[14px] text-black'>Email address </label>
-                        <input id='email' type="email" name="email" onChange={e=>setEmail(e.target.value)} value={email} className='text-black input '  />
+                        <label htmlFor='email' className='text-[14px] text-black my-2'>Email address </label>
+                        <input id='email' type="email" name="email" onChange={e=>setEmail(e.target.value)} value={email} className='text-black abdouinput '  />
                     </div>
                     <div className='flex flex-col'>
-                        <label htmlFor='password' className='text-[14px] text-black'>Password</label>
-                            <input type="password" id='password' name="password" onChange={e=>setPassword(e.target.value)} value={password} className='text-black input'  />
+                        <label htmlFor='password' className='my-2 text-[14px] text-black'>Password</label>
+                            <input type="password" id='password' name="password" onChange={e=>setPassword(e.target.value)} value={password} className='text-black abdouinput'  />
                     </div>
                     <p className='text-[12px] text-[#697077]'>it must be a combination of minimum 8 letters , numbers, and symbols</p>
                     {error.errmessage.length !== 0 && <ErrorComponent errmessage={error.errmessage} />}
@@ -82,14 +82,14 @@ export default function Login() {
                     <button type="submit" className='flex flex-row justify-center items-center px-4 py-2 w-[100%] h-12 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-base'>Log in</button>
                 </form>
                 <hr className="w-[90%] border-t-2 m-8" />
-                <div className='flex flex-col justify-center items-center'>
+                <div className='flex flex-col justify-center items-center w-[55%]'>
                 <p className='text-base m-2'>Or log in with :</p>
-                <button type='submit' className='flex flex-row justify-center items-center px-3 py-4 w-[361px] h-12 border-2 border-org rounded-lg order-3 flex-grow-0 text-org'>log in with Google</button>
+                <button type='submit' className='flex flex-row justify-center items-center px-4 py-2 w-[100%]  h-full border-2 border-org rounded-lg order-5 self-stretch flex-grow-0 text-base text-org'>log in with Google</button>
                 </div>
                 <hr className="w-[90%] border-t-2 m-8" />
                 <Link href='/auth/register'>No account yet ? Sign Up</Link>
             </div>
-            <div className='flex w-1/2 max-md:hidden'>
+            <div className='flex w-[45%] max-md:hidden'>
                 <img src="/images/login.png" className='flex w-full' alt="login" />
             </div>
         </main>
