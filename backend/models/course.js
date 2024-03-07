@@ -27,6 +27,10 @@ const course = new schema({
         type:[schema.Types.ObjectId],
         ref:'lessons'
     },
+    resources : {
+        type : [schema.Types.ObjectId],
+        ref : 'resources'
+    },
     level: {
         type: String,
         enum: ['beginner', 'intermediate', 'pro']

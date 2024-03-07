@@ -9,9 +9,11 @@ const cookieParser = require('cookie-parser')
 const connectDB = require('./config/connectDB');
 const session = require('express-session');
 const passport = require('passport');
+const swaggerUi = require('swagger-ui-express');
+const Swagger = require('./swagger.json');
+
 require('./controllers/googleAuthController')
 dotenv.config();
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -33,6 +35,9 @@ app.use('/api', router);
 //     console.log(req.fileUrls);
 //     res.send('Image uploaded');
 // });
+
+
+app.use('/documentation', swaggerUi.serve, swaggerUi.setup(Swagger));
 
 connectDB()
 .then(() => {

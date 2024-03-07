@@ -15,7 +15,7 @@ const handleAuth = async (req,res)=>{
 
     const foundUser = await User.findOne({ email:email }).exec();
     if (!foundUser) return res.sendStatus(401); //Unauthorized 
-    if(bcrypt.compare(process.env.RPWD ,foundUser.password)) res.status(401).send(json({"message" : "access denied"}))
+    if(bcrypt.compare(process.env.RPWD ,foundUser.password)) return res.status(401).send(json({"message" : "access denied"}))
     // evaluate password 
     const match = await bcrypt.compare(password, foundUser.password);
     if (match) {

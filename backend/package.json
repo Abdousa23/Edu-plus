@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "swagger": "node swagger.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,9 @@
     "passport-google-oauth20": "^2.0.0",
     "qrcode": "^1.5.3",
     "signature": "^0.0.2",
+    "swagger-autogen": "^2.23.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.1"
   }
 }
