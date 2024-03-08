@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {AuthProvider} from '@/context/authContext';
 
 function MyApp({ Component, pageProps }: any) {

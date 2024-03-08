@@ -5,6 +5,7 @@ require('dotenv').config();
 const handleRefreshToken = async (req, res,next) => {
     const cookies = req.cookies
     if(!cookies?.jwt){
+        console.log("no cookies")
         return res.sendStatus(403)
     }
     console.log(cookies.jwt)
@@ -60,7 +61,7 @@ const handleRefreshToken = async (req, res,next) => {
                         )
                         user.refreshToken = [...newRefreshTokenArray,newRefreshToken]
                         const result = await user.save()
-                        res.cookie('jwt', newRefreshToken, { httpOnly: true , sameSite: 'None', secure : true ,maxAge: 7 * 24 * 60 * 60 * 1000});
+                        res.cookie('jwt', newRefreshToken, { httpOnly: true , sameSite: 'None', secure : true ,maxAge: 1000*60*60*24});
                         
                     res.json({accessToken})
             }

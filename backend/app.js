@@ -13,8 +13,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(credentials)
-app.use(cors(corsOptions))
-
+app.use(cors({...corsOptions,origin: 'http://localhost:3001',credentials:true}));
+// app.use(cors({
+//   origin: 'http://localhost:3001', // specify the origin
+//   credentials: true, // allow credentials
+// }));
 app.get('/', (_req, res) => {
     res.send('Welcome to my API');
 });

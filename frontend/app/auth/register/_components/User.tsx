@@ -1,16 +1,24 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+
+import React, { useEffect } from 'react'
 import Card from './Card'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
-export default function User() {
-    const [step, setStep] = useState(0)
+type RegisterProps = {
+    role: string;
+    setRole: (role: string) => void;
+  }
+
+export default function User({role,setRole}: RegisterProps) {
+    const router = useRouter()
     const handlestep = (e:string) => {
-        e==='student'?setStep(prev=>prev+1):setStep(prev=>prev-1)
+        e==='student'?setRole("student"):setRole("instructor")
     }
     useEffect(() => {
-        console.log(step)
-    }, [step])
+        console.log(role)
+        role==='student'? router.push(`/auth/login`):console.log('instructor')
+
+    }, [role])
     return (
         <div className=' bg-[#FFF5DF] h-screen  flex justify-center items-center w-screen'>
             <div className=' bg-white w-[85%] h-[90%] flex flex-col justify-center items-stretch mx-auto'>

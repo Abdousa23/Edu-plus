@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken');
 const register = async (req, res) => {
     const {firstname,lastname,username,email,password,role,phonenumber}=req.body
     if(!username || !email || !password || !role || !firstname || !lastname){
-        return res.status(400).json("All fields are required")
+        return res.status(400).json({'message':"All fields are required"})
     }
     // const duplicate = User.find({email:email}||{username:username})
     try {
     const duplicate = await User.find({ $or: [{email: email}, {username: username}] });
     if(duplicate.length!==0){
-        return res.status(409).json("User already exists")
+        return res.status(409).json({ 'message': "User already exists" })
     }
     
         const salt = await bcrypt.genSalt(10);

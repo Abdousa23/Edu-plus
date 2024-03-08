@@ -1,15 +1,15 @@
 'use client'
-import React,{ useContext, useState} from 'react'
-import { useAuth,AuthContext } from "@/context/authContext";
+import React,{useState} from 'react'
+import  useAuth  from '@/app/_hooks/useAuth';
 import { useRouter } from 'next/navigation';
-import ErrorComponent from './_components/Error';
+import ErrorComponent from '../../_components/Error';
 import Link from 'next/link';
+import type { ErrorProps } from '@/types/index'
+import { setCookie } from 'nookies';
+import useRefreshToken from '@/app/_hooks/useRefreshToken';
 type LoginProps = {
     email: string;
     password: string;
-}
-type ErrorProps = {
-    errmessage: string,
 }
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -18,6 +18,7 @@ export default function Login() {
     const { setAuth } = useAuth();
     const router = useRouter();
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const Refresh = useRefreshToken();
     const handleLogin = async (data:LoginProps)=>{
         try {
             const response = await fetch(`${API_URL}/login`,{
@@ -28,15 +29,20 @@ export default function Login() {
                 body: JSON.stringify(data)
             })
             const result = await response.json();
+            // console.log(result)
             const accessToken = result?.accessToken
             const roles = result?.roles
             const user = result?.foundUser
+            const refreshToken = user?.refreshToken
             const newAuthState ={user,accessToken,roles} 
+            // console.log(newAuthState)
             if (response.status === 200 && accessToken) {
                 setAuth(newAuthState)
                 setEmail('')
                 setPassword('')
                 setError({errmessage:''})
+                setCookie(null, 'jwt', refreshToken, {secure:true,sameSite:'strict',path:'/',expires:new Date(Date.now()+ 1000*10)})
+                Refresh()
                 localStorage.setItem("accessToken", accessToken);
                 router.push('/home')
                 }else{

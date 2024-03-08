@@ -1,16 +1,5 @@
-import React from 'react'
-import User from './_components/User'
-import StudentRegister from './_components/StudentRegister'
+import React from 'react';
+import Register from '@/app/auth/register/_components/Register';
 export default function page() {
-
-    
-  
-    const content = (
-        <>
-        <User />
-        {/* <StudentRegister /> */}
-        </>
-        )
-  
-    return content
+  return <Register />
 }

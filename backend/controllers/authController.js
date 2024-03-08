@@ -32,7 +32,7 @@ const handleAuth = async (req,res)=>{
         const newRefreshToken = jwt.sign(
             { "username": foundUser.username },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '1d' }
+            { expiresIn: '1h' }
         );
         console.log(newRefreshToken);
         console.log(foundUser.refreshToken);
@@ -60,20 +60,18 @@ const handleAuth = async (req,res)=>{
                 newRefreshTokenArray = [];
             }
 
-            res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+            res.clearCookie('jwt', { httpOnly: true,secure:false ,sameSite: 'None', secure: true });
         }
 
         // Saving refreshToken with current user
-        foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
+        foundUser.refreshToken = [newRefreshToken];
+        res.cookie('jwt', newRefreshToken, { httpOnly: true,sameSite:'None', maxAge: 24 * 60 * 60 * 1000});
         const result = await foundUser.save();
         console.log(result);
         console.log(roles);
-
         // Creates Secure Cookie with refresh token
-        res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
-
         // Send authorization roles and access token to user
-        res.json({ foundUser,roles, accessToken });
+        res.status(200).json({ foundUser,roles, accessToken });
 
     } else {
         return res.status(401).json({ 'message': 'wrong password.' });
@@ -82,7 +80,7 @@ const handleAuth = async (req,res)=>{
 
 const signToken = async (req, res) => {
     const foundUser = await User.find({ email: req.user.email }).exec();
-    const roles = Object.values(foundUser.roles).filter(Boolean)
+    const roles = Object.values(foundUser.roles).filter(Boolean) 
     jwt.sign(
         {
             "UserInfo": {
