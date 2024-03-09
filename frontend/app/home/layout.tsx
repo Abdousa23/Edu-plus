@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { AuthProvider } from "@/context/authContext";
 
+// export const generateMetadata = async () => {
+//     return {
+//         title: "home Page",
+//         description: "explore our courses and start learning today!",
+//     };
+    
+// }
 export const metadata: Metadata = {
   title: "home Page",
   description: "explore our courses and start learning today!",

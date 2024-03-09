@@ -18,17 +18,19 @@ const useFetchPrivate = () => {
     };
     try {
         
-    let response = await fetch(url, options);
+    const response = await fetch(url, options);
         // console.log(response)
         // if (response.headers.get('Authorization') === undefined){
         //     console.log("token is valid")
         // }
     if (response.status === 403) {
-      const newAccessToken = await refreshToken();
-      setToken(newAccessToken);
+    const newAccessToken = await refreshToken();
+    setToken(newAccessToken);
     console.log("new token")
+    console.log(newAccessToken)
+    console.log("sssfdsfdsf")
       options.headers['Authorization'] = `Bearer ${newAccessToken}`;
-      response = await fetch(url, options);
+      const response = await fetch(url, options);
       if (response.status === 403) {
         throw new Error('Unauthorized');
       }

@@ -7,10 +7,20 @@ const dotenv = require('dotenv');
 const router = require("./routes/index")
 const cookieParser = require('cookie-parser')
 const connectDB = require('./config/connectDB');
+const session = require('express-session');
+const passport = require('passport');
+const swaggerUi = require('swagger-ui-express');
+const Swagger = require('./swagger.json');
+
+require('./controllers/googleAuthController')
 dotenv.config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+
+// app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET , resave: false, saveUninitialized: true ,cookie: { maxAge: 60000 }}));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(credentials)
 app.use(cors({...corsOptions,origin: 'http://localhost:3001',credentials:true}));
@@ -20,7 +30,8 @@ app.use(cors({...corsOptions,origin: 'http://localhost:3001',credentials:true}))
 // }));
 app.get('/', (_req, res) => {
     res.send('Welcome to my API');
-});
+})
+
 app.use('/api', router);
 
 // app.post('/upload',fileExtLimiter ,upload.single("image"),
@@ -28,6 +39,9 @@ app.use('/api', router);
 //     console.log(req.fileUrls);
 //     res.send('Image uploaded');
 // });
+
+
+app.use('/documentation', swaggerUi.serve, swaggerUi.setup(Swagger));
 
 connectDB()
 .then(() => {

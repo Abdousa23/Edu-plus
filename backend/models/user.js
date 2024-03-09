@@ -61,7 +61,7 @@ const userSchema = new schema ({
 
     },
     refreshToken : {
-        type : [String],
+        type : String,
         default : ""
     },
     pfp : {

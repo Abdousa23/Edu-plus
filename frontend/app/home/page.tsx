@@ -1,16 +1,24 @@
 'use client'
 import  useAuth  from '../_hooks/useAuth'; 
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import useFetchPrivate from '../_hooks/useFetchPrivate';
 import useRefreshToken from '../_hooks/useRefreshToken';
 import withAuth from '../_HOC/withAuth';
+import useLogout from '../_hooks/useLogout';
 import { useRouter } from 'next/navigation';
+import PersistLogin from '../_HOC/PersistLogin';
     const Home = ()=> {
     const {auth} = useAuth();
     const fetchPrivate = useFetchPrivate();
     const user=auth?.user 
+    const logout = useLogout();
     const router = useRouter();
     // console.log(user)
+    // console.log(auth)
+    const signout = async ()=>{
+      await logout();
+      router.push('/auth/login');
+    }
     const getCourses = async () => {
       
        
@@ -22,13 +30,17 @@ import { useRouter } from 'next/navigation';
     }
     const Refresh=useRefreshToken(); // Cast Refresh as a function type
   return (
-    <div>
+    <PersistLogin>
+<div>
         {`sign in as  ${user?.username || 'guest'}`}
       <button onClick={getCourses}>refresh</button>
     
       <button onClick={Refresh}>refresh</button>
+      <button onClick={signout}>signout</button>
     </div>
 
+    </PersistLogin>
+    
   )
 }
 

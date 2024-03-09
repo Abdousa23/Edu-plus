@@ -1,14 +1,10 @@
 'use client'
-import { headers } from 'next/headers'
-import  useAuth  from './useAuth'
-
+import useAuth from './useAuth'
 const useRefreshToken= () => {
-    const {setAuth} =useAuth()
+    const {auth,setAuth} =useAuth()
     const Refresh = async ()=>{
         const token = localStorage.getItem('accessToken')
-        console.log(token)
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/refresh`,
-        
         {
             headers: {
                 'Content-Type': 'application/json',
@@ -19,12 +15,10 @@ const useRefreshToken= () => {
         })
         const data = await response.json()
         console.log("ssss")
-        setAuth((prev:any) =>{
-            console.log(JSON.stringify(prev))
-            console.log("ggg")
-            console.log(data)
-            return {...prev,accessToken:data.accessToken}
-        })
+        console.log(data)
+        setAuth(data)
+        // localStorage.setItem('accessToken',data.accessToken)
+        return data.accessToken;
     }
     return Refresh
 }

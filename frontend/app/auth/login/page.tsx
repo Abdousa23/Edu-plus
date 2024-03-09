@@ -1,21 +1,22 @@
 'use client'
-import React,{useState} from 'react'
+import React,{ useState} from 'react'
 import  useAuth  from '@/app/_hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import ErrorComponent from '../../_components/Error';
 import Link from 'next/link';
 import type { ErrorProps } from '@/types/index'
-import { setCookie } from 'nookies';
 import useRefreshToken from '@/app/_hooks/useRefreshToken';
 type LoginProps = {
     email: string;
     password: string;
 }
+
 export default function Login() {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<ErrorProps>({ errmessage: '' });
-    const { setAuth } = useAuth();
+    const { auth,setAuth } = useAuth();
     const router = useRouter();
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const Refresh = useRefreshToken();
@@ -26,6 +27,7 @@ export default function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(data)
             })
             const result = await response.json();
@@ -37,12 +39,11 @@ export default function Login() {
             const newAuthState ={user,accessToken,roles} 
             // console.log(newAuthState)
             if (response.status === 200 && accessToken) {
+                console.log(newAuthState)
                 setAuth(newAuthState)
                 setEmail('')
                 setPassword('')
                 setError({errmessage:''})
-                setCookie(null, 'jwt', refreshToken, {secure:true,sameSite:'strict',path:'/',expires:new Date(Date.now()+ 1000*10)})
-                Refresh()
                 localStorage.setItem("accessToken", accessToken);
                 router.push('/home')
                 }else{
@@ -51,8 +52,8 @@ export default function Login() {
         } catch (err:any) {
             setError({errmessage:err.message})
             
-        }
-    }
+        }}
+    
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = {
@@ -61,6 +62,7 @@ export default function Login() {
         }
         handleLogin(data);
     }
+
     const content =(
         <main className='flex h-screen '>
             <div className="flex w-[55%] flex-1 flex-col justify-center items-center ">
