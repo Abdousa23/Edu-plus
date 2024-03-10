@@ -1,5 +1,7 @@
+
 import type { Metadata } from "next";
 import { AuthProvider } from "@/context/authContext";
+import PersistLogin from "../_HOC/PersistLogin";
 
 // export const generateMetadata = async () => {
 //     return {
@@ -20,6 +22,8 @@ export default function HomeLayout({
     children
 } : Props) {
     return (
-            [children]
-        );
+        <PersistLogin>
+            {children}
+        </PersistLogin>
+            );
 }

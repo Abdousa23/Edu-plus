@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState, ReactNode } from 'react';
 import useAuth from '../_hooks/useAuth';
 import useRefreshToken from '../_hooks/useRefreshToken';

@@ -7,6 +7,7 @@ import withAuth from '../_HOC/withAuth';
 import useLogout from '../_hooks/useLogout';
 import { useRouter } from 'next/navigation';
 import PersistLogin from '../_HOC/PersistLogin';
+import Navbar from '../_components/Navbar';
     const Home = ()=> {
     const {auth} = useAuth();
     const fetchPrivate = useFetchPrivate();
@@ -30,7 +31,9 @@ import PersistLogin from '../_HOC/PersistLogin';
     }
     const Refresh=useRefreshToken(); // Cast Refresh as a function type
   return (
-    <PersistLogin>
+    <>
+    {/* <PersistLogin> */}
+    <Navbar />
 <div>
         {`sign in as  ${user?.username || 'guest'}`}
       <button onClick={getCourses}>refresh</button>
@@ -39,8 +42,8 @@ import PersistLogin from '../_HOC/PersistLogin';
       <button onClick={signout}>signout</button>
     </div>
 
-    </PersistLogin>
-    
+    {/* </PersistLogin> */}
+    </>
   )
 }
 

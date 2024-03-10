@@ -4,14 +4,14 @@ import PersistLogin from './_HOC/PersistLogin';
 function MyApp({ Component, pageProps }: any) {
   const getLayout = Component.getLayout ?? ((page: any) => page);
   return( 
-    // <AuthProvider>
+    <AuthProvider>
     <PersistLogin>
     {getLayout(
       <Component {...pageProps} />
     )}
     </PersistLogin>
+     </AuthProvider> 
     )
-  {/* </AuthProvider> */}
   
 }
 
