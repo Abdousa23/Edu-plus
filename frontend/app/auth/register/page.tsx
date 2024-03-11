@@ -1,9 +1,6 @@
 import React from 'react'
 
 export default function page() {
-
-    
-  
     const content = (
         <main>
             <div>
@@ -26,6 +23,5 @@ export default function page() {
             </div>
         </main>
     )
-  
     return content
 }

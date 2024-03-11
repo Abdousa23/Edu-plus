@@ -2,7 +2,7 @@
 import { useAuth } from "@/context/authContext";
 import Navbar from "./components/Navbar";
 import LendingPage from "./components/LendingPage";
-import Categories from "./components/categorys";
+// import Categories from "./components/";
 export default function Home() {
     const auth = useAuth();
 
@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <div >
             <Navbar/>
-            <Categories/>
+            {/* <Categories/> */}
             
             
         </div>
