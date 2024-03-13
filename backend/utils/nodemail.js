@@ -7,7 +7,6 @@ const {v4:uuidv4} = require("uuid");
 
 
 
-console.log(options.to)
 async function sendMail(options) {
     try{
     const info = await transporter.sendMail(options);

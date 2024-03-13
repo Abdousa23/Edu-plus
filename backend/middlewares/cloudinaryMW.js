@@ -19,5 +19,10 @@ const cloudinaryMW = async (req, res, next) => {
         });
     }
     }
+/*     app.post('/upload',fileExtLimiter ,upload.single("image"),////the order to use once you want to upload a photo ,a file , or a video
+cloudinaryMW,  ,(req, res) => {
+    console.log(req.fileUrls);
+    res.send('Image uploaded');
+}); */
 
 module.exports = cloudinaryMW;

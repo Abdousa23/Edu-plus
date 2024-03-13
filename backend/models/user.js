@@ -48,7 +48,7 @@ const userSchema = new schema ({
     },
     courses : {
         type : [schema.Types.ObjectId],
-        ref : 'courses'
+        ref : 'courses',
     },
     purchasedcourses : {
         type : [schema.Types.ObjectId],
@@ -61,7 +61,7 @@ const userSchema = new schema ({
 
     },
     refreshToken : {
-        type : [String],
+        type : String,
         default : ""
     },
     pfp : {
