@@ -54,7 +54,7 @@ export default function Navbar() {
             {
                 !isAuthenticated 
                 ? <div className='flex justify-between items-center'>
-                <Link href='/auth/register' className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 border-2 border-green+ rounded-lg order-5 self-stretch flex-grow-0 text-base text-green+'>Register</Link>
+                <Link href='/auth/register' className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 border border-green+ rounded-lg order-5 self-stretch flex-grow-0 text-base text-green+'>Register</Link>
                 <Link href='/auth/login' className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-base'>Login</Link>
                 <div>
                    <LanguageIcon className='text-green+' />
@@ -79,7 +79,7 @@ export default function Navbar() {
                         </Link>
                     </div>
                         <Link href={'/profile'}>
-                        <img src={auth?.user.pfp} className='max-w-full w-10' alt="" />
+                        <img src={auth?.user?.pfp || ''} className='max-w-full w-10' alt="" />
                         </Link>
                     </div>
             }

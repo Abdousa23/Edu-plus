@@ -24,3 +24,8 @@ align-self: stretch;
 flex-grow: 0;
 
 }
+
+.back{
+    background-image: url('/images/search-panel.png');
+    background-size: cover;
+}
