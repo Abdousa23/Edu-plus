@@ -1,7 +1,9 @@
 
 import type { Metadata } from "next";
-import { AuthProvider } from "@/context/authContext";
+import { AuthProvider } from "@/context/authContext"; 
 import PersistLogin from "../_HOC/PersistLogin";
+import Navbar from "../_components/Navbar";
+import Footer from "../_components/Footer";
 
 // export const generateMetadata = async () => {
 //     return {

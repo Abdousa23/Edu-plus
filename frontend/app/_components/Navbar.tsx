@@ -8,6 +8,9 @@ import { useState } from 'react';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import useFetchPrivate from '../_hooks/useFetchPrivate';
+import useLogout from '../_hooks/useLogout';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
     const {auth} =useAuth()
@@ -19,7 +22,22 @@ export default function Navbar() {
             setIsAuthenticated(false)
         }
     },[auth])
+    const fetchPrivate = useFetchPrivate();
+    const user=auth?.user 
+    const logout = useLogout();
+    const router = useRouter();
+    const [courses, setCourses] = useState(null);
+    // console.log(user)
+    // console.log(auth)
+    const signout = async ()=>{
+      await logout();
+      router.push('/auth/login');
+    }
+    
+    // const Refresh=useRefreshToken(); // Cast Refresh as a function type
+    
     return (
+        <>
     <header className='container mx-auto '>
 
         <nav className=' flex items-center justify-around mt-16'>
@@ -86,5 +104,10 @@ export default function Navbar() {
         </nav>
 
     </header>
+     {/* <div>
+        {`sign in as  ${user?.username || 'guest'}`}
+      <button onClick={signout}>signout</button>
+    </div>  */}
+    </>
 )
 }

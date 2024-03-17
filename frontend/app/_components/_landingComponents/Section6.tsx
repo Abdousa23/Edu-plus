@@ -12,7 +12,7 @@ export default function Section6() {
                 </div>
                 <div className='flex flex-wrap justify-center'>
                 <CourseCard />
-                <CourseCard />
+                <CourseCard  />
                 <CourseCard />
                 </div>
             </section>
