@@ -12,7 +12,6 @@ import { useState } from 'react';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import useFetchPrivate from '../_hooks/useFetchPrivate';
 import useLogout from '../_hooks/useLogout';
 import { useRouter } from 'next/navigation';
 
@@ -20,6 +19,23 @@ export default function Navbar() {
     const { auth } = useAuth()
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [selected, setSelected] = useState(false);
+    const [search, setSearch] = useState('' as string);
+    const user = auth?.user
+    const logout = useLogout();
+    const router = useRouter()
+    const signout = async () => {
+        await logout();
+        router.replace('/auth/login')
+    }
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
+    const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/search/${search}`)
+        const data = await response.json();
+        router.push(`/home/${search}`)
+    }
     useEffect(() => {
         if (auth?.user) {
             setIsAuthenticated(true)
@@ -27,25 +43,11 @@ export default function Navbar() {
             setIsAuthenticated(false)
         }
     }, [auth])
-    const fetchPrivate = useFetchPrivate();
-    const user = auth?.user
-    const logout = useLogout();
-    const router = useRouter();
-    const [courses, setCourses] = useState(null);
-    // console.log(user)
-    // console.log(auth)
-    const signout = async () => {
-        await logout();
-        router.push('/auth/login');
-    }
-
-    // const Refresh=useRefreshToken(); // Cast Refresh as a function type
-
     return (
         <>
-            <header className='container mx-auto '>
+            <header className='container sticky bg-white top-0 py-2 mx-auto '>
 
-                <nav className=' flex items-center justify-around mt-16'>
+                <nav className=' flex items-center justify-around mt-8'>
 
                     <Link href="/" className=''>
 
@@ -58,13 +60,13 @@ export default function Navbar() {
                         />
 
                     </Link>
-                    <div className='flex justify-center items-center max-sm:hidden'>
+                    <form method='POST' onSubmit={handleSearchSubmit} className='flex justify-center items-center max-sm:hidden'>
                         <label htmlFor="search">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
                         </label>
-                        <input type="text" id='search' className="flex flex-row items-center px-5 space-x-4.5 w-76 h-10 bg-gray-100 rounded-full" placeholder="Search Anything" />
+                        <input type="text" id='search' value={search} onChange={handleSearchChange} className="flex flex-row items-center px-5 space-x-4.5 w-76 h-10 bg-gray-100 rounded-full" placeholder="Search Anything" />
 
-                    </div>
+                    </form>
                     <Link href="/" className='max-md:hidden max'>
                         Home
                     </Link>
@@ -105,7 +107,8 @@ export default function Navbar() {
                                     <img src={auth?.user?.pfp || ''} className='max-w-full w-10' alt="" />
                                 
                                 { selected && <ul className=' absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
-                                    <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>{`sign in as  ${user?.username || 'guest'}`}
+                                    <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>
+                                        {<p>sign in as <span className='font-semibold'>{user?.username || 'guest'}</span></p>}
                                     </li>
                                     <li className='px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
                                     <Link href={'/profile'} className='w-full'>
@@ -126,7 +129,7 @@ export default function Navbar() {
                                     </Link>
                                     </li>
                                     <li className='px-4 py-2 text-gray-800'>
-                                    <button onClick={signout}  className='w-full flex w-full'>
+                                    <button onClick={signout}  className='flex w-full'>
                                         <LogoutIcon className='mr-4' />    
                                         logout
                                     </button>
