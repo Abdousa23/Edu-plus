@@ -11,8 +11,27 @@ import Section5 from './_components/_landingComponents/Section5';
 import Section6 from './_components/_landingComponents/Section6';
 import Section7 from './_components/_landingComponents/Section7';
 import useAuth from './_hooks/useAuth';
+import useFetchPrivate from './_hooks/useFetchPrivate';
+import { useEffect,useState } from 'react';
 const Home = () => {
     const {auth} = useAuth();
+    const fetchPrivate = useFetchPrivate();
+    const [courses,setCourses] = useState<CourseType[]>([]);
+    const getCourses = async () => {
+      
+       
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home`, {
+        method: 'GET',
+    });
+    const data = await response?.json();
+    if(response?.status === 403){
+      throw new Error('Unauthorized');
+    }
+    setCourses(data);
+  }
+  useEffect(()=>{
+    getCourses();
+  },[])
   return (
     <>
     <Navbar />
@@ -22,7 +41,7 @@ const Home = () => {
     <Section4 />
     <Section5 />
     <SearchSection />
-    <Section6 />
+    <Section6 courses={courses} />
     <Section7 />
     <Footer />
     </>

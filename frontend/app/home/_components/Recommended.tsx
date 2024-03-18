@@ -7,12 +7,24 @@ type mycourses = {
 }
 export default function Recommended(mycourses:mycourses) {
     const courses: [CourseType] = mycourses.mycourses;
-    const [recommendedCourses, setRecommendedCourses] = useState<CourseType[]>([]);
+    const [recommendedOnlineCourses, setRecommendedOnlineCourses] = useState<CourseType[]>([]);
+    const [recommendedOflineCourses, setRecommendedOflineCourses] = useState<CourseType[]>([]);
     
-    
+    const handleCourses = (courses:[CourseType])=>{
+        let OnlineCourses = 
+            courses?.length > 0 ?   
+            courses.filter((course: CourseType) => course.type === 'online') : [];
+        let OflineCourses = 
+            courses?.length > 0 ?
+            courses?.filter((course: CourseType) => course.type === 'inperson') : [];
+        OnlineCourses = OnlineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4.5);
+        OflineCourses = OflineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4.5);
+        setRecommendedOnlineCourses(OnlineCourses);
+        setRecommendedOflineCourses(OflineCourses);
+    }
     useEffect(() => {
-        const highRatedCourses = courses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4.5);
-        setRecommendedCourses(highRatedCourses);
+
+        handleCourses(courses);
     }, [courses]);
 
   return (
@@ -23,9 +35,26 @@ export default function Recommended(mycourses:mycourses) {
                     <Link href={'/'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
         </div>
         <div className='flex flex-wrap justify-start gap-7 mt-8'>
-                {recommendedCourses?.map((course:CourseType) => {
+                {
+                    recommendedOnlineCourses?.length > 0 ?
+                recommendedOnlineCourses.map((course:CourseType) => {
                     return <CourseCard key={course._id} course={course} /> // Fix: Pass the 'course' prop to the 'CourseCard' component correctly.
-                })}
+                })
+                : <p>No courses available</p>
+                }
+        </div>
+        <div className='flex justify-between mx-4'>
+                    <h3 className='font-semibold text-[28px]'>In-person</h3>
+                    <Link href={'/'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
+        </div>
+        <div className='flex flex-wrap justify-start gap-7 mt-8'>
+                {
+                    recommendedOflineCourses?.length > 0 
+                    ?   recommendedOflineCourses.map((course:CourseType) => {
+                        return <CourseCard key={course._id} course={course} /> // Fix: Pass the 'course' prop to the 'CourseCard' component correctly.
+                    })
+                    : <p>No courses available</p>
+                }
         </div>
     </section>
   

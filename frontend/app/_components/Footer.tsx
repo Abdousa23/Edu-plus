@@ -8,9 +8,9 @@ export default function Footer() {
   return (
     <footer>
      <div className='flex gap-[5%]'>
-     <div className=' border-r-4 w-[30%] border-[#363636]'>
+     <div className=' md:border-r-4 w-[30%] md:border-[#363636] max-md:w-full'>
         <div className='w-7/12 mx-auto'>
-        <div className='w-full mb-4'>
+        <div className='w-full mb-4 max-md:ml-6 '>
             <img src="edulogo.svg" className='max-w-full' alt="" />
         </div>
         <h1 className=' text-lg font-medium my-4'>Unleashing the Power of Education</h1>
@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
         </div>
         </div>
-      <div className='w-[30%]'>
+      <div className='w-[30%] max-md:hidden'>
         <h1 className='font-semibold text-[26px] mb-4'>Useful links</h1>
         <ul>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>
@@ -39,7 +39,7 @@ export default function Footer() {
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/FAQ'}>FAQ</Link></li>
         </ul>
       </div>
-      <div className='w-[30%]'>
+      <div className='w-[30%] max-md:hidden'>
         <h1 className='font-semibold text-[26px] mb-8'>Main menu</h1>
         <ul>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>

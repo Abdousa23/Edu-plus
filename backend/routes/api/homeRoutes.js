@@ -7,7 +7,7 @@ const verifyJWT = require('../../middlewares/verifyJWT');
 const verifyRoles = require('../../middlewares/verifyRoles');
 
 // verifyJWT
-router.get('/',verifyJWT,courseController.getAllCourses);
+router.get('/',courseController.getAllCourses);
 
 router.get('/search/:name', courseController.getCoursesByName);
 

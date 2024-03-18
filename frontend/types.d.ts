@@ -18,6 +18,7 @@ type CourseType = {
     availableSears: number;
     isAvailable: boolean;
     imageUrl: string;
+    type : string;
     category: string;
 }
 type studentEnrolled = {

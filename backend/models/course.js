@@ -85,6 +85,10 @@ const course = new schema({
     isAvailable:{
         type:Boolean,
         default:true,
+    },
+    type:{
+        type:String,
+        enum:['online', 'inperson']
     }
     },
     {timestamps:true});
