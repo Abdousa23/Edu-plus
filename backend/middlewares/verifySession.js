@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-
+///no need for this function
 const verifySession = (req, res, next) => {
     const cookie = req.headers.cookie;
     if (!cookie) {

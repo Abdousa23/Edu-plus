@@ -1,27 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import Register from '@/app/auth/register/_components/Register';
 export default function page() {
-    const content = (
-        <main>
-            <div>
-                <h1>Register</h1>
-                <form>
-                    <div>
-                        <label>
-                            Email
-                            <input type="email" name="email" required />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Password
-                            <input type="password" name="password" required />
-                        </label>
-                    </div>
-                    <button type="submit">Register</button>
-                </form>
-            </div>
-        </main>
-    )
-    return content
+  return <Register />
 }

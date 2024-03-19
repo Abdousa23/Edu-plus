@@ -151,7 +151,8 @@ const deleteCourse =async (req, res) => {
 }
 const updateLesson =async (req, res) => {
     const {id} = req.params
-    const {title,description,videoUrl,courseName} = req.body
+    console.log(id);
+    const {title,description,videoUrl} = req.body
     try {
         const course = await Course.findOne({title:courseName})
         if(!title || !description || !videoUrl || !courseName){
