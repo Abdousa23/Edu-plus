@@ -10,14 +10,14 @@ export default function Section7() {
                     <div className="flex flex-col">
                         <div className=' flex max-md:flex-col items-center justify-between mb-8'>
                             <img src="images/frame67.svg" alt="" />
-                            <div>
+                            <div className='ml-2'>
                                 <h1 className='font-semibold text-[32px]'>300</h1>
                                 <p className='text-xl font-normal text-[#6d737a]'>Instructor</p>
                             </div>
                         </div>
                         <div className='flex items-center mt-8 max-md:flex-col'>
                             <img src="images/frame68.svg" alt="" />
-                            <div>
+                            <div className='ml-2'>
                                 <h1 className='font-semibold text-[32px]'>10,000</h1>
                                 <p className='text-xl font-normal text-[#6d737a]'>Video</p>
                             </div>
@@ -27,14 +27,14 @@ export default function Section7() {
                     <div className='flex flex-col'>
                         <div className='flex items-center max-md:flex-col mb-8'>
                             <img src="images/frame69.svg" alt="" />
-                            <div>
+                            <div className='ml-2'>
                                 <h1 className='font-semibold text-[32px]'>20,000+</h1>
                                 <p className='text-xl font-normal text-[#6d737a]'>Student</p>
                             </div>
                         </div>
                         <div className='flex items-center max-md:flex-col mt-8'>
                             <img src="images/frame70.svg" alt="" />
-                            <div>
+                            <div className='ml-2'>
                                 <h1 className='font-semibold text-[32px]'>100,000+</h1>
                                 <p className='text-xl font-normal text-[#6d737a]'>Users</p>
                             </div>
@@ -42,7 +42,7 @@ export default function Section7() {
                     </div>
 
                 </div>
-                <div className='flex-1 w-full flex items-center justify-center max-md:hidden'>
+                <div className='flex-1 w-full flex items-center justify-center max-[991px]:hidden'>
                     <img src="images/persons.svg" className='max-w-full flex-1' alt="" />
                 </div>
             </div>

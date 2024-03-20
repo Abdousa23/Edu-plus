@@ -21,6 +21,11 @@ type CourseType = {
     type : string;
     category: string;
 }
+type CategoryType = {
+    _id:mumber;
+    name:string;
+    courses: [string];
+}
 type studentEnrolled = {
     students: [string];
     studentsNumber: number;

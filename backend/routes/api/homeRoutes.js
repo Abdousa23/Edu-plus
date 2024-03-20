@@ -13,7 +13,7 @@ router.get('/search/:name', courseController.getCoursesByName);
 
 router.get('/categories/:category', courseController.getCoursesByCategory);
 
-router.get('/categories/', courseController.getCoursesByCategory);
+router.get('/categories/', categoryController.getAllCategories);
 
 router.get('/:id', courseController.getCourseById);
 

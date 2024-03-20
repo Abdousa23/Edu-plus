@@ -45,7 +45,7 @@ export default function Navbar() {
     }, [auth])
     return (
         <>
-            <header className='container sticky bg-white top-0 py-2 mx-auto '>
+            <header className='container  py-2 mx-auto '>
 
                 <nav className=' flex items-center justify-around mt-8'>
 
