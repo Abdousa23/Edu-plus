@@ -60,6 +60,18 @@ const userSchema = new schema ({
         default : "",
 
     },
+    bio:{
+        type : String,
+        default : ""
+    },
+    country : {
+        type : String,
+        default : ""
+    },
+    city : {
+        type : String,
+        default : ""
+    },
     refreshToken : {
         type : String,
         default : ""

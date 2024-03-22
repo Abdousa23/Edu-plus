@@ -90,6 +90,7 @@ export default function page({params:{search}}:Params) {
         
         setFilteredList(sortedList!); // Add type assertion
     }
+    
     useEffect(()=>{
         getCourses();
         getAllCategories();

@@ -117,7 +117,7 @@ export default function Navbar() {
                                     </Link>
                                     </li>
                                     <li className='px-4 py-2 text-gray-800'>
-                                    <Link href={'/settings'}  className='w-full'>
+                                    <Link href={'/profile/settings'}  className='w-full'>
                                     <SettingsIcon className='mr-4' />
                                     settings
                                     </Link>
