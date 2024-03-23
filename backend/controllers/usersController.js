@@ -2,6 +2,8 @@ const User = require("../models/user");
 require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcrypt");
+const { url } = require("../utils/cloudinary");
+
 
 const getAllUsers = async (req, res) => {
     try {
@@ -27,6 +29,10 @@ const updateUser = async (req, res) => {
             "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
         ) {
             await cloudinary.uploader.destroy(publicId);
+            if(req.file?.url){///just added , not sure if it works,so abdou check this lil n1gga
+                let result = await cloudinary.uploader.upload(req.file.path);
+                req.fileUrls = result.secure_url;
+            }
         }
         const updatedUser = await User.findByIdAndUpdate(
             id,
@@ -37,7 +43,7 @@ const updateUser = async (req, res) => {
                 email,
                 password: hashedPass,
                 phonenumber,
-                pfp, ///I dont think that this is an efficient way...
+                pfp : req.fileUrls, ///I dont think that this is an efficient way...///I think it is now
             },
             { new: true }
         ); // { new: true } returns the updated document

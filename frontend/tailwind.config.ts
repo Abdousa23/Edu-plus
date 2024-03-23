@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: theme => ({
+        'search': "url('/public/images/persons.svg')",
+      }),
       colors : {
         'green+':'#00977D',
         'org':'#EBA300',
@@ -19,6 +22,8 @@ const config: Config = {
       }
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    // require("daisyui")
+  ],
 };
 export default config;

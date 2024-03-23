@@ -10,7 +10,7 @@ return (
                 How you will become a successful instructor
             </h1>
             </div>
-        <div className='flex justify-between m-24 items-center '>
+        <div className='flex justify-between m-24 items-center flex-wrap '>
             
             <div className='flex flex-col justify-center gap-5  ' >
                 

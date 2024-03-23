@@ -18,16 +18,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET , resave: false, saveUninitialized: true ,cookie: { maxAge: 60000 }}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET , resave: false, saveUninitialized: true ,cookie: { maxAge: 60000 }}));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(credentials)
-app.use(cors(corsOptions))
+app.use(cors({...corsOptions,origin: 'http://localhost:3001',credentials:true}));
+// app.use(cors({
+//   origin: 'http://localhost:3001', // specify the origin
+//   credentials: true, // allow credentials
+// }));
+app.get('/', (_req, res) => {
+    res.send('Welcome to my API');
+})
 
-app.get('/', (req, res) => {
-    res.send('<a href="/api/auth/google">Authenticate with Google</a>');
-});
 app.use('/api', router);
 
 // app.post('/upload',fileExtLimiter ,upload.single("image"),
