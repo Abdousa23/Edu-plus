@@ -6,12 +6,13 @@ import ErrorComponent from '../../_components/Error';
 import Link from 'next/link';
 import type { ErrorProps } from '@/types/index'
 import useRefreshToken from '@/app/_hooks/useRefreshToken';
+import Logged from '@/app/_HOC/logged';
 type LoginProps = {
     email: string;
     password: string;
 }
 
-export default function Login() {
+    const Login = ()=> {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -104,3 +105,5 @@ export default function Login() {
     )
     return content
 }
+
+export default Logged(Login)

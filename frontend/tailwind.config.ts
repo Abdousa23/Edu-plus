@@ -8,7 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-   
+      backgroundImage: theme => ({
+        'search': "url('/public/images/persons.svg')",
+      }),
       colors : {
         'green+':'#00977D',
         'org':'#EBA300',

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Corrected from 'next/navigation'
+import { useRouter } from 'next/navigation'; 
 import useAuth from '../_hooks/useAuth';
 
 interface WithAuthProps {

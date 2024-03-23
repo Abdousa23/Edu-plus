@@ -10,7 +10,11 @@ const fileSizeLimiter = (req , res ,next)=>{
     })
 
     if(filesOverLimit.length){
+
         const properVerb = filesOverLimit.length>1 ? "are" : "is"
+
+
+        
         const sentence = `upload failed : ${filesOverLimit.toString()}  ${properVerb} over the size limit of ${MB} MB`
         return res.status(413).json({"status" : "error" , "message" : sentence})
     }
