@@ -3,12 +3,15 @@ const cloudinary = require("../utils/cloudinary");
 const videoupload = require("./multer");
 
 const cloudinaryMW = async (req, res, next) => {
+    console.log('sssss')
     try {
         if (req.file) {
         let result = await cloudinary.uploader.upload(req.file.path);
         req.fileUrls = result.secure_url;
+        req.publicId = result.public_id
         next();
         } else {
+        
         next();
         }
     } catch (error) {

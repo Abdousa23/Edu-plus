@@ -27,7 +27,7 @@ export default function MyCourses(mycourses:mycourses) {
             <h1 className='font-semibold text-[43px]'>My <span className='text-green+'>courses</span></h1>
             <div className='flex justify-between mx-4'>
                 <h3 className='font-semibold text-[28px]'>Online</h3>
-                <Link href={'/'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
+                <Link href={'/profile/courses'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
             </div>
             <div className='flex flex-wrap justify-start gap-7 mt-8'>
                 {

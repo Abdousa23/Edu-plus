@@ -1,5 +1,5 @@
 import useAuth from '@/app/_hooks/useAuth'
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import MailIcon from '@mui/icons-material/Mail';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -16,7 +16,7 @@ export default function Sidebar() {
     const {auth} = useAuth()
     const logout = useLogout()
     const router = useRouter()
-    const user = auth?.user
+    const [user,setUser] = useState<userType>(auth?.user)
     const ROLES = {
         "Admin": 5150,
         "Editor": 5100,
@@ -27,12 +27,15 @@ export default function Sidebar() {
         await logout();
         router.replace('/auth/login')
     }
+    useEffect(() => {
+      setUser(auth?.user)
+    }, [auth])
   return (
     <div className=' justify-around sticky  flex flex-col items-center px-4 py-8  w-1/4 h-[100vh] top-0 left-0 bg-white shadow-md rounded-l-[20px]'>
         <div className='flex justify-between flex-col h-[45%] w-full'>
         <div className='w-28 max-md:w-16 mx-auto mb-4'>
-            <img src={user?.pfp} className='max-w-full' alt="" />
-            <h2 className=' font-normal text-xl'>John Doe</h2>
+            <img src={user?.pfp.url} className='max-w-full rounded-full' alt="" />
+            <h2 className=' font-normal text-xl text-center'>{user?.username}</h2>
         </div>
         <div className='mx-auto'>
             <h1 className='font-semibold text-center text-base'>Account</h1>

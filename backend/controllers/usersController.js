@@ -2,6 +2,8 @@ const User = require("../models/user");
 require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cloudinary=require('cloudinary')
 
 const getAllUsers = async (req, res) => {
     try {
@@ -13,37 +15,89 @@ const getAllUsers = async (req, res) => {
 };
 // Regex verification and handling of the password and pfp later y
 const updateUser = async (req, res) => {
-    const { id } = req.params;
-    const { firstname, lastname, username, email, password, phonenumber } =
+    const { firstname, lastname, username, email, password,country,city,bio, phonenumber,id } =
         req.body;
-    const pfp = req.fileUrls;
+    const pfp = {url:req.fileUrls
+        ,publicId:req.publicId};
+    console.log(req.file)
+    // console.log(pfp)
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W])[A-Za-z\d\W]{8,}$/;
+    if (password && !passwordRegex.test(password)) {
+        return res.status(400).json({
+            message:
+                "Password must be at least 8 characters long, contain at least one letter, and one number,and a symbol",
+        });
+    }
+    
     const salt = await bcrypt.genSalt(10);
-    const hashedPass = await bcrypt.hash(password, salt);
+    const hashedPass = password && await bcrypt.hash(password, salt);
     try {
         const user = await User.findById(id);
-        const prevPfpUrl = user.pfp;
+        const duplicatedUser = await User.find({ _id: { $ne: id },  $or: [{ email: email }, { username: username }] });
+            if (duplicatedUser.length !== 0) {
+                console.log('duplicated user')
+                return res.status(409).json({'message': "Username or email already used "});
+            }
+        const prevPfpUrl = user.pfp.url;
         if (
             prevPfpUrl.toString() !==
             "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
         ) {
-            await cloudinary.uploader.destroy(publicId);
+           if(pfp.url && pfp.publicId){
+            console.log('lsls')
+            console.log(req.publicId)
+            const result =await cloudinary.uploader.destroy(user.pfp.publicId)
+            console.log(result)
+            };
+           }
+        
+        const currentInformation = {
+            firstname,
+            lastname,
+            username,
+            email,
+            password: hashedPass,
+            phonenumber,
+            // pfp,
+            country,
+            city,
+            bio
         }
-        const updatedUser = await User.findByIdAndUpdate(
+        console.log(currentInformation)
+        const filteredInformation = Object.entries(currentInformation).reduce((acc, [key, value]) => {
+            if (value !== undefined && value !== null && value !== '') {
+              if (typeof value === 'object' && !Object.values(value).every(v => v !== undefined)) {
+                console.log('no profile pic provided')
+              } else {
+                acc[key] = value;
+              }
+            }
+            return acc;
+          }, {});
+          console.log(filteredInformation)
+          
+          const updatedUser = await User.findByIdAndUpdate(
             id,
-            {
-                firstname,
-                lastname,
-                username,
-                email,
-                password: hashedPass,
-                phonenumber,
-                pfp, ///I dont think that this is an efficient way...
-            },
-            { new: true }
-        ); // { new: true } returns the updated document
+            { ...filteredInformation },
+            { new: true } // returns the updated document
+          );
+          if (!updatedUser) {
+            console.log('No user found with this id');
+            return res.status(404).json({ message: 'No user found with this id' });
+          }
+          const newRefreshToken = jwt.sign(
+            { username: updatedUser.username },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '1d' }
+          );
+          console.log(updatedUser);
+          updatedUser.refreshToken = newRefreshToken;
+          await updatedUser.save();
+          res.clearCookie('jwt', newRefreshToken, { httpOnly: true,sameSite:'Strict'});            
+          res.cookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'Strict', maxAge: 24 * 60 * 60 * 1000 });
 
-        res.status(200).json(updatedUser);
-        console.log("gg");
+          res.status(200).json(updatedUser);
+          console.log("gg");
     } catch (error) {
         res
             .status(500)

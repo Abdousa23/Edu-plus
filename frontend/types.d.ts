@@ -35,3 +35,22 @@ type liveVideo = {
     url : string;
     scheduledDate: string;
 }
+type pfp = {
+    url: string;
+    publicId: string;
+}
+type userType ={ 
+    _id: string;
+    username: string;
+    email: string;
+    roles: [number];
+    pfp: pfp;
+    bio: string;
+    city: string;
+    country: string;
+    phonenumber: string;
+    firstname: string;
+    lastname: string;
+    createdAt: string;
+    updatedAt: string;
+}
