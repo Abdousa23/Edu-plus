@@ -1,3 +1,5 @@
+
+
 type CourseType = {
     _id: number;
     title: string;
@@ -63,4 +65,12 @@ type ErrorProps = {
 }
 type SuccessProps ={
     successMessage:string
+}
+
+
+type CustomButtonProps= {
+    title:string;
+    containerStyle?:string
+    handleClick?:MouseEventHandler<HTMLButtonElement>
+    btnType?:"button" | "submit"
 }

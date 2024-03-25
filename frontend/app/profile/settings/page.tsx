@@ -26,7 +26,7 @@ type FormDataState = {
 type FormType = 'userData' | 'passwordChange';
 
 
-export default function page() {
+export default function Settings() {
   const {auth,setAuth}=useAuth()
   const user:userType = auth?.user
   const initialFormData = {

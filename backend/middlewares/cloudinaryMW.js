@@ -22,10 +22,42 @@ const cloudinaryMW = async (req, res, next) => {
         });
     }
     }
+    const cloudinaryForVideos = async (req, res, next) => {
+        try {
+            if (req.file) {
+                let result = await new Promise((resolve, reject) => {
+                    cloudinary.uploader.upload_large(
+                        req.file.path,
+                        {
+                            resource_type: 'video',
+                        },
+                        (error, result) => {
+                            if (error) {
+                                reject(error);
+                            }
+                            resolve(result);
+                        }
+                    );
+                })
+                console.log(result)
+                req.fileUrls = result.secure_url;
+                next();
+            } else {
+                next();
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                success: false,
+                message: "Server error",
+            });
+        }
+    }
+
 /*     app.post('/upload',fileExtLimiter ,upload.single("image"),////the order to use once you want to upload a photo ,a file , or a video
 cloudinaryMW,  ,(req, res) => {
     console.log(req.fileUrls);
     res.send('Image uploaded');
 }); */
 
-module.exports = cloudinaryMW;
+module.exports = cloudinaryMW , cloudinaryForVideos;
