@@ -12,34 +12,31 @@ const useFetchPrivate = () => {
   }, [auth]);
 
   const fetchPrivate = async (url :string, options :any) => {
+    let accessToken = token;
     options.headers = {
       ...options.headers,
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${accessToken}`,
     };
+  
     try {
-        
-    const response = await fetch(url, options);
-        // console.log(response)
-        // if (response.headers.get('Authorization') === undefined){
-        //     console.log("token is valid")
-        // }
-    if (response.status === 403) {
-    const newAccessToken = await refreshToken();
-    setToken(newAccessToken);
-    console.log("new token")
-    console.log(newAccessToken)
-    console.log("sssfdsfdsf")
-      options.headers['Authorization'] = `Bearer ${newAccessToken}`;
-      const response = await fetch(url, options);
-      if (response.status === 403) {
-        throw new Error('Unauthorized');
+      let response = await fetch(url, options);
+  
+      if (response.status === 401) {
+        accessToken = await refreshToken();
+        setToken(accessToken);
+        accessToken = localStorage.getItem('accessToken');
+        console.log(accessToken);
+        options.headers['Authorization'] = `Bearer ${accessToken}`;
+        response = await fetch(url, options);
+        if (response.status === 401) {
+          throw new Error('Unauthorized');
+        }
       }
-    }
-    
-    return response;
-
+  
+      return response;
     } catch (error) {
-        router.push('/auth/login');        
+      console.log(error);
+      // router.push('/auth/login');        
     }
   };
 

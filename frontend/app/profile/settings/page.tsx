@@ -109,14 +109,14 @@ export default function page() {
     });
   
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/${formData.id}`, {
+      const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/profile/${formData.id}`, {
         method: 'PUT',
         body: data,
         credentials: 'include',
       });
     
       const responseData = await response?.json();
-      if (!response.ok) {
+      if (!response?.ok) {
         console.log(responseData)
         throw new Error(responseData?.message || 'An error occurred');
       }
@@ -183,7 +183,7 @@ export default function page() {
           <h1 className=' font-semibold text-xl ml-8 my-4 '>Account Settings</h1>
           <div className=' w-full gap-4'>
             <form encType="multipart/form-data" action={`profile/${formData.id}`} method='POST' onSubmit={(e) => handleSubmit(e, 'userData')} className=' mx-8 font-normal text-xs'>
-              <div className='flex max-md:flex-col w-full gap-4 '>
+              <div className='flex max-md:flex-col w-full gap-4 mb-4 '>
                 <div className='flex-grow'>
                   <div className='flex   gap-4'>
                     <div className='flex-1'>

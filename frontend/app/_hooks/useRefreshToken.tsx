@@ -23,7 +23,7 @@ const useRefreshToken= () => {
         console.log("ssss")
         console.log(data)
         setAuth(data)
-        // localStorage.setItem('accessToken',data.accessToken)
+        localStorage.setItem('accessToken',data.accessToken)
         return data.accessToken;
     }
     return Refresh

@@ -7,13 +7,15 @@ const verifyRoles = require('../../middlewares/verifyRoles');
 const fileExtLimiter = require('../../middlewares/fileExtLimiter')
 const upload = require('../../middlewares/multer')
 const cloudinaryMW = require('../../middlewares/cloudinaryMW')
+const fileSizeLimiter = require('../../middlewares/fileSizeLimiter')
 
 // verifyJWT
 router.get('/:id',verifyJWT,verifyRoles(ROLES_LIST.User),userController.getUserById);
 
 // router.put('/:id',verifyJWT,verifyRoles(ROLES_LIST.User),userController.updateUser);
 
-router.put('/:id' ,upload.single("pfp"),cloudinaryMW,userController.updateUser);
+
+router.put('/:id' ,verifyJWT,verifyRoles([ROLES_LIST.User]),upload.single("pfp"),fileSizeLimiter(1),fileExtLimiter(['.png','.jpeg','.jpg']),cloudinaryMW,userController.updateUser);
 
 router.post('/:id',verifyJWT,verifyRoles(ROLES_LIST.User),userController.addCourseToUser)
 
