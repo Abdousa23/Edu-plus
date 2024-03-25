@@ -7,7 +7,3 @@ export interface CustomButtonProps{
     handleClick?:MouseEventHandler<HTMLButtonElement>
     btnType?:"button" | "submit"
 }
-
-export type ErrorProps = {
-    errmessage: string,
-}

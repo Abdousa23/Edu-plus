@@ -54,3 +54,13 @@ type userType ={
     createdAt: string;
     updatedAt: string;
 }
+type LoginProps = {
+    email: string;
+    password: string;
+}
+type ErrorProps = {
+    errmessage: string,
+}
+type SuccessProps ={
+    successMessage:string
+}

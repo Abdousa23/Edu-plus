@@ -6,6 +6,8 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { useState } from 'react';
 import useFetchPrivate from '@/app/_hooks/useFetchPrivate';
 import useAuth from '@/app/_hooks/useAuth';
+import Success from '@/app/_components/Success';
+import ErrorComponent from '@/app/_components/Error';
 type FormDataState = {
   firstName: string;
   lastName: string;
@@ -15,12 +17,14 @@ type FormDataState = {
   country: string;
   city: string;
   bio: string;
-  // newPassword: string;
-  // oldPassword: string;
-  // confirmPassword: string;
+  password: string;
+  oldPassword: string;
+  confirmPassword: string;
   id: string | undefined;
   pfp: File | null;
 };
+type FormType = 'userData' | 'passwordChange';
+
 
 export default function page() {
   const {auth,setAuth}=useAuth()
@@ -34,15 +38,21 @@ export default function page() {
     country: user?.country || '',
     city: user?.city || '',
     bio: user?.bio || '',
-    // newPassword: '',
-    // oldPassword:'',
-    // confirmPassword:'',
+    password: '',
+    oldPassword: '',
+    confirmPassword: '',
     id: user?._id || '',
     pfp: null
   }
   const fetchPrivate = useFetchPrivate()
   const [formData, setFormData] = useState<FormDataState>(initialFormData);
-
+  const [error, setError] = useState<ErrorProps>({ errmessage: '' });
+  const [successMessage,setSuccessMessage]=useState('')
+  const [isLoading,setIsLoading]=useState(false)
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W])[A-Za-z\d\W]{8,}$/;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
+  
   const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
     if (e.target.type === 'file') {
       const fileInput = e.target as HTMLInputElement;
@@ -57,7 +67,40 @@ export default function page() {
       });
     }
   };
-  const submitForm = async (formData: FormDataState) => {
+  const validateForm = (formData: FormDataState, formType: FormType) => {
+    if(formType === 'userData'){
+    if (!emailRegex.test(formData.email)) {
+      setError({ errmessage: 'Invalid Email' });
+      return false;
+    }
+  }else{
+    if (!formData.oldPassword) {
+      setError({ errmessage: 'Old Password is required' });
+      return false;
+    }
+    if (!formData.password) {
+      setError({ errmessage: 'Password is required' });
+      return false;
+    }
+    if (!passwordRegex.test(formData.password)) {
+      setError({ errmessage: 'Password must contain at least 8 characters, one letter, one number and one special character' });
+      return false;
+    }
+    if (!formData.confirmPassword) {
+      setError({ errmessage: 'Confirm Password is required' });
+      return false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError({ errmessage: 'Passwords do not match' });
+      return false;
+    }}
+    return true;
+  }
+  const submitForm = async (formData: FormDataState,formType:FormType) => {
+    setError({ errmessage: '' });
+    setSuccessMessage('');
+    setIsLoading(true)
+    if(!validateForm(formData,formType)) return
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       if (value !== null && value !== undefined) {
@@ -95,17 +138,34 @@ export default function page() {
         },
         accessToken:auth?.accessToken
       }
-      console.log(auth)
+      console.log(auth);
       setAuth(updatedAuthData);
-      setFormData(updatedAuthData.user);
+      setFormData({
+        ...formData,
+        firstName: responseData?.firstname || '',
+        lastName: responseData?.lastname || '',
+        username: responseData?.username || '',
+        email: responseData?.email || '',
+        phonenumber: responseData?.phonenumber || '',
+        country: responseData?.country || '',
+        city: responseData?.city || '',
+        bio: responseData?.bio || '',
+        id: responseData?._id || '',
+        pfp: responseData?.pfp || null,
+      });
+      setSuccessMessage('user information has been updated successfully')
+
+      setIsLoading(false)
     } catch (error:any) {
-      console.log(error.message)
+      setError({ errmessage: error.message });
+    
+      setIsLoading(false)
     }
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(e.target)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>, formType: FormType) => {
     e.preventDefault();
-    submitForm(formData)
+    console.log("ss")
+    submitForm(formData, formType);
   }
   useEffect(()=>{
     console.log(auth)
@@ -122,7 +182,7 @@ export default function page() {
         <Navbar />
           <h1 className=' font-semibold text-xl ml-8 my-4 '>Account Settings</h1>
           <div className=' w-full gap-4'>
-            <form encType="multipart/form-data" action={`profile/${formData.id}`} method='POST' onSubmit={handleSubmit} className=' mx-8 font-normal text-xs'>
+            <form encType="multipart/form-data" action={`profile/${formData.id}`} method='POST' onSubmit={(e) => handleSubmit(e, 'userData')} className=' mx-8 font-normal text-xs'>
               <div className='flex max-md:flex-col w-full gap-4 '>
                 <div className='flex-grow'>
                   <div className='flex   gap-4'>
@@ -138,9 +198,9 @@ export default function page() {
                   <label htmlFor="">Username</label>
                   <input type="text" name='username' onChange={handleChange} value={formData.username} className='abdouinput my-1' placeholder="Username" />
                   <label htmlFor="">Email</label>
-                  <input type="email" name='email' onChange={handleChange} value={formData.email} className='abdouinput my-1' placeholder="Email" />
+                  <input type="text" name='email' onChange={handleChange} value={formData.email} className='abdouinput my-1' placeholder="Email" />
                   <label htmlFor="">Phone Number</label>
-                  <input type="text" name='phonenumber' onChange={handleChange} value={formData.phonenumber} className='abdouinput my-1' placeholder="Phone Number" />
+                  <input type="number" name='phonenumber' onChange={handleChange} value={formData.phonenumber} className='abdouinput my-1' placeholder="Phone Number" />
                   <label htmlFor="">Country</label>
                   <input type="text" name='country' onChange={handleChange} value={formData.country} className='abdouinput my-1' placeholder="Country" />
                   <label htmlFor="">City</label>
@@ -161,23 +221,25 @@ export default function page() {
                 </div>
 
               </div>
-              <button type='submit' className='flex flex-row justify-center items-center mx-1 my-4 px-4 py-2 w-fit  max-sm:text-sm h-11 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-base'>Save Changes</button>
+               {error.errmessage.length !== 0 && <ErrorComponent errmessage={error.errmessage} />}
+               {successMessage !=='' && <Success successMessage={successMessage} />}
+              <button type='submit' className='flex flex-row justify-center items-center mx-1 my-4 px-4 py-2 w-fit  max-sm:text-sm h-11 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-base'>{isLoading?'saving...':'Save Changes'}</button>
             </form>
 
           </div>
         </div>
         <div className='w-2/5 max-md:w-full'>
           <h1 className=' font-semibold text-xl ml-8 my-4 '>Change Password</h1>
-          {/* <form action="" method='POST' onSubmit={handleSubmit} className='w-9/12 mx-8 font-normal text-xs'>
+          <form action="" method='POST' onSubmit={(e) => handleSubmit(e, 'passwordChange')} className='w-9/12 mx-8 font-normal text-xs'>
             <label htmlFor="">Old Password</label>
             <input type="password" name='oldPassword' className='abdouinput my-1' value={formData.oldPassword} onChange={handleChange} placeholder="Old Password" />
             <label htmlFor="">Password</label>
-            <input type="password" name='newPassword' className='abdouinput my-1' value={formData.newPassword} onChange={handleChange} placeholder="Password" />
+            <input type="password" name='password' className='abdouinput my-1' value={formData.password} onChange={handleChange} placeholder="Password" />
             <label htmlFor="">Confirm Password</label>
             <input type="password" name='confirmPassword' className='abdouinput my-1' value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" />
-            <button type='submit' className='flex flex-row justify-center items-center mx-1 my-4 px-4 py-2 w-fit max-sm:text-sm h-11 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-base'>Save Changes</button>
+            <button type='submit' className='flex flex-row justify-center items-center mx-1 my-4 px-4 py-2 w-fit max-sm:text-sm h-11 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-base'>{isLoading?'saving...':'Save Changes'}</button>
 
-          </form> */}
+          </form>
         </div>
       </div>
     </div>

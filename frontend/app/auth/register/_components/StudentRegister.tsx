@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import type { ErrorProps } from '@/types/index'
 import ErrorComponent from '@/app/_components/Error'
 type RegisterProps = {
   role: string;
