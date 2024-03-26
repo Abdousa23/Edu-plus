@@ -95,6 +95,8 @@ export default function Search({params:{search}}:Params) {
         getCourses();
         getAllCategories();
     },[search])
+
+
      return (
         <>
         <div className='min-h-[90vh]'>

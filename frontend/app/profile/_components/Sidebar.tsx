@@ -10,12 +10,13 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import useLogout from '@/app/_hooks/useLogout';
-import { useRouter } from 'next/navigation';
+import { useRouter , usePathname } from 'next/navigation';
 import Link from 'next/link';
 export default function Sidebar() {
     const {auth} = useAuth()
     const logout = useLogout()
     const router = useRouter()
+    const pathname = usePathname()
     const [user,setUser] = useState<userType>(auth?.user)
     const ROLES = {
         "Admin": 5150,
@@ -29,6 +30,7 @@ export default function Sidebar() {
     }
     useEffect(() => {
       setUser(auth?.user)
+      console.log(pathname === '/profile/settings')
     }, [auth])
   return (
     <div className=' justify-around sticky  flex flex-col items-center px-4 py-8  w-1/4 h-[100vh] top-0 left-0 bg-white shadow-md rounded-l-[20px]'>
@@ -43,19 +45,19 @@ export default function Sidebar() {
                {
                 user?.roles &&( Object.values(user?.roles as number[])[0] === ROLES.User ?
                 <ul className='flex flex-col'>
-                <Link href={'/profile/settings'} className='px-4 py-2'> <HomeIcon /> <span className=' max-md:hidden'>account Settings</span></Link>
-                <Link href={'/profile/inbox'} className='px-4 py-2'> <MailIcon /> <span className=' max-md:hidden'>inbox</span></Link>
-                <Link href={'/profile/courses'} className='px-4 py-2'> <FolderIcon /> <span className=' max-md:hidden'>Courses</span></Link>
-                <Link href={'/profile/'} className='px-4 py-2'> <FavoriteBorderIcon /> <span className=' max-md:hidden'>wishlist</span></Link>
+                <Link href={'/profile/settings'} className={`px-4 py-2 ${pathname === '/profile/settings' ? ' text-green+' : 'text-black'} `}> <HomeIcon /> <span className=' max-md:hidden'>account Settings</span></Link>
+                <Link href={'/profile/inbox'} className={`px-4 py-2 ${pathname === '/profile/inbox' ? ' text-green+' : 'text-black'} `}> <MailIcon /> <span className=' max-md:hidden'>inbox</span></Link>
+                <Link href={'/profile/courses'}className={`px-4 py-2 ${pathname === '/profile/courses' ? ' text-green+' : 'text-black'} `}> <FolderIcon /> <span className=' max-md:hidden'>Courses</span></Link>
+                <Link href={'/profile/'} className={`px-4 py-2 ${pathname === '/profile/' ? ' text-green+' : 'text-black'} `}> <FavoriteBorderIcon /> <span className=' max-md:hidden'>wishlist</span></Link>
                 </ul>
                 :
                 Object.values(user?.roles as number[])[0] === ROLES.School &&
                 <ul className='flex flex-col'>
-                <Link href={'/profile'}> <Person2OutlinedIcon/> <span className=' max-md:hidden'>profile</span></Link>
-                <Link href={'/profile/dashboard'}><BarChartIcon/> <span className=' max-md:hidden'>dashbord</span></Link>
-                <Link href={'/profile/addCourse'}> <AddCircleOutlineIcon /> <span className=' max-md:hidden'>create new course</span></Link>
-                <Link href={'/profile/publishedCourses'}> <FolderIcon/> <span className=' max-md:hidden'>published courses</span></Link>
-                <Link href={'/profile/settings'}> <SettingsOutlinedIcon/>  <span className=' max-md:hidden'>settings</span></Link>
+                <Link href={'/profile'} className={`px-4 py-2 ${pathname === '/profile' ? ' text-green+' : 'text-black'} `}> <Person2OutlinedIcon/> <span className={` max-md:hidden ${pathname === '/profile/settings' ? 'text-blue-500' : 'text-black'}`}>profile</span></Link>
+                <Link href={'/profile/dashboard'} className={`px-4 py-2 ${pathname === '/profile/dashboard' ? ' text-green+' : 'text-black'} `}><BarChartIcon/> <span className=' max-md:hidden'>dashbord</span></Link>
+                <Link href={'/profile/addCourse'} className={`px-4 py-2 ${pathname === '/profile/addCourse' ? ' text-green+' : 'text-black'} `}> <AddCircleOutlineIcon /> <span className=' max-md:hidden'>create new course</span></Link>
+                <Link href={'/profile/publishedCourses'} className={`px-4 py-2 ${pathname === '/profile/publishedCourses' ? ' text-green+' : 'text-black'} `}> <FolderIcon/> <span className=' max-md:hidden'>published courses</span></Link>
+                <Link href={'/profile/settings'} className={`px-4 py-2 ${pathname === '/profile/settings' ? ' text-green+' : 'text-black'} `}> <SettingsOutlinedIcon/>  <span className=' max-md:hidden'>settings</span></Link>
 
                 </ul>
                 )

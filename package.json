@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.13",
     "cloudinary": "^2.0.1",
     "multer": "^1.4.5-lts.1"
   }

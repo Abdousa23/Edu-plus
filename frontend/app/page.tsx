@@ -38,9 +38,7 @@ const Home = () => {
     <Section7 />
     <Footer />
     </>
-
   )
-    
 }
 
 export default Logged(Home)

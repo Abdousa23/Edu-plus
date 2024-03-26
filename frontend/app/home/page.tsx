@@ -8,6 +8,7 @@ import Navbar from '../_components/Navbar';
 import MyCourses from './_components/MyCourses';
 import Recommended from './_components/Recommended';
     const Home = ()=> {
+
     const {auth} = useAuth();
     const [courses, setCourses] = useState(null);
     const getCourses = async () => {

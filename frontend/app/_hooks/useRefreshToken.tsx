@@ -1,8 +1,11 @@
 'use client'
 import useAuth from './useAuth'
+import { useRouter } from 'next/navigation'
 const useRefreshToken= () => {
     const {auth,setAuth} =useAuth()
+    const router = useRouter()
     const Refresh = async ()=>{
+       try {
         const token = localStorage.getItem('accessToken')
         console.log(token)
         console.log(auth)
@@ -25,6 +28,9 @@ const useRefreshToken= () => {
         setAuth(data)
         localStorage.setItem('accessToken',data.accessToken)
         return data.accessToken;
+       } catch (error) {
+        console.log(error)
+       }
     }
     return Refresh
 }

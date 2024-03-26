@@ -36,7 +36,7 @@ const useFetchPrivate = () => {
       return response;
     } catch (error) {
       console.log(error);
-      // router.push('/auth/login');        
+      router.push('/auth/login');        
     }
   };
 
