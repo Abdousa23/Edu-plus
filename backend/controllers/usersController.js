@@ -100,16 +100,17 @@ const getUserById = async (req,res)=>{
         res.status(200).json(user)
     }catch(error){
         res.status(500).json({error:error,message:"Something went wrong"})
-};
-const getUserById = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const user = await User.findById(id);
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" });
-    }
-};
+}}
+
+// const getUserById = async (req, res) => {
+//     const { id } = req.params;
+//     try {
+//         const user = await User.findById(id);
+//         res.status(200).json(user);
+//     } catch (error) {
+//         res.status(500).json({ error: error, message: "Something went wrong" });
+//     }
+// };
 const getUserByName = async (req, res) => {
     const { username } = req.params;
     try {

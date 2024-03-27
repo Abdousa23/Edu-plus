@@ -10,7 +10,7 @@ type Params = {
     }
 }
 
-export default function page({params:{search}}:Params) {
+export default function Page({params:{search}}:Params) {
     const [courses,setCourses] = useState<CourseType[]>([]);
     const [filteredList,setFilteredList] = useState<CourseType[]>([]);
     const [currentType,setCurrentType] = useState<string>('online');
@@ -22,7 +22,7 @@ export default function page({params:{search}}:Params) {
     price: '',
     category: '',
     available: '',
-  });
+});
     const getCourses = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/search/${search}`)
         const data:CourseType[] = await response?.json();
@@ -96,12 +96,12 @@ export default function page({params:{search}}:Params) {
     },[search])
 
 
-     return (
+    return (
         <>
         <div className='min-h-[90vh]'>
         <Navbar />
         <div className='container mx-auto mt-8'>
-            <h1 className='font-semibold text-[40px]'>{courses.length} results for "<span className='text-green+'>{search}</span>"</h1>
+            <h1 className='font-semibold text-[40px]'>{courses.length} results for <span className='text-green+'>{search}</span> </h1>
             <div className='flex justify-between mx-5 my-8'>
             <ul className='flex gap-4 max-md:flex-col'>
                 <li className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm' >
