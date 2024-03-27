@@ -74,3 +74,6 @@ type CustomButtonProps= {
     handleClick?:MouseEventHandler<HTMLButtonElement>
     btnType?:"button" | "submit"
 }
+type course = {
+    course?: CourseType
+  }
