@@ -1,10 +1,18 @@
 const path = require('path')
 const fileExtLimiter =(arrayOfExt)=>{
+    console.log('checking extentions')
     return (req , res ,next)=>{
-        const files = req.files
-        const filesExt = []
-        Object.keys(files).forEach(key=>{
-            filesExt.push(path.extname(files[key].name))
+        console.log("s")
+        const file = req.file
+
+        console.log(file)
+        if (!file) {
+            next()
+        }else{
+            const filesExt = []
+        Object.keys(file).forEach(key=>{
+            console.log(path.extname(file[key].originalname || file.originalname))
+            filesExt.push(path.extname(file[key].originalname || file.originalname))
         })
         const allowed = filesExt.every(ext => arrayOfExt.includes(ext))
         if (!allowed) {
@@ -12,7 +20,9 @@ const fileExtLimiter =(arrayOfExt)=>{
 
             return res.status(422).json({ status: "error", message });
         }
+        console.log("tm")
         next()
+    }
     }
 
 }

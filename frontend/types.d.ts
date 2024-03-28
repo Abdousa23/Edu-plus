@@ -1,3 +1,5 @@
+
+
 type CourseType = {
     _id: number;
     title: string;
@@ -35,3 +37,43 @@ type liveVideo = {
     url : string;
     scheduledDate: string;
 }
+type pfp = {
+    url: string;
+    publicId: string;
+}
+type userType ={ 
+    _id: string;
+    username: string;
+    email: string;
+    roles: [number];
+    pfp: pfp;
+    bio: string;
+    city: string;
+    country: string;
+    phonenumber: string;
+    firstname: string;
+    lastname: string;
+    createdAt: string;
+    updatedAt: string;
+}
+type LoginProps = {
+    email: string;
+    password: string;
+}
+type ErrorProps = {
+    errmessage: string,
+}
+type SuccessProps ={
+    successMessage:string
+}
+
+
+type CustomButtonProps= {
+    title:string;
+    containerStyle?:string
+    handleClick?:MouseEventHandler<HTMLButtonElement>
+    btnType?:"button" | "submit"
+}
+type course = {
+    course?: CourseType
+  }

@@ -33,3 +33,19 @@ export default function SearchLayout({
             children
             );
 }
+
+export async function generateStaticParams() {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/`)
+    const data = await response?.json();
+    if(response?.status === 404){
+        throw new Error('Not Found');
+    }
+    return data.map((course:CourseType) => {
+        return {
+            params: {
+                search: course.title
+            }
+        }
+    })
+    
+}

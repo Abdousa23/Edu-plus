@@ -86,7 +86,7 @@ export default function Navbar() {
                                 </div>
 
                             </div>
-                            : <div className='flex justify-between'>
+                            : <div className='flex justify-between items-center'>
                                 <div className='mx-4'>
                                     <Link href={'home/cart'}>
                                         <ShoppingCartOutlinedIcon />
@@ -104,7 +104,7 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className='relative' onClick={(e)=>setSelected(!selected)}>
-                                    <img src={auth?.user?.pfp || ''} className='max-w-full w-10' alt="" />
+                                    <img src={auth?.user?.pfp.url || ''} className='max-w-full w-10 rounded-full' alt="" />
                                 
                                 { selected && <ul className=' absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
                                     <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>
@@ -117,7 +117,7 @@ export default function Navbar() {
                                     </Link>
                                     </li>
                                     <li className='px-4 py-2 text-gray-800'>
-                                    <Link href={'/settings'}  className='w-full'>
+                                    <Link href={'/profile/settings'}  className='w-full'>
                                     <SettingsIcon className='mr-4' />
                                     settings
                                     </Link>

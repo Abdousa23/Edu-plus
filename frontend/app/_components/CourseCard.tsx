@@ -18,7 +18,7 @@ export default function CourseCard(course: course) {
         <div className='flex justify-between'>
             <p className=''>price : {Course?.price} $</p>
             <div>
-            <Link href={'/'}  className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 border border-green+ rounded-lg order-5 self-stretch flex-grow-0 text-base text-green+'>show details</Link>
+            <Link href={`/courses/${Course?._id}`}  className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 border border-green+ rounded-lg order-5 self-stretch flex-grow-0 text-base text-green+'>show details</Link>
             </div>
         </div>
     </div>

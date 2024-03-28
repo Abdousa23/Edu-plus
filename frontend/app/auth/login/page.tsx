@@ -4,13 +4,9 @@ import  useAuth  from '@/app/_hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import ErrorComponent from '../../_components/Error';
 import Link from 'next/link';
-import type { ErrorProps } from '@/types/index'
 import useRefreshToken from '@/app/_hooks/useRefreshToken';
 import Logged from '@/app/_HOC/logged';
-type LoginProps = {
-    email: string;
-    password: string;
-}
+
 
     const Login = ()=> {
 

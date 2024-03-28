@@ -60,14 +60,32 @@ const userSchema = new schema ({
         default : "",
 
     },
+    bio:{
+        type : String,
+        default : ""
+    },
+    country : {
+        type : String,
+        default : ""
+    },
+    city : {
+        type : String,
+        default : ""
+    },
     refreshToken : {
         type : String,
         default : ""
     },
     pfp : {
-        type : String,
-        default : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
-    },
+        url: {
+            type: String,
+            default: 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+          },
+          publicId: {
+            type: String,
+            default: ''
+          }
+        }
 } , 
 {timestamps : true}
 )
