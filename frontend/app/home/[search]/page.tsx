@@ -70,7 +70,7 @@ export default function Search({params:{search}}:Params) {
         (updatedValues.category === '' || item.category === updatedValues.category) &&
         (updatedValues.available === '' || item.isAvailable.toString() === updatedValues.available)
       );
-        console.log(courses[0].category)
+        // console.log(courses[0].category)
       setFilteredList(List);
   
       return updatedValues;
@@ -182,11 +182,13 @@ export default function Search({params:{search}}:Params) {
                 </button>
             </div>
             <div className="flex flex-wrap my-20">
-                {filteredList.map((course:any) => {
-                return (
-                    <CourseCard key={course._id} course={course} />
-                )
-            })}
+                {
+                    filteredList.length > 0 ? filteredList.map((course:any) => {
+                        return (
+                            <CourseCard key={course._id} course={course} />
+                        )
+                    }):<h1>No courses available</h1>
+                }
             </div>
         </div>
         {/* {typeof window !== 'undefined' && <Footer />} */}

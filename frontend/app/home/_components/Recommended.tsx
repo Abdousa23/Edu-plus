@@ -17,14 +17,16 @@ export default function Recommended(mycourses:mycourses) {
         let OflineCourses = 
             courses?.length > 0 ?
             courses?.filter((course: CourseType) => course.type === 'inperson') : [];
-        OnlineCourses = OnlineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4.5);
-        OflineCourses = OflineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4.5);
+        OnlineCourses = OnlineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4);
+        OflineCourses = OflineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4);
+        console.log(OnlineCourses, OflineCourses)
         setRecommendedOnlineCourses(OnlineCourses);
         setRecommendedOflineCourses(OflineCourses);
     }
     useEffect(() => {
-
+        console.log(courses)
         handleCourses(courses);
+        console.log(recommendedOnlineCourses.length, recommendedOflineCourses.length)
     }, [courses]);
 
   return (

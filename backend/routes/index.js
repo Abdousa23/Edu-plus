@@ -9,6 +9,7 @@ const cartRoutes = require('./api/cartRoutes');
 const profileRoutes = require('./api/profileRoutes')
 const adminRoutes = require('./api/adminRoutes')
 const paymentRoutes = require('./api/paymentRoute')
+const courseRoutes = require('./api/courseRoutes')
 // const googleAuth = require("./googleAuth")
 require('./auth');
 
@@ -17,6 +18,7 @@ router.use('/home', homeRoutes);
 router.use('/cart', cartRoutes);
 router.use('/payment', paymentRoutes);
 router.use('/profile',profileRoutes)
+router.use('/courses',courseRoutes)
 router.use('/admin',adminRoutes)
 router.use('/login', auth);
 router.use('/refresh', refreshToken);

@@ -49,7 +49,7 @@ export default function Navbar() {
 
                 <nav className=' flex items-center justify-around mt-8'>
 
-                    <Link href="/" className=''>
+                    <Link href={isAuthenticated?'/home':'/'} className=''>
 
                         <Image
                             src="/edulogo.svg"
@@ -88,18 +88,18 @@ export default function Navbar() {
                             </div>
                             : <div className='flex justify-between items-center'>
                                 <div className='mx-4'>
-                                    <Link href={'home/cart'}>
+                                    <Link href={'./cart'}>
                                         <ShoppingCartOutlinedIcon />
                                     </Link>
                                 </div>
                                 <div className='mx-4'>
-                                    <Link href={'home/wishlist'}>
+                                    <Link href={'./wishlist'}>
                                         <NotificationsNoneOutlinedIcon />
                                     </Link>
 
                                 </div>
                                 <div className='mx-4'>
-                                    <Link href={'home/favourites'}>
+                                    <Link href={'./favourites'}>
                                         <FavoriteBorderIcon />
                                     </Link>
                                 </div>

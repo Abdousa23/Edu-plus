@@ -10,7 +10,7 @@ import Recommended from './_components/Recommended';
     const Home = ()=> {
 
     const {auth} = useAuth();
-    const [courses, setCourses] = useState(null);
+    const [courses, setCourses] = useState<CourseType[]>([]);
     const getCourses = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home`, {
           method: 'GET',
@@ -19,11 +19,14 @@ import Recommended from './_components/Recommended';
       if(response?.status === 403){
         throw new Error('Unauthorized');
       }
+      console.log(data)
       setCourses(data);
     }
     
     useEffect(()=>{
       getCourses();
+      
+      console.log(courses)
     },[auth])
     return (
     <>

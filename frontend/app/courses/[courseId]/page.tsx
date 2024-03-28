@@ -36,8 +36,7 @@ export default function page({params:{courseId}}:Params) {
     <>
       <Navbar />
       <CourseHeader course={course} />
-        {loading ? <div>Loading...</div> : error ? <div>{error}</div> : <div>course page</div>}
-      <CourseContent course={course} />
+        {loading ? <div>Loading...</div> : error ? <div>{error}</div> : <div> <CourseContent course={course} /></div>}
       <Footer  />
     </>
   )
