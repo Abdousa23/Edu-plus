@@ -6,7 +6,7 @@ type CourseType = {
     category: string;
     description: string;
     owner : string;
-    lessons: [number];
+    lessons: [string];
     ressources: [string];
     level: string;
     language: string;
@@ -77,3 +77,10 @@ type CustomButtonProps= {
 type course = {
     course?: CourseType
   }
+
+type ressource = {
+    title : string , 
+    ressourceUrl : string,
+    size : string
+    course : string
+}
