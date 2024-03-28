@@ -6,7 +6,7 @@ type course = {
 export default function CourseLocation({course}:course) {
     return (
         <div>
-            <MapPage location={course?.location || ''} />
+            {/* <MapPage location={course?.location || ''} /> */}
         </div>
     )
 }

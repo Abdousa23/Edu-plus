@@ -5,6 +5,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
 import Link from 'next/link';
 export default function Footer() {
+  const isAuthenticated = localStorage.getItem('accessToken');
   return (
     <footer>
      <div className='flex gap-[5%]'>
@@ -33,7 +34,7 @@ export default function Footer() {
       <div className='w-[30%] max-md:hidden'>
         <h1 className='font-semibold text-[26px] mb-4'>Useful links</h1>
         <ul>
-          <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>
+          <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={isAuthenticated?'/home':'/'}>Home</Link></li>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/community'}>Community</Link></li>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/aboutus'}>About us</Link></li>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/FAQ'}>FAQ</Link></li>
@@ -42,7 +43,7 @@ export default function Footer() {
       <div className='w-[30%] max-md:hidden'>
         <h1 className='font-semibold text-[26px] mb-8'>Main menu</h1>
         <ul>
-          <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>
+          <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={isAuthenticated?'/home':'/'}>Home</Link></li>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>online</Link></li>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>In-person</Link></li>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Categories</Link></li>

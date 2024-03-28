@@ -17,7 +17,7 @@ type CourseType = {
     liveVideo: liveVideo;
     date: string;
     location: string;
-    availableSears: number;
+    availableSeats: number;
     isAvailable: boolean;
     imageUrl: string;
     type : string;
