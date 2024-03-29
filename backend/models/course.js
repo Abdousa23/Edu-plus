@@ -43,6 +43,7 @@ const course = new schema({
             students : {
                 type :[schema.Types.ObjectId],
                 ref:"users", // maybe have a problem with ss
+                default :[],
             },
             studentsNumber : {
             type :Number,
@@ -89,6 +90,6 @@ const course = new schema({
     },
     {timestamps:true});
 
-const Course= mongoose.model('Course', course);
+const Course= mongoose.model('Courses', course);
 
 module.exports = Course;
