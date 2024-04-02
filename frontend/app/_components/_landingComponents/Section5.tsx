@@ -9,7 +9,7 @@ export default function Section5() {
                     <p className='font-medium text-base text-[#6D737A]'>Saas become a common delivery model for many business application, including office software,messaging software,payroll processing software,DBMS software, management software</p>
                 </div>
                 <div className='flex-1 flex flex-col justify-between'>
-                    <div className='flex items-center max-md:flex-col'>
+                     <div className='flex items-top max-md:flex-col'>
                         <div className=' min-w-[24%]'>
                             <img src="images/Group1940.svg" className='max-w-full' alt="" />
                         </div>
