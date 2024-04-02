@@ -35,12 +35,15 @@ export default function Navbar() {
             />
 
             </Link> 
-            <div className='flex justify-center items-center max-sm:hidden'>
-            <label htmlFor="search">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-            </label>
-            <input type="text" id='search' className="flex flex-row items-center px-5 space-x-4.5 w-76 h-10 bg-gray-100 rounded-full" placeholder="Search Anything" />
-           
+           <div class='flex justify-center items-center max-sm:hidde'>
+            <div class="relative flex items-center w-full h-10 rounded-full focus-within:shadow-lg bg-gray-100 overflow-hidden">
+            <div class="grid place-items-center h-full w-12 text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            </div>
+
+            <input class="flex flex-row items-center px-5 space-x-4.5 w-76 h-10 bg-gray-100 " type="text"id="search"  placeholder="Search Anything.." /> 
+            </div>
             </div>
              <Link href="/" className='max-md:hidden max'>
                 Home
