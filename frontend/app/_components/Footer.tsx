@@ -7,8 +7,8 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer>
-     <div className='flex gap-[5%]'>
-     <div className=' border-r-4 w-[30%] border-[#363636]'>
+         <div className='flex gap-[30%] my-10 '>
+     <div className='  ml-10 border-r-2 w-[30%] border-[#838383]'>
         <div className='w-7/12 mx-auto'>
         <div className='w-full mb-4'>
             <img src="edulogo.svg" className='max-w-full' alt="" />
@@ -30,7 +30,8 @@ export default function Footer() {
         </div>
         </div>
         </div>
-      <div className='w-[30%]'>
+     <div className=' flex items-top gap-16 '>
+      <div className='w-[50%]'>
         <h1 className='font-semibold text-[26px] mb-4'>Useful links</h1>
         <ul>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>
@@ -39,8 +40,8 @@ export default function Footer() {
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/FAQ'}>FAQ</Link></li>
         </ul>
       </div>
-      <div className='w-[30%]'>
-        <h1 className='font-semibold text-[26px] mb-8'>Main menu</h1>
+  <div className='w-[50%]'>        
+    <h1 className='font-semibold text-[26px] mb-8'>Main menu</h1>
         <ul>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>online</Link></li>
@@ -48,6 +49,7 @@ export default function Footer() {
           <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Categories</Link></li>
         </ul>
       </div>
+     </div>
      </div>
      <div className='text-center text-base font-medium'>
       <p>Created By FDC</p>
