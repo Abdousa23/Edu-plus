@@ -4,7 +4,7 @@ import Link from 'next/link';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 export default function Section1() {
   return (
-    <header className='container mx-auto mt-16 flex max-md:flex-col justify-between'>
+    <header className='container mx-auto mt-20 mb-20 flex max-md:flex-col justify-between'>
         <section className='flex flex-col w-[49%]  max-md:w-[100%] mx-auto mt-8 '>
             <p className=' font-semibold text-lg mx-4 text-neworg my-4 max-md:hidden'>Do you want to feed your brain with all kinds of good things ?!</p>
             <h1 className='font-bold text-6xl max-sm:text-center mx-4 my-4 '>Learn new things, improve your skills just in one click</h1>
