@@ -68,7 +68,7 @@ export default function CourseContent({course}:course) {
                     <li><PlayCircleOutlinedIcon className='text-strokeorg' /> courses</li>
                 </ul>
                 <p className=' font-normal text-sm text-[#6e7485]'>description</p>
-                <Link href={`/profile/${course?.owner}`}>Read more</Link>
+                <Link href={`/instructor/${course?.owner}`}>Read more</Link>
             </div>
         </div>
     </div>
