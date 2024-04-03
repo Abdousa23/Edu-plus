@@ -22,7 +22,7 @@ export default function Search({params:{search}}:Params) {
     price: '',
     category: '',
     available: '',
-  });
+});
     const getCourses = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/search/${search}`)
         const data:CourseType[] = await response?.json();
@@ -97,7 +97,7 @@ export default function Search({params:{search}}:Params) {
     },[search])
 
 
-     return (
+    return (
         <>
         <div className='min-h-[90vh]'>
         <Navbar />
