@@ -81,7 +81,7 @@ export default function StudentRegister({ role }: RegisterProps) {
   }
 
   return (
-    <div className='flex h-screen w-full gap-[80px]'>
+    <div className='flex  w-full gap-[80px]'>
       <div className="bg-[#FFF5DF] grid place-items-center w-1/2 max-md:hidden">
         <img src="/images/studentRegister.svg" className='max-w-full' alt="" />
       </div>

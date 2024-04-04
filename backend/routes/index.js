@@ -12,6 +12,7 @@ const paymentRoutes = require('./api/paymentRoute')
 const reviews = require("./api/reviews")
 const addCourseRoute = require('./api/addCoursesRoute');
 const courseRoutes = require('./api/courseRoutes')
+const instructorRoutes = require('./api/instructorRoutes')
 // const googleAuth = require("./googleAuth")
 require('./auth');
 
@@ -27,6 +28,7 @@ router.use('/refresh', refreshToken);
 router.use('/logout', logout);
 router.use('/register', register);
 router.use('/reviews', reviews);
+router.use('/instructor', instructorRoutes);
 router.use('/addCourses', addCourseRoute);
 
 module.exports = router

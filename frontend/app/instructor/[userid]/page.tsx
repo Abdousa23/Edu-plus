@@ -1,23 +1,37 @@
 'use client'
-import React from 'react'
-import HeroInstructor from "../_components/HeroInstucter"
-import HeroInstructor2 from "../_components/HeroInstructor2"
-import HeroInstructor3 from "../_components/HeroInstructor3"
 import Navbar from '../../_components/Navbar'
-import InstructorHeroStat from '../_components/InstructorHeroStat'
 import ProfileHeader from '../_components/ProfileHeader'
 import Footer from '../../_components/Footer'
-
+import ProfileContent from '../_components/ProfileContent'
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 export default function Page() {
+    const [user, setUser] = useState<userType | null>(null)
+    const {userid} = useParams()
+    const getUserData = async () => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/${userid}`)
+        const data = await response.json()
+        setUser(data)
+        console.log(data)
+    }
+    useEffect(() => {
+        getUserData()
+    }, [])
 return (
     <div>
         <Navbar/>
-        {/* <HeroInstructor/>
-        <InstructorHeroStat/>
-        <HeroInstructor2/>
-        <HeroInstructor3/> */}
         <div className='container mx-auto'>
-        <ProfileHeader user="john doe" />
+        <ProfileHeader user={user} />
+        </div>
+        <div className="container mx-auto flex gap-5">
+
+        <aside className=' border-r-2 py-8 h-fit  w-1/4'>
+            <h1 className=' font-medium text-base'>ABOUT ME</h1>
+            <p className='font-normal text-sm text-[#6e7485]'>
+                bio
+            </p>
+        </aside>
+        <ProfileContent user={user} />
         </div>
         <Footer />
     </div>

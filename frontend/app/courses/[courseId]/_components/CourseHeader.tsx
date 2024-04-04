@@ -8,18 +8,18 @@ type course = {
   course?: CourseType
 }
 
-export default function CourseHeader({course}: course) {
-  const {auth}=useAuth()
+export default function CourseHeader({ course }: course) {
+  const { auth } = useAuth()
   function renderStars(rating: number) {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 !== 0;
     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-  
+
     return (
       <>
-        {Array(fullStars).fill(<span><Star className='text-org'></Star></span>)}
+        {Array(fullStars).fill(null).map((_, i) => <span key={i}><Star className='text-org'></Star></span>)}
         {halfStar && <span><StarHalf className='text-org' /></span>}
-        {Array(emptyStars).fill(<span><StarOutline className='text-org'></StarOutline></span>)}
+        {Array(emptyStars).fill(null).map((_, i) => <span key={i + fullStars + (halfStar ? 1 : 0)}><StarOutline className='text-org'></StarOutline></span>)}
       </>
     );
   }
@@ -31,18 +31,18 @@ export default function CourseHeader({course}: course) {
         <p className='text-[20px] text-[#4d4d4d] font-normal' >{course?.description}</p>
         <div className='text-[22px] max-md:w-fit max-md:mx-auto font-medium flex items-center '>
           <div>
-          <span className='text-org'>{course?.rating}</span>
+            <span className='text-org'>{course?.rating}</span>
           </div>
           <div className='flex justify-center items-center mb-1'>
-          {renderStars(course?.rating || 0)}
+            {renderStars(course?.rating || 0)}
           </div>
           <div>
-          <span className='text-[#737373]'>({course?.studentEnrolled.studentsNumber})</span>
+            <span className='text-[#737373]'>({course?.studentEnrolled.studentsNumber})</span>
           </div>
-          </div>
-          <div className='flex justify-around my-4 w-fit max-md:mx-auto'>
+        </div>
+        <div className='flex justify-around my-4 w-fit max-md:mx-auto'>
           <div className='w-10 h-10 rounded-full overflow-hidden mx-2'>
-            <img className='max-w-full' src={ course?.imageUrl || auth?.user?.pfp?.url} alt="" />
+            <img className='max-w-full' src={course?.imageUrl || auth?.user?.pfp?.url} alt="" />
           </div>
           <div>
             <p className='text-[14px] text-[#6e7485] font-normal'>Created by</p>

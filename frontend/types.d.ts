@@ -1,6 +1,7 @@
 
 
 type CourseType = {
+    map(arg0: (course: CourseType) => void): unknown;
     _id: number;
     title: string;
     category: string;
@@ -52,6 +53,8 @@ type userType ={
     country: string;
     phonenumber: string;
     firstname: string;
+    courses:[string];
+    purshasedCourses: [string];
     lastname: string;
     createdAt: string;
     updatedAt: string;

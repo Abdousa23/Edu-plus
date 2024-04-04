@@ -7,7 +7,7 @@ type course = {
 export default function CourseCard(course: course) {
   const Course = course?.course
   return (
-    <div className='w-[368px] h-[480px] m-2 shadow-md rounded-lg order-0 '>
+     <div className='w-[280px] h-[420px] m-2 shadow-md rounded-lg order-0 '>
     
         <img src="/images/landing.svg" className='w-full h-2/5 ' alt="" />
     

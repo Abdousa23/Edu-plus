@@ -9,13 +9,12 @@ export default function Resources({ course }: course) {
   const fetchPrivate = useFetchPrivate()
   const getRessources = async () => {
     try {
-      const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/65cf6571a5ca4966a74d5cd1`,
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses/65cf6571a5ca4966a74d5cd1`,
         {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
-          Credentials: 'include'
         })
       const data = await response?.json()
       if (!response?.ok) {
