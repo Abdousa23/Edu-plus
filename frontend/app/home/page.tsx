@@ -21,8 +21,6 @@ import Navbar from '../_components/Navbar';
       router.push('/auth/login');
     }
     const getCourses = async () => {
-      
-       
         const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/home`, {
           method: 'GET',
       });
