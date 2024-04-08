@@ -8,7 +8,7 @@ export default function Section2() {
         <h1 className=' font-semibold max-md:text-center text-[28px]'>We Partner With More than 10+ Companies</h1>
       </div>
       <div>
-        <img src="images/Rectangle353.svg" alt="" />
+        <img src="images/logoRED.svg" alt="" />
       </div>
     </div>
     </section>
