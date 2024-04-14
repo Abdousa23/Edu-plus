@@ -4,38 +4,33 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { getUserCourses } from '@/lib/getuserCourses';
 import { useState } from 'react';
-import { get } from 'http';
 type profileType = {
-    user: userType | null
+    courses: CourseType[] | null,
+    user:userType | null
+
 }
-export default function ProfileHeader( {user} : profileType) {
+export default function ProfileHeader( {courses,user}:profileType) {
     const {userid} = useParams()
-    const [error, setError] = useState<ErrorProps>({errmessage:''})
-    const [courses, setCourses] = useState<CourseType[]>([])
+    // const [error, setError] = useState<ErrorProps>({errmessage:''})
+    // const [courses, setCourses] = useState<CourseType[]>([])
     const [rating, setRating] = useState<number>(0)
-    const getRating = (courses:CourseType[])=>{
+    const getRating = (courses:CourseType[]|null)=>{
         let num=1
         let rating = 0;
-        courses && courses.map((course:CourseType) => {
-            rating += course.rating
-            num++
-        })
+        if(courses){
+            courses && courses.map((course:CourseType) => {
+                rating += course.rating
+                num++
+            })    
+        }else{
+            rating=0
+        }
         return rating/num || 0
     }
-    useEffect(() => {
-        console.log(user?._id)
-        const fetchCourses = async () => {
-            console.log(userid)
-            const data = await getUserCourses(Array.isArray(userid) ? userid[0] : userid, error, setError)
-            setCourses(data)
-            console.log(data)
-            console.log(error.errmessage)
-        }
-        fetchCourses()
+    useEffect(()=>{
         const rating = getRating(courses)
         setRating(rating)
-    }, [courses])
-
+    },[])
 return (
     <div>
         <h1 className=' font-medium text-2xl '>Course Instructor</h1>

@@ -183,7 +183,7 @@ const getUserCourses = async (req, res) => {
         console.log('sss')
         
         const user = await User.findById(id);
-        const courses = await Course.find({ _id: { $in: user.purchasedcourses } });
+        const courses = await Course.find({ _id: { $in: user.courses } });
         
         console.log(user)
         console.log(courses)

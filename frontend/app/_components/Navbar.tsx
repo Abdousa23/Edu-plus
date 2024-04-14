@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
     const { auth } = useAuth()
+    const accessToken = localStorage.getItem('accessToken')
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [selected, setSelected] = useState(false);
     const [search, setSearch] = useState('' as string);
@@ -37,12 +38,14 @@ export default function Navbar() {
         router.push(`/home/${search}`)
     }
     useEffect(() => {
-        if (auth?.user) {
+        if (accessToken) {
             setIsAuthenticated(true)
         } else {
-            setIsAuthenticated(false)
+            setTimeout(() => {
+                setIsAuthenticated(false)
+            }, 1000)
         }
-    }, [auth])
+    }, [accessToken])
     return (
         <>
             <header className='container  py-2 mx-auto '>
@@ -103,7 +106,7 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className='relative' onClick={(e)=>setSelected(!selected)}>
-                                    <img src={auth?.user?.pfp.url || ''} className='max-w-full w-10 rounded-full' alt="" />
+                                    <img src={auth?.user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full w-10 rounded-full' alt="" />
                                 
                                 { selected && <ul className=' absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
                                     <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>
