@@ -3,9 +3,9 @@
     const date = require("date-fns")
     
     const storage = multer.diskStorage({
-    destination : (req, file, cb) => {
-        cb(null, 'image')
-    },
+    // destination : (req, file, cb) => {
+    //     cb(null, 'image')
+    // },
     filename: (req,file,cb)=> {
         console.log(file.originalname)
         cb(null, Date.now() +path.extname(file.originalname) )

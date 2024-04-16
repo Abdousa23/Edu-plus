@@ -16,7 +16,7 @@ const handleLogout = async (req, res,next) => {
         if(!user) return res.clearCookie('jwt',{httpOnly: true,sameSite: 'None' }).sendStatus(204)
         user.refreshToken = ''
         const result = await user.save()
-        res.clearCookie('jwt',{httpOnly: true,sameSite: 'None' , secure : true }) //secure: true add it in production
+        res.clearCookie('jwt',{httpOnly: true,sameSite: 'None' , secure : false }) //secure: true add it in production
         return res.status(200).json('User has been logged out')
     } catch (error) {
         return res.status(500).json({error:error,message:"Something went wrong"})

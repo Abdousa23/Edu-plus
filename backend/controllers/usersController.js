@@ -2,8 +2,9 @@ const User = require("../models/user");
 require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcrypt");
-const { url } = require("../utils/cloudinary");
-
+const jwt = require("jsonwebtoken");
+const cloudinary = require('cloudinary')
+const Course = require("../models/course");
 
 const getAllUsers = async (req, res) => {
     try {
@@ -15,41 +16,96 @@ const getAllUsers = async (req, res) => {
 };
 // Regex verification and handling of the password and pfp later y
 const updateUser = async (req, res) => {
-    const { id } = req.params;
-    const { firstname, lastname, username, email, password, phonenumber } =
+    const { firstname, lastname, username, email,oldPassword, password, country, city, bio, phonenumber, id } =
         req.body;
-    const pfp = req.fileUrls;
+        console.log(req.body)
+    const pfp = {
+        url: req.fileUrls,
+        publicId: req.publicId
+    };
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W])[A-Za-z\d\W]{8,}$/;
     const salt = await bcrypt.genSalt(10);
-    const hashedPass = await bcrypt.hash(password, salt);
+    const hashedPass = password && await bcrypt.hash(password, salt);
+   
+    if (password && !passwordRegex.test(password)) {
+        return res.status(400).json({
+            message:
+                "Password must be at least 8 characters long, contain at least one letter, and one number,and a symbol",
+        });
+    }
+    if (email && !emailRegex.test(email)) {
+        return res.status(400).json({ message: "Invalid email" });
+    }
+    
     try {
         const user = await User.findById(id);
-        const prevPfpUrl = user.pfp;
+        const match = await bcrypt.compare(oldPassword, user.password);
+        const duplicatedUser = await User.find({ _id: { $ne: id }, $or: [{ email: email }, { username: username }] });
+        const prevPfpUrl = user.pfp.url;
+        console.log(user.password)
+        console.log(oldPassword)
+        console.log(match)
+        console.log(password)
+        if (password && !match) {
+             console.log(oldPassword)
+             console.log(match)
+            return res.status(401).json({ message: 'Old password is incorrect' });
+        }
+        if (duplicatedUser.length !== 0) {
+            return res.status(409).json({ 'message': "Username or email already used " });
+        }
+        
         if (
             prevPfpUrl.toString() !==
             "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
         ) {
-            await cloudinary.uploader.destroy(publicId);
-            if(req.file?.url){///just added , not sure if it works,so abdou check this lil n1gga
-                let result = await cloudinary.uploader.upload(req.file.path);
-                req.fileUrls = result.secure_url;
-            }
+            if (pfp.url && pfp.publicId) {
+                const result = await cloudinary.uploader.destroy(user.pfp.publicId)
+            };
         }
+
+        const currentInformation = {
+            firstname,
+            lastname,
+            username,
+            email,
+            password: hashedPass,
+            phonenumber,
+            pfp,
+            country,
+            city,
+            bio
+        }
+        const filteredInformation = Object.entries(currentInformation).reduce((acc, [key, value]) => {
+            if (value !== undefined && value !== null && value !== '') {
+                if (typeof value === 'object' && !Object.values(value).every(v => v !== undefined)) {
+                    console.log('no profile pic provided')
+                } else {
+                    acc[key] = value;
+                }
+            }
+            return acc;
+        }, {});
         const updatedUser = await User.findByIdAndUpdate(
             id,
-            {
-                firstname,
-                lastname,
-                username,
-                email,
-                password: hashedPass,
-                phonenumber,
-                pfp : req.fileUrls, ///I dont think that this is an efficient way...///I think it is now
-            },
-            { new: true }
-        ); // { new: true } returns the updated document
-
+            { ...filteredInformation },
+            { new: true } // returns the updated document
+        );
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'No user found with this id' });
+        }
+        const newRefreshToken = jwt.sign(
+            { username: updatedUser.username },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '1d' }
+        );
+        updatedUser.refreshToken = newRefreshToken;
+        await updatedUser.save();
+        res.clearCookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'Strict' });
+        res.cookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'Strict', maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json(updatedUser);
-        console.log("gg");
+        console.log("gg")
     } catch (error) {
         res
             .status(500)
@@ -118,8 +174,35 @@ const getUserByName = async (req, res) => {
         res.status(500).json({ error: error, message: "Something went wrong" });
     }
 };
+const getUserCourses = async (req, res) => {
+    console.log(req.params)
+    const { id } = req.params;
+    
+    console.log('sss')
+    try {
+        console.log('sss')
+        
+        const user = await User.findById(id);
+        const courses = await Course.find({ _id: { $in: user.purchasedcourses } });
+        
+        console.log(user)
+        console.log(courses)
+        if (!courses) {
+            return res.status(404).json({ message: "No courses found" });
+        }
+        if (!user) {
+            return res.status(404).json({ message: "No user found" });
+        }
+        if (user.purchasedcourses.length === 0) {
+            return res.status(404).json({ message: "User has no courses" });
+        }
+        res.status(200).json(courses);
+    }catch(error){
+        res.status(500).json({ error: error, message: "Something went wrong" });
+    }
+}
 
-module.exports={
+module.exports = {
     updateUser,
     deleteUser,
     changeRoles,
@@ -127,4 +210,5 @@ module.exports={
     getAllUsers,
     getUserById,
     getUserByName,
+    getUserCourses
 };

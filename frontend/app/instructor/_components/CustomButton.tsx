@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { CustomButtonProps } from '@/types'
 
 
 export default function CustomButton({title, containerStyle,handleClick ,btnType}: CustomButtonProps) {

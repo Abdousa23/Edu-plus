@@ -1,6 +1,7 @@
 const Course = require('../models/course');
 const Category = require('../models/category');
 const User = require('../models/user');
+const Resource = require('../models/resources');
 const Lesson = require('../models/lesson');
 const { ObjectId } = require('mongoose').Types;
 const getAllCourses = async (req, res) => {
@@ -201,6 +202,38 @@ const getCoursesByCategory = async (req, res) => {
     }
 }
 
+const getCourseResources = async (req, res) => {
+    const {courseId} = req.params
+    const username = req.user
+    console.log('ssfadspkmde')
+    console.log(courseId)
+    console.log(username)
+    try {
+        const resources = await Resource.find({course:courseId})
+        const user = await User.findOne({username:username})
+        const course = await Course.findById(courseId)
+        console.log(resources)
+        console.log('sadasdqw')
+        if(!course){
+            return res.status(404).json({message:"Course not found"})
+        }
+        if(!user){
+            return res.status(404).json({message:"User not found"})
+        }
+        
+        if(!user.courses.includes(courseId)){
+            return res.status(403).json({message:"You are not enrolled in this course,you can't access the resources"})
+        }
+        if(resources.length === 0){
+            return res.status(404).json({message:"No resources found for this course"})
+        }
+        
+        res.status(200).json(resources)
+    } catch (error) {
+        res.status(500).json({error:error,message:"Something went wrong"})
+    }
+
+}
 
 module.exports = {
     getAllCourses,
@@ -214,4 +247,5 @@ module.exports = {
     addOfflineCourse,
     addOnlineCourse,
     addOnlinelesson,
+    getCourseResources,
 }
