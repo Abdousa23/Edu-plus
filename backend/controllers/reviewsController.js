@@ -120,4 +120,14 @@ const getAllReviews = async (req, res) => {
     }
 }
 
-module.exports = { addReview, deleteReview, updateReview, getAllReviews }
+const getReviewsForUser = async (req, res) => {
+    const username = req.user
+    try {
+        const review = await Review.find({ username: username }).exec()
+        res.status(200).json(review)
+    }catch(err){
+        res.status(500).json(err.message)
+    }
+}
+
+module.exports = { addReview, deleteReview, updateReview, getAllReviews , getReviewsForUser }
