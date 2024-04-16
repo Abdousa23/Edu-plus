@@ -6,17 +6,13 @@ import ProfileContent from '../_components/ProfileContent'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { getUserCourses } from '@/lib/getuserCourses'
+import { getUserData } from '@/lib/getUserData'
 export default function Page() {
     const [user, setUser] = useState<userType | null>(null)
     const [courses, setCourses] = useState<CourseType[]>([])
     const [error, setError] = useState<ErrorProps>({errmessage:''})
     const {userid} = useParams()
-    const getUserData = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/${userid}`)
-        const data = await response.json()
-        setUser(data)
-        console.log(data)
-    }
+    let stringuserid = Array.isArray(userid) ? userid.join('') : userid;
     
     useEffect(() => {
         let stringuserid = Array.isArray(userid) ? userid.join('') : userid;
@@ -32,8 +28,16 @@ export default function Page() {
     }, [courses])
 
     useEffect(() => {
-        getUserData()
-    }, [])
+        const fetchUser = async (id:string) => {
+            const data = await getUserCourses(id)
+            if (data.data) {
+                setCourses(data.data)
+            }else if(data.error){
+                setError(data.error)
+            }
+        }
+        fetchUser(stringuserid)
+    }, [user])
 return (
     <div>
         <Navbar/>

@@ -36,10 +36,10 @@ return (
         <h1 className=' font-medium text-2xl '>Course Instructor</h1>
         <div className='border-2 border-[#6E7485] my-6 flex w-[90%] '>
             <div className=' w-32 h-32 rounded-full overflow-hidden mx-6 my-8'>
-                <img src={user?.pfp.url} className='max-w-full' alt="" />
+                <img src={user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full' alt="" />
             </div>
             <div className='flex-grow'>
-                <h1 className='font-medium text-lg'>{user?.username}</h1>
+                <h1 className='font-medium text-lg'>{user?.username || 'unknown'}</h1>
                 <p>{user?.city}{user?.country}</p>
                 <p>Contact with : {user?.email} {user?.phonenumber}</p>
                 <ul className='flex gap-8'>
@@ -51,7 +51,7 @@ return (
                     }</li>
                     <li className='flex items-center'><PlayCircleOutlinedIcon className='text-strokeorg' />{user?.courses.length} courses</li>
                 </ul>
-                <p className=' font-normal text-sm text-[#6e7485]'>{user?.bio || user?.username+' profile page'}</p>
+                <p className=' font-normal text-sm text-[#6e7485]'>{user?.bio || (user?.username||'unknown')+' profile page'}</p>
                 {
                 userid !== user?._id && <Link href={`/profile/${user?._id}`}>Read more</Link>
                 }

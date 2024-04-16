@@ -43,7 +43,7 @@ export default function ProfileContent({courses,user,error}:profileType) {
     }
         {
             activeTab === 'Reviews' && 
-            <Reviews />
+            <Reviews user={user} />
         }
     
     </div>

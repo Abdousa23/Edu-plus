@@ -17,7 +17,6 @@ import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
     const { auth } = useAuth()
-    const accessToken = localStorage.getItem('accessToken')
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [selected, setSelected] = useState(false);
     const [search, setSearch] = useState('' as string);
@@ -38,14 +37,12 @@ export default function Navbar() {
         router.push(`/home/${search}`)
     }
     useEffect(() => {
-        if (accessToken) {
+        if (auth?.accessToken) {
             setIsAuthenticated(true)
         } else {
-            setTimeout(() => {
                 setIsAuthenticated(false)
-            }, 1000)
         }
-    }, [accessToken])
+    }, [auth])
     return (
         <>
             <header className='container  py-2 mx-auto '>
