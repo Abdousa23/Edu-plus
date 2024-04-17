@@ -1,25 +1,22 @@
 import React, { useState } from 'react'
-
+import { useRouter } from 'next/navigation';
 export default function SearchSection() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const [search, setSearch] = useState('')
+    const router = useRouter()
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }
     const searchCourses = async (search: string) => {
-        const res = await fetch(`${API_URL}/home/search/${search}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        const data = await res.json()
-        console.log(data)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/search/${search}`)
+      const data = await response.json();
+
     }
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault()
         searchCourses(search)
         setSearch('')
+        router.push(`/home/${search}`)
     }
   return (
     <section className='back h-80 flex flex-col justify-center items-center gap-10'>

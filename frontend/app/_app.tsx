@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: any) {
       <Component {...pageProps} />
     )}
     </PersistLogin>
-     </AuthProvider> 
+    </AuthProvider> 
     )
   
 }

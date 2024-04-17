@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema
-const lessonSchema = new schema({
+const resourceSchema = new schema({
     title: String,
     resourceUrl: String,
     course: {
@@ -12,7 +12,4 @@ const lessonSchema = new schema({
 
 
 
-
-const lessons = mongoose.model('Lessons', lessonSchema);
-
-module.exports = lessons;
+module.exports = mongoose.model('Resource' , resourceSchema)

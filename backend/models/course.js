@@ -43,6 +43,7 @@ const course = new schema({
             students : {
                 type :[schema.Types.ObjectId],
                 ref:"users", // maybe have a problem with ss
+                default :[],
             },
             studentsNumber : {
             type :Number,
@@ -85,10 +86,14 @@ const course = new schema({
     isAvailable:{
         type:Boolean,
         default:true,
+    },
+    type:{
+        type:String,
+        enum:['online', 'inperson']
     }
     },
     {timestamps:true});
 
-const Course= mongoose.model('Course', course);
+const Course= mongoose.model('Courses', course);
 
 module.exports = Course;

@@ -7,13 +7,15 @@ const verifyJWT = require('../../middlewares/verifyJWT');
 const verifyRoles = require('../../middlewares/verifyRoles');
 
 // verifyJWT
-router.get('/',verifyJWT,courseController.getAllCourses);
+router.get('/',courseController.getAllCourses);
 
 router.get('/search/:name', courseController.getCoursesByName);
 
-router.get('/categories/:category', courseController.getCoursesByCategory);
 
-router.get('/categories/', courseController.getCoursesByCategory);
+router.get('/home/categories',categoryController.getAllCategories)
+router.get('/home/categories/:category', courseController.getCoursesByCategory);
+
+router.get('/categories/', categoryController.getAllCategories);
 
 router.get('/:id', courseController.getCourseById);
 
