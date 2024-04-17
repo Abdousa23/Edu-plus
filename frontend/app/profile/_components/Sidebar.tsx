@@ -12,6 +12,7 @@ import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import useLogout from '@/app/_hooks/useLogout';
 import { useRouter , usePathname } from 'next/navigation';
 import Link from 'next/link';
+
 export default function Sidebar() {
     const {auth} = useAuth()
     const logout = useLogout()

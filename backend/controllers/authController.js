@@ -30,7 +30,7 @@ const handleAuth = async (req,res)=>{
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '45s' }
+            { expiresIn: '1045s' }
         );
         const newRefreshToken = jwt.sign(
             { "username": foundUser.username },
@@ -50,6 +50,7 @@ const handleAuth = async (req,res)=>{
         } catch (error) {
             console.log("cookie not set")
         }
+        console.log(req.user)
         res.status(200).json({ foundUser,roles, accessToken });
 
     } else {
@@ -68,7 +69,7 @@ const signToken = async (req, res) => {
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '45s' }
+        { expiresIn: '1545s' }
     , (err, token) => {
         if(err){
             res.sendStatus(500);

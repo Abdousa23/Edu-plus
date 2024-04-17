@@ -45,7 +45,7 @@ function PersistLogin({ children }: props) {
         console.log(`isLoading: ${isLoading}`);
         console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
     }, [isLoading]);
-  return (
+return (
         <>
             {isLoading ? <div>Loading...</div> : children}
         </> );

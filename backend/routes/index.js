@@ -10,19 +10,22 @@ const profileRoutes = require('./api/profileRoutes')
 const adminRoutes = require('./api/adminRoutes')
 const paymentRoutes = require('./api/paymentRoute')
 const courseRoutes = require('./api/courseRoutes')
+const chatRoutes= require('./api/chatRoutes')
 // const googleAuth = require("./googleAuth")
-require('./auth');
+// require('./auth');
 
 router.use('/home', homeRoutes);
 // router.use('/auth/google' , googleAuth)
 router.use('/cart', cartRoutes);
-router.use('/payment', paymentRoutes);
-router.use('/profile',profileRoutes)
-router.use('/courses',courseRoutes)
-router.use('/admin',adminRoutes)
+
+// router.use('/payment', paymentRoutes);
+router.use('/profile',profileRoutes);
+router.use('/courses',courseRoutes);
+router.use('/admin',adminRoutes);
 router.use('/login', auth);
 router.use('/refresh', refreshToken);
 router.use('/logout', logout);
 router.use('/register', register);
+router.use('/chat',chatRoutes);
 
 module.exports = router
