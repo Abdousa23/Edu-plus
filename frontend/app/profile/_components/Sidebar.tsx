@@ -9,9 +9,11 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import useLogout from '@/app/_hooks/useLogout';
 import { useRouter , usePathname } from 'next/navigation';
 import Link from 'next/link';
+
 export default function Sidebar() {
     const {auth} = useAuth()
     const logout = useLogout()
@@ -49,6 +51,7 @@ export default function Sidebar() {
                 <Link href={'/profile/inbox'} className={`px-4 py-2 ${pathname === '/profile/inbox' ? ' text-green+' : 'text-black'} `}> <MailIcon /> <span className=' max-md:hidden'>inbox</span></Link>
                 <Link href={'/profile/courses'}className={`px-4 py-2 ${pathname === '/profile/courses' ? ' text-green+' : 'text-black'} `}> <FolderIcon /> <span className=' max-md:hidden'>Courses</span></Link>
                 <Link href={'/profile/'} className={`px-4 py-2 ${pathname === '/profile/' ? ' text-green+' : 'text-black'} `}> <FavoriteBorderIcon /> <span className=' max-md:hidden'>wishlist</span></Link>
+                <Link href={'/profile/cart'} className={`px-4 py-2 ${pathname === '/profile/cart' ? ' text-green+' : 'text-black'} `}> <ShoppingCartOutlinedIcon /> <span className=' max-md:hidden'>Cart</span></Link>
                 </ul>
                 :
                 Object.values(user?.roles as number[])[0] === ROLES.School &&

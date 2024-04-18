@@ -11,7 +11,10 @@ type Params = {
         courseId: string
     }
 }
-export default function page({params:{courseId}}:Params) {
+export default function Page({params:{courseId}}:Params) {
+
+
+
     const [loading,setLoading] = useState<boolean>(true);
     const [error,setError] = useState<string>('');
     const [course,setCourse] = useState<CourseType | undefined>(undefined);
@@ -26,9 +29,9 @@ export default function page({params:{courseId}}:Params) {
         console.log(data)
         setCourse(data);
     
-       } catch (error: any) {
+      } catch (error: any) {
         setError(error.message)    
-       }
+      }
     }
     const fetchUser = async (id:string) => {
       const data = await getUserData(id)

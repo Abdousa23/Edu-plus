@@ -24,6 +24,9 @@ type CourseType = {
     type : string;
     category: string;
 }
+
+
+
 type CategoryType = {
     _id:mumber;
     name:string;
@@ -93,4 +96,45 @@ type review = {
     rating:number,
     reviewtext : string,
     courseId : string
+}
+
+
+
+
+
+
+
+type selectedChat = {
+    _id:string;
+    name:string;
+  }
+
+
+
+
+
+
+
+type ChatType = {
+    _id: string;
+    name:string
+    members:? [string];
+    messages:? [string];
+    createdAt:? string;
+    updatedAt:? string;
+}
+type chatProps = {
+    _id: string;
+    name: string;
+    
+  }
+
+
+type MessageType = {
+    _id: string;
+    chat: string;
+    sender: string;
+    message: string;
+    createdAt: string;
+    updatedAt: string;
 }

@@ -14,6 +14,7 @@ const Swagger = require('./swagger.json');
 
 require('./controllers/googleAuthController')
 dotenv.config();
+// what is is the perpose of this line
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -28,11 +29,15 @@ app.use(cors({...corsOptions,origin: 'http://localhost:3001',credentials:true}))
 //   origin: 'http://localhost:3001', // specify the origin
 //   credentials: true, // allow credentials
 // }));
+
+
 app.get('/', (_req, res) => {
     res.send('Welcome to my API');
 })
 
 app.use('/api', router);
+
+
 
 // app.post('/upload',fileExtLimiter ,upload.single("image"),
 // cloudinaryMW, (req, res) => {

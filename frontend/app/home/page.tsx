@@ -8,13 +8,15 @@ import Navbar from '../_components/Navbar';
 import MyCourses from './_components/MyCourses';
 import Recommended from './_components/Recommended';
     const Home = ()=> {
-
+      
     const {auth} = useAuth();
     const [courses, setCourses] = useState<CourseType[]>([]);
     const getCourses = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home`, {
           method: 'GET',
       });
+
+
       const data = await response?.json();
       if(response?.status === 403){
         throw new Error('Unauthorized');
@@ -22,7 +24,8 @@ import Recommended from './_components/Recommended';
       console.log(data)
       setCourses(data);
     }
-    
+
+
     useEffect(()=>{
       getCourses();
       
