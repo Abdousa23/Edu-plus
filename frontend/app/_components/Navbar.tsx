@@ -85,18 +85,18 @@ export default function Navbar() {
                             </div>
                             : <div className='flex justify-between items-center'>
                                 <div className='mx-4'>
-                                    <Link href={'./profile/cart'}>
+                                    <Link href={'/profile/cart'}>
                                         <ShoppingCartOutlinedIcon />
                                     </Link>
                                 </div>
                                 <div className='mx-4'>
-                                    <Link href={'./profile/notification'}>
+                                    <Link href={'/profile/notification'}>
                                         <NotificationsNoneOutlinedIcon />
                                     </Link>
 
                                 </div>
                                 <div className='mx-4'>
-                                    <Link href={'./profile/inbox'}>
+                                    <Link href={'/profile/inbox'}>
                                         <MailIcon />
                                     </Link>
                                 </div>

@@ -23,6 +23,39 @@ export default function page() {
             console.log(error)
         }
     }
+    
+    const purchaseCourse = (course : CourseType)=>{
+        const body =`{"items":[{"price":"${course?.price}","quantity":1,"product_id":"${course?._id}"}],"success_url":"http://127.0.0.1:3001"}` 
+        const options = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_apiPaymentSecretKey}` ,
+            "Content-Type": "application/json",
+        },
+        body:body,
+    };
+        console.log(body)
+        fetch("https://pay.chargily.net/test/api/v2/checkouts", options)
+        .then((response) => response.json())
+        .then((response) => console.log(response))
+        .catch((err) => console.error(err));
+    }
+    const removeCourseFromCart = async (course : CourseType)=>{
+        try {
+            const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/cart/remove/${course._id}`,{
+                method: 'DELETE'
+            })
+            const data = await response?.json()
+            if(!response?.ok){
+                throw new Error(data.message)
+            }
+            console.log(data)
+            getCartCourses()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         getCartCourses()
     }, [])
@@ -37,7 +70,10 @@ export default function page() {
                         {
                             cartCourses.length > 0 ?
                             cartCourses.map((course: CourseType) => (
-                                <h1 key={course._id}>{course.title} </h1>
+                                <div key={course._id}>
+                                    <button  onClick={()=>{purchaseCourse(course)}}>purchaseCourse</button>
+                                    <button onClick={()=>{removeCourseFromCart(course)}}>delete from cart</button>
+                                </div>
                             ))
                             : <p>h1</p>
                         }

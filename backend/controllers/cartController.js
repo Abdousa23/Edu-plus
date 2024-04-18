@@ -49,8 +49,9 @@ const addToCart = async (req, res) => {
 }
 
 const removeFromCart = async (req, res) => {
-    const user = req.user
+    const username = req.user
     const { courseId } = req.params
+    const user = await User.findOne({username:username})
     try {
         const course = await Course.findById(courseId)
         if (!course) {
