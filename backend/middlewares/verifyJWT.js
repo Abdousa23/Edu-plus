@@ -18,6 +18,8 @@ const verifyJWT = (req,res,next) =>{
             console.log(decoded.UserInfo.username,decoded.UserInfo.roles)
             req.user = decoded.UserInfo.username;
             req.roles = decoded.UserInfo.roles;
+            console.log('hhh')
+            console.log(req.user)
             next();
             }
         }

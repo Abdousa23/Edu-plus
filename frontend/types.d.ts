@@ -87,3 +87,10 @@ type ressource = {
     size : string
     course : string
 }
+
+type review = {
+    username: string,
+    rating:number,
+    reviewtext : string,
+    courseId : string
+}

@@ -6,15 +6,16 @@ import useAuth from '@/app/_hooks/useAuth'
 
 type course = {
   course?: CourseType
+  user:userType | null
 }
 
-export default function CourseHeader({ course }: course) {
+export default function CourseHeader({ course,user }: course) {
   const { auth } = useAuth()
   function renderStars(rating: number) {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 !== 0;
     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
+    
     return (
       <>
         {Array(fullStars).fill(null).map((_, i) => <span key={i}><Star className='text-org'></Star></span>)}
@@ -42,11 +43,11 @@ export default function CourseHeader({ course }: course) {
         </div>
         <div className='flex justify-around my-4 w-fit max-md:mx-auto'>
           <div className='w-10 h-10 rounded-full overflow-hidden mx-2'>
-            <img className='max-w-full' src={course?.imageUrl || auth?.user?.pfp?.url} alt="" />
+            <img className='max-w-full' src={user?.pfp?.url || "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"} alt="" />
           </div>
           <div>
             <p className='text-[14px] text-[#6e7485] font-normal'>Created by</p>
-            <h3 className='font-medium text-base'>John Doe</h3>
+            <h3 className='font-medium text-base'>{user?.username||"unknown"}</h3>
           </div>
         </div>
       </div>

@@ -120,14 +120,20 @@ const getAllReviews = async (req, res) => {
     }
 }
 
-const getReviewsForUser = async (req, res) => {
-    const username = req.user
+const getAllUserReviews = async (req,res) => {
+    const {username} = req.params
     try {
-        const review = await Review.find({ username: username }).exec()
-        res.status(200).json(review)
-    }catch(err){
+        const reviews = await Review.find({username: username})
+        if(!reviews){
+            return res.status(404).json({message: "user not found"})
+        }
+        if(reviews.length===0){
+            return res.status(404).json({message: "no reviews found"})
+        }
+        res.status(200).json(reviews)
+    }
+    catch (err) {
         res.status(500).json(err.message)
     }
 }
-
-module.exports = { addReview, deleteReview, updateReview, getAllReviews , getReviewsForUser }
+module.exports = { addReview, deleteReview, updateReview, getAllReviews,getAllUserReviews }

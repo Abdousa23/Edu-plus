@@ -37,10 +37,10 @@ export default function Navbar() {
         router.push(`/home/${search}`)
     }
     useEffect(() => {
-        if (auth?.user) {
+        if (auth?.accessToken) {
             setIsAuthenticated(true)
         } else {
-            setIsAuthenticated(false)
+                setIsAuthenticated(false)
         }
     }, [auth])
     return (
@@ -103,7 +103,7 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className='relative' onClick={(e)=>setSelected(!selected)}>
-                                    <img src={auth?.user?.pfp.url || ''} className='max-w-full w-10 rounded-full' alt="" />
+                                    <img src={auth?.user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full w-10 rounded-full' alt="" />
                                 
                                 { selected && <ul className=' absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
                                     <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>

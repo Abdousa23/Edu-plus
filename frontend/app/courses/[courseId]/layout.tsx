@@ -31,10 +31,8 @@ export default function SearchLayout({
     children
 } : Props) {
     return (
-        <AuthProvider>
-            {/* <PersistLogin> */}
+            <PersistLogin>
             {children}
-            {/* </PersistLogin> */}
-        </AuthProvider>
+            </PersistLogin>
             );
 }

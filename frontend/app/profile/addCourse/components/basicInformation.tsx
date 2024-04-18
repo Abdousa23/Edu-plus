@@ -40,22 +40,12 @@ export default function BasicInformation({ }: Props) {
         });
     }
     return (
-        <div style={{
-            display: 'flex', /* Arrange form elements horizontally */
-            flexWrap: 'wrap', /* Allow elements to wrap on smaller screens */
-            width: '100%', /* Make the form fill the available space */
-            margin: '20px auto', /* Add some margin for better spacing */
-        }}>
+        <div className='flex flex-wrap w-full mx-auto'>
             <label>Title</label>
-            <div style={{
-                width: '100%',
-                display: 'grid',
-                gridTemplateColumns: '2fr auto', /* Define two columns */
-                alignItems: 'center', /* Vertically align elements */
-                padding: '5px', /* Add some padding */
-            }}>
+            <div className="grid grid-cols-2 items-center p-5
+            ">
                 <input value={formData.title} type='text' placeholder='Your course title' maxLength={80} required onChange={(e) => handleTitleChange(e)} />
-                <div style={{ display: "flex" }}>
+                <div className='flex'>
                     <span > {maxLength.toString()}/80 </span>
                 </div>
             </div>
@@ -83,14 +73,7 @@ export default function BasicInformation({ }: Props) {
             <input value={formData.topic} type='text' placeholder='Course topic' required onChange={handleTopicChange} />
 
 
-            <div style={{
-                width: '100%',
-                borderRadius: '4px', /* Rounded corners */
-                display: 'flex', /* Arrange elements side-by-side */
-                alignItems: 'center', /* Vertically align elements */
-                justifyContent: 'space-around',
-                padding: '5px 10px', /* Add some padding */
-            }}>
+            <div className=' w-full rounded-md flex items-center justify-space-around p-5 px-10' >
                 <label>course Language</label>
                 <select value={formData.language} onChange={(e) => handleLanguageChange(e)}>
                     <option value='English'>English</option>
@@ -103,11 +86,7 @@ export default function BasicInformation({ }: Props) {
                     <option value='Intermediate'>Intermediate</option>
                     <option value='Advanced'>Advanced</option>
                 </select>
-                <div style={{
-                    display: "flex", /* Arrange input and select side-by-side */
-                    alignItems: "safe",
-                    width: "100%",
-                }}>
+                <div className='flex items-safe w-full'>
                     <label>duration </label>
                     <input type="text" placeholder="Enter duration" />
                     <select className="course-day">
