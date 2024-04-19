@@ -11,7 +11,7 @@ export default function Overview({course}:course) {
     </div>
     <div>
         <h1 className='text-[24px] font-medium'>who is this course for</h1>
-        <p className=' text-lg font-normal'>this course i suitable to {course?.level} users,it is presented in the {course?.language} language and it contain {course?.lessons.length} lesson</p>
+        <p className=' text-lg font-normal'>this course i suitable to {course?.level} users,it is presented in the {course?.language} language and it contain {course?.lessons?.length} lesson</p>
     </div>
     </div>
   )

@@ -6,7 +6,7 @@ type CourseType = {
     title: string;
     category: string;
     description: string;
-    owner : string;
+    owner :  userType ;
     lessons: [string];
     ressources: [string];
     level: string;
@@ -98,7 +98,13 @@ type review = {
     courseId : string
 }
 
-
+type CartContextType = {
+    cartCourses: CourseType[]; // replace CourseType with the actual type of your courses
+    setCartCourses: (courses: CourseType[]) => void;
+    getCartCourses:  () => Promise<void>;
+    removeCourseFromCart: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
+    purchaseCourse: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
+  };
 
 
 

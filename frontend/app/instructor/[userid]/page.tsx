@@ -13,31 +13,21 @@ export default function Page() {
     const [error, setError] = useState<ErrorProps>({errmessage:''})
     const {userid} = useParams()
     let stringuserid = Array.isArray(userid) ? userid.join('') : userid;
-    
-    useEffect(() => {
-        let stringuserid = Array.isArray(userid) ? userid.join('') : userid;
-        const fetchCourses = async (id:string) => {
-            const data = await getUserCourses(id)
-            if (data.data) {
-                setCourses(data.data)
-            }else if(data.error){
-                setError(data.error)
-            }
-        }
-        fetchCourses(stringuserid)
-    }, [courses])
-
     useEffect(() => {
         const fetchUser = async (id:string) => {
             const data = await getUserCourses(id)
+            // console.log("ss")
             if (data.data) {
-                setCourses(data.data)
+                console.log(data.data.courses)
+                setCourses(data.data.courses)
+                setUser(data.data.user)
             }else if(data.error){
                 setError(data.error)
             }
         }
         fetchUser(stringuserid)
-    }, [user])
+        console.log("ss")
+    }, [])
 return (
     <div>
         <Navbar/>

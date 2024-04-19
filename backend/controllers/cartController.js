@@ -1,3 +1,4 @@
+const { strict } = require('assert');
 const Cart = require('../models/cart');
 const Course = require('../models/course');
 const User = require('../models/user');
@@ -77,22 +78,16 @@ const getCart = async (req, res) => {
     const username = req.user
     const user = await User.findOne({ username: username })
     try {
-        console.log("sss")
-        console.log(user)
         const cart = await Cart.findOne({ userId: user._id })
-        console.log("cart")
         const items =  cart.items.map(item => item.courseId)
-        console.log(items)
-        console.log("cart2")
-        const courses = await Course.find({ _id: { $in: items } })
-        console.log(courses)
+        const courses = await Course.find({ _id: { $in: items } }).populate('owner')
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" })
         }
         console.log("success")
         res.status(200).json({cart, courses})
     } catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" })
+        res.status(500).json({ error: error, message: "Something went wrong"+error.message })
     }
 }
 const UpdateCart = async (req, res) => {
