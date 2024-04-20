@@ -6,8 +6,9 @@ const categorySchema = new schema ({
         type : String,
         required : true,
         minlength : 2,
-        maxlength : 25,
+        maxlength : 255,
     },
+    
     description : {
         type : String,
     },

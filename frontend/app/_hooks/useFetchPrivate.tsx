@@ -19,8 +19,9 @@ const useFetchPrivate = () => {
     };
   
     try {
+      console.log('fetching private');
       let response = await fetch(url, options);
-  
+      console.log(response.status )
       if (response.status === 401) {
         accessToken = await refreshToken();
         setToken(accessToken);

@@ -6,7 +6,7 @@ const verifyJWT = require('../../middlewares/verifyJWT');
 
 router.get('/user/:username', reviewController.getAllUserReviews)
 
-router.get('/totalratings' , verifyJWT, reviewController.getTotalRatings);
+router.get('/totalratings' , verifyJWT, reviewController.getAllRatings);
 
 router.get('/:courseId', reviewController.getAllReviews);
 

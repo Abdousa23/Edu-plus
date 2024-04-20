@@ -5,13 +5,13 @@ const ROLES_LIST = require('../../config/rolesList')
 const courseController = require('../../controllers/courseController')
 const  {updateCourse, deleteCourse, addOnlineCourse, addOfflineCourse, addOnlinelesson, updateLesson, deleteLesson} = require('../../controllers/courseController');
 
-router.get('/:courseId',verifyJWT ,courseController.getCourseResources);
-router.get('/online', verifyJWT,courseController.getOnlineCourses);
-router.get('/offline', verifyJWT,courseController.getOfflineCourses);
+
 router.get('/all',courseController.getAllCourses);
 router.get('/all/:category', courseController.getCoursesByCategory);
-router.get('/:id', courseController.getCourseById);
-router.get('/lesson/:id', courseController.getLessonById);
+router.get('/resource/:courseId',verifyJWT ,courseController.getCourseResources);
+router.get('/online', verifyJWT,courseController.getOnlineCourses);
+router.get('/offline', verifyJWT,courseController.getOfflineCourses);
+// router.get('/lesson/:id', courseController.getLessonById);
 router.get('enrolled/:id', verifyJWT,courseController.getEnrolledCourses);
 router.post('/addOnlineCourse', verifyJWT, verifyRoles(ROLES_LIST.School), addOnlineCourse);
 router.post('/addOfflineCourse', verifyJWT, verifyRoles(ROLES_LIST.School), addOfflineCourse);
@@ -20,5 +20,6 @@ router.put('/updateLesson/:id', verifyJWT, verifyRoles(ROLES_LIST.School), updat
 router.delete('/deleteLesson/:id', verifyJWT, verifyRoles(ROLES_LIST.School), deleteLesson);
 router.put('/updateCourse/:id', verifyJWT, verifyRoles(ROLES_LIST.School), updateCourse);
 router.delete('/deleteCourse/:id', verifyJWT, verifyRoles([ROLES_LIST.School, ROLES_LIST.Admin, ROLES_LIST.Editor]), deleteCourse);
+router.get('/:id', courseController.getCourseById);
 
 module.exports = router;

@@ -30,7 +30,7 @@ router.use('/logout', logout);
 router.use('/register', register);
 router.use('/reviews', reviews);
 router.use('/instructor', instructorRoutes);
-router.use('/addCourses', addCourseRoute);
+// router.use('/addCourses', addCourseRoute);
 router.use('/chat',chatRoutes);
 
 module.exports = router

@@ -5,7 +5,7 @@ import withAuth from '../_HOC/withAuth'
 
 const page = ()=> {
   return (
-    <div className='h-[10000px] flex bg-[#E9EAF0]'>
+    <div className='flex bg-[#E9EAF0] w-full box-border'>
       <Sidebar />
       my profile
     </div>

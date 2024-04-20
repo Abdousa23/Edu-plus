@@ -43,7 +43,6 @@ export default function Page({params:{courseId}}:Params) {
   }
     useEffect(() => {
         getCourseData()
-        fetchUser(course?.owner||'')
         setLoading(false)
     },[])
     return (

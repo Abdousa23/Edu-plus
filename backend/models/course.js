@@ -29,7 +29,7 @@ const course = new schema({
     },
     resources : {
         type : [schema.Types.ObjectId],
-        ref : 'resources'
+        ref : 'Resource'
     },
     level: {
         type: String,
@@ -42,7 +42,7 @@ const course = new schema({
     studentEnrolled:{
             students : {
                 type :[schema.Types.ObjectId],
-                ref:"users", // maybe have a problem with ss
+                ref:"User", // maybe have a problem with ss
                 default :[],
             },
             studentsNumber : {
@@ -94,6 +94,6 @@ const course = new schema({
     },
     {timestamps:true});
 
-const Course= mongoose.model('Courses', course);
+const Course= mongoose.model('Course', course);
 
 module.exports = Course;

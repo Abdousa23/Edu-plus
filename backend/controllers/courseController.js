@@ -3,15 +3,16 @@ const Category = require('../models/category');
 const User = require('../models/user');
 const Resource = require('../models/resources');
 const Lesson = require('../models/lesson');
-const user = require('../models/user');
 const { ObjectId } = require('mongoose').Types;
 const getAllCourses = async (req, res) => {
     try {
 
         const courses = await Course.find()
+        console.log(courses)
+        console.log("ssss")
         res.status(200).json(courses)
     } catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" })
+        res.status(500).json({ error: error.message, message: "Something went wrong" })
     }
 }
 
@@ -37,14 +38,17 @@ const getCourseById = async (req, res) => {
         if (!ObjectId.isValid(id)) {
             return res.status(404).json({ message: "Course not found" })
         }
-        const course = await Course.findById(id).populate("User")
+        console.log("hhhh")
+        const course = await Course.findById(id).populate("owner")
+        console.log(course)
+
 
         if (!course) {
             return res.status(404).json({ message: "Course not found" })
         }
         res.status(200).json(course)
     } catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" })
+        res.status(500).json({ error: error.message, message: "Something went wrong" })
     }
 }
 const addOfflineCourse = async (req, res) => {

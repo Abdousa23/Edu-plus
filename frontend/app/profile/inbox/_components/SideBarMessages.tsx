@@ -4,8 +4,8 @@ import SearchInput from './SearchInput'
 
 export default function SideBarMessages() {
   return (
-    <div className='bg-red-500 w-[15vw] h-[95vh]'>
-        <p>Chat</p>
+    <div className=' w-[25vw] h-[95vh]  o '>
+        <p className='flex justify-center font-[500] text-xl'>Chat</p>
         <SearchInput/>
         <Chats/>
     </div>

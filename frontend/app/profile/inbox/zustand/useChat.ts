@@ -14,8 +14,12 @@ interface ChatStore {
 }
 
 const useChat = create<ChatStore>((set) => ({
+  
   selectedChat: null,
   setSelectedChat: (selectedChat) => set({ selectedChat }),
+
+
+
   messages: [],
   setMessages: (messages) => set({ messages }),
 }));

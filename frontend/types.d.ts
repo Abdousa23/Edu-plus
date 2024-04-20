@@ -2,7 +2,7 @@
 
 type CourseType = {
     map(arg0: (course: CourseType) => void): unknown;
-    _id: number;
+    _id: string;
     title: string;
     category: string;
     description: string;
@@ -46,6 +46,7 @@ type pfp = {
     publicId: string;
 }
 type userType ={ 
+    map(arg0: (course: CourseType) => void): unknown;
     _id: string;
     username: string;
     email: string;
@@ -113,6 +114,7 @@ type CartContextType = {
 type selectedChat = {
     _id:string;
     name:string;
+    pic:string;
   }
 
 
@@ -126,14 +128,16 @@ type ChatType = {
     name:string
     members:? [string];
     messages:? [string];
+    pic: string;
     createdAt:? string;
     updatedAt:? string;
 }
 type chatProps = {
     _id: string;
     name: string;
-    
-  }
+    pic: string;
+
+}
 
 
 type MessageType = {
@@ -141,6 +145,36 @@ type MessageType = {
     chat: string;
     sender: string;
     message: string;
+    senderphp: string;
     createdAt: string;
     updatedAt: string;
 }
+
+type SendMessageType = {
+    chat: string | undefined;
+    message: string;
+    sender: string;
+    senderphp: string;
+
+}
+
+
+// type 
+//     course?: CourseType
+//   }
+
+type ressource = {
+    title : string , 
+    ressourceUrl : string,
+    size : string
+    course : string
+}
+
+type review = {
+    username: string,
+    rating:number,
+    reviewtext : string,
+    courseId : string
+}
+
+

@@ -6,7 +6,7 @@ export default function CartContent() {
     const {cartCourses,setCartCourses,getCartCourses} = useContext(CartContext)
     useEffect(() => {
         getCartCourses()
-    }, [cartCourses])
+    }, [])
   return (
     <div className='w-[90%] mx-auto bg-white rounded-lg'>
       <div className={`flex w-[85%] mx-auto justify-between ${cartCourses.length>0? 'border-b-2 border-[#E9EAF0]':''} `}>

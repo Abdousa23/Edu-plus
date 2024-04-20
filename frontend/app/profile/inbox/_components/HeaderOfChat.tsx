@@ -7,9 +7,9 @@ export default function HeaderOfChat() {
 
 
   return (
-    <div>
-        {/* <img src="" alt="selectedchat" /> */}
-        {selectedChat?.name}
+    <div className='flex  justify-center items-center'>
+         <img src={selectedChat?.pic} alt="selectedchat" className='h- w-20 rounded-full'  /> 
+        <p className='text-2xl font-bold'>{selectedChat?.name}</p>
     </div>
   )
 }

@@ -14,14 +14,15 @@ export default function useGetallChats() {
     const getallchats = async ()=>{
         try {
             setLoading(true)
-            const res= await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/allchats`, {
+            const res= await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/chat/allchats`, {
                 method: 'GET',
             });
-            if (!res.ok) {
+            if (!res?.ok) {
                 throw new Error('Failed to fetch chats')
             }
             const data = await res.json()
             setChats(data.chats)
+            console.log('data in the getallchats hook ', data)
             setLoading(false)
         } catch (error) {
             toast.error('Failed to fetch chats')

@@ -172,15 +172,13 @@ export default function Settings() {
   },[])
 
   return (
-    <div className='flex bg-[#E9EAF0]'>
-    
-    <Sidebar />
-    
-    <div className='flex container mx-auto'>
+    <div className='flex bg-[#E9EAF0] w-full box-border'>
+      <Sidebar />
+    <div className='flex-grow  box-border w-3/4 '>
       <div className='flex-grow'>
         <div className=' text-[#1d2026]  '>
         <Navbar />
-          <h1 className=' font-semibold text-xl ml-8 my-4 '>Account Settings</h1>
+          <h1 className=' font-semibold text-xl ml-8 my-4 w-fit '>Account Settings</h1>
           <div className=' w-full gap-4'>
             <form encType="multipart/form-data" action={`profile/${formData.id}`} method='POST' onSubmit={(e) => handleSubmit(e, 'userData')} className=' mx-8 font-normal text-xs'>
               <div className='flex max-md:flex-col w-full gap-4 mb-4 '>
@@ -229,7 +227,7 @@ export default function Settings() {
           </div>
         </div>
         <div className='w-2/5 max-md:w-full'>
-          <h1 className=' font-semibold text-xl ml-8 my-4 '>Change Password</h1>
+          <h1 className=' font-semibold text-xl ml-8 my-4 w-fit '>Change Password</h1>
           <form action="" method='POST' onSubmit={(e) => handleSubmit(e, 'passwordChange')} className='w-9/12 mx-8 font-normal text-xs'>
             <label htmlFor="">Old Password</label>
             <input type="password" name='oldPassword' className='abdouinput my-1' value={formData.oldPassword} onChange={handleChange} placeholder="Old Password" />
