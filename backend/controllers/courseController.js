@@ -3,6 +3,7 @@ const Category = require('../models/category');
 const User = require('../models/user');
 const Resource = require('../models/resources');
 const Lesson = require('../models/lesson');
+const user = require('../models/user');
 const { ObjectId } = require('mongoose').Types;
 const getAllCourses = async (req, res) => {
     try {
@@ -235,7 +236,53 @@ const getCourseResources = async (req, res) => {
 
 }
 
+/* const buyCourse = async (req, res) => {
+    const username = req.user
+    const courseId = req.params.courseId
+    try {
+        const user = await User.findOne({
+            username: username
+        })
+        const course = await Course.findById(courseId)
+        if (!user) {
+            return res.status(404).json({ message: "User not found" })
+        }
+        if (!course) {
+            return res.status(404).json({ message: "Course not found" })
+        }
+        if (user.courses.includes(courseId)) {
+            return res.status(403).json({ message: "You are already enrolled in this course" })
+        }
+        user.purchasedcourses.push(courseId)
+        course.studentEnrolled.studentsNumber += 1}
+        catch(error){
+            res.status(500).json({error:error,message:"Something went wrong"})
+        }
+    } */
+
+const getEnrolledCourses = async (req, res) => {
+    const username = req.user
+    const totalCourses = await Course.find({owner:username }).exec()
+    console.log(totalCourses)
+    const studentsNumberArr = (totalCourses.map(course => {return course.studentEnrolled.studentsNumber}))
+    const studentsNumber = studentsNumberArr.reduce((a,b) => a+b,0)
+    res.status(200).json({studentsNumber})
+}
+
+const getOnlineCourses = async (req, res) => {
+    const courses = await Course.find({ type: "online" }).exec()
+    res.status(200).json(courses)
+}
+
+const getOfflineCourses = async (req, res) => {
+    const courses = await Course.find({ type: "inperson" }).exec()
+    res.status(200).json(courses)
+}
+
 module.exports = {
+    getOnlineCourses,
+    getOfflineCourses,
+    getEnrolledCourses,
     getAllCourses,
     getCoursesByName,
     getCourseById,

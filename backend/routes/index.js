@@ -10,7 +10,6 @@ const profileRoutes = require('./api/profileRoutes')
 const adminRoutes = require('./api/adminRoutes')
 const paymentRoutes = require('./api/paymentRoute')
 const reviews = require("./api/reviews")
-const addCourseRoute = require('./api/addCoursesRoute');
 const courseRoutes = require('./api/courseRoutes')
 const instructorRoutes = require('./api/instructorRoutes')
 const chatRoutes= require('./api/chatRoutes')

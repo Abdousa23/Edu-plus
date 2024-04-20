@@ -1,3 +1,4 @@
+const Course = require('../models/course')
 const courses = require('../models/course')
 const Review = require('../models/review')
 const User = require('../models/user')
@@ -136,4 +137,22 @@ const getAllUserReviews = async (req,res) => {
         res.status(500).json(err.message)
     }
 }
-module.exports = { addReview, deleteReview, updateReview, getAllReviews,getAllUserReviews }
+
+const getAllRatings = async (req, res) => {
+    const username = req.user
+    try {
+        const courses = await Course.find({ owner: username })
+        if (!courses) {
+            return res.status(404).json({ message: "no courses found" })
+        }
+        let ratings = []
+        for (let i = 0; i < courses.length; i++) {
+            ratings.push(courses[i].rating)
+        }
+        res.status(200).json(ratings)
+    }
+    catch (err) {
+        res.status(500).json(err.message)
+    }
+}
+module.exports = { addReview, deleteReview, updateReview, getAllReviews,getAllUserReviews,getAllRatings }
