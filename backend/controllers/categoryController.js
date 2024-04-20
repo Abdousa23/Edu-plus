@@ -10,7 +10,7 @@ const getAllCategories = async (req,res) => {
 }
 
 const addCategory = async (req,res) => {
-    const {name,description} = req.body
+    const {name,description, pic} = req.body
     try {
         if(!name){
             return res.status(400).json({message:"Name is required"})
@@ -22,7 +22,7 @@ const addCategory = async (req,res) => {
         if(otherCategory){
             return res.status(400).json({message:"Category already exists"})
         }
-        const category = await Category.create({name,description})
+        const category = await Category.create({name,description,pic})
         res.status(200).json(category)
     } catch (error) {
         res.status(500).json({error:error,message:"Something went wrong"})

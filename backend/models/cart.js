@@ -7,13 +7,16 @@ const cartSchema = new schema({
         ref: 'user',
         required: true
     },
-    items: [{
-        courseId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'course',
-            required: true
-        },
-    }],},
+    items: [
+        {
+            courseId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'course',
+                required: true
+            }
+        }
+    ]
+},
     {
         timestamps: true
     }

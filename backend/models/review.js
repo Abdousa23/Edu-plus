@@ -11,9 +11,14 @@ const reviewSchema = new schema({
         type:Number,
         min : 1,
         max: 5,
+        required:true,
     },
     reviewText:{
         type:String,
+    },
+    courseId:{
+        type:schema.Types.ObjectId,
+        ref:'course',
     },
     },
     {timestamps:true}

@@ -1,9 +1,7 @@
 'use client'
 
-import { createContext , useState ,ReactNode} from "react";
+import { createContext , useState , ReactNode} from "react";
 
-
-  
   export const AuthContext = createContext<any>({});
   
 type AuthContextProps = {

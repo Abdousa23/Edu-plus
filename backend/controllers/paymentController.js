@@ -37,9 +37,13 @@ const paymentCheckout =  async (req, res) => {
             const username = req.user
             const user = await Users.find({username:username}).exec()
             const email = user.email
-            courseID = req.params.courseID
+            courseId = req.params.courseID
+            const course = await Courses.findById(courseId).exec()
+            user.purchasedcourses.push(courseId)
+            course.studentEnrolled.studentsNumber += 1
             mailer.buyMail(email , courseID , username)
             console.log('done')
+            console.log(checkout)
             }
             catch(error){
                 console.error('Error fetching user' , error)

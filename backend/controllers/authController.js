@@ -50,6 +50,7 @@ const handleAuth = async (req,res)=>{
         } catch (error) {
             console.log("cookie not set")
         }
+        console.log(req.user)
         res.status(200).json({ foundUser,roles, accessToken });
 
     } else {

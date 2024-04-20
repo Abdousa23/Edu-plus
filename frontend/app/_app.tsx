@@ -1,16 +1,21 @@
 import {AuthProvider} from '@/context/authContext';
+import { SocketContextProvider } from '@/context/SocketContext';
 import PersistLogin from './_HOC/PersistLogin';
+import Head from 'next/head';
+
 
 function MyApp({ Component, pageProps }: any) {
   const getLayout = Component.getLayout ?? ((page: any) => page);
-  return( 
+  return(
+    
     <AuthProvider>
     <PersistLogin>
     {getLayout(
       <Component {...pageProps} />
     )}
+  
     </PersistLogin>
-     </AuthProvider> 
+    </AuthProvider> 
     )
   
 }

@@ -2,7 +2,7 @@
 import { useEffect, useState, ReactNode } from 'react';
 import useAuth from '../_hooks/useAuth';
 import useRefreshToken from '../_hooks/useRefreshToken';
-
+import { useRouter } from 'next/navigation';
 type props = {
   children: ReactNode,
 }
@@ -10,6 +10,7 @@ type props = {
 function PersistLogin({ children }: props) {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
+    const router = useRouter();
     const { auth, setAuth,persist } = useAuth();
 
     useEffect(() => {
@@ -17,10 +18,15 @@ function PersistLogin({ children }: props) {
         let isMounted = true;
         const verifyRefreshToken = async () => {
             try {
-                await refresh();
+                const data =await refresh();
+                console.log(data);
+                if(!data){
+                    throw new Error('token has been expired')
+                }
             }
             catch (err) {
-                console.error(err);
+                localStorage.removeItem('accessToken');
+                router.push('/auth/login');
             }
             finally {
                 isMounted && setIsLoading(false);
@@ -39,7 +45,7 @@ function PersistLogin({ children }: props) {
         console.log(`isLoading: ${isLoading}`);
         console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
     }, [isLoading]);
-  return (
+return (
         <>
             {isLoading ? <div>Loading...</div> : children}
         </> );

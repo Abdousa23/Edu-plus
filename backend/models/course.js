@@ -20,7 +20,7 @@ const course = new schema({
     owner: {
         type:schema.Types.ObjectId,
         required : true,
-        ref: 'users'
+        ref: 'User'
     },
     
     lessons:{
@@ -29,7 +29,7 @@ const course = new schema({
     },
     resources : {
         type : [schema.Types.ObjectId],
-        ref : 'resources'
+        ref : 'Resource'
     },
     level: {
         type: String,
@@ -42,7 +42,8 @@ const course = new schema({
     studentEnrolled:{
             students : {
                 type :[schema.Types.ObjectId],
-                ref:"users", // maybe have a problem with ss
+                ref:"User", // maybe have a problem with ss
+                default :[],
             },
             studentsNumber : {
             type :Number,
@@ -85,6 +86,10 @@ const course = new schema({
     isAvailable:{
         type:Boolean,
         default:true,
+    },
+    type:{
+        type:String,
+        enum:['online', 'inperson']
     }
     },
     {timestamps:true});
