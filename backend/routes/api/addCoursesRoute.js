@@ -1,4 +1,4 @@
-const router = require('express').Router();
+/* const router = require('express').Router();
 const  {updateCourse, deleteCourse, addOnlineCourse, addOfflineCourse, addOnlinelesson, updateLesson, deleteLesson} = require('../../controllers/courseController');
 const verifyJWT = require('../../middlewares/verifyJWT');
 const verifyRoles = require('../../middlewares/verifyRoles')
@@ -13,4 +13,4 @@ router.delete('/deleteLesson/:id', verifyJWT, verifyRoles(ROLES_LIST.School), de
 router.put('/updateCourse/:id', verifyJWT, verifyRoles(ROLES_LIST.School), updateCourse)
 router.delete('/deleteCourse/:id', verifyJWT, verifyRoles([ROLES_LIST.School , ROLES_LIST.Admin , ROLES_LIST.Editor]), deleteCourse)
 
-module.exports = router;
+module.exports = router; */

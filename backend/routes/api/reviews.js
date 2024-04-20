@@ -1,9 +1,12 @@
+const { roundToNearestHours } = require('date-fns');
 const reviewController = require('../../controllers/reviewsController');
 const router = require('express').Router();
 const verifyJWT = require('../../middlewares/verifyJWT');
 
 
 router.get('/user/:username', reviewController.getAllUserReviews)
+
+router.get('/totalratings' , verifyJWT, reviewController.getTotalRatings);
 
 router.get('/:courseId', reviewController.getAllReviews);
 

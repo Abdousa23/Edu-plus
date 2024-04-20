@@ -26,7 +26,7 @@ export default function page({ }: Props) {
     const FormSelector = () => {
         switch (step) {
             case 0:
-                return <BasicInformation />
+                return <Curriculum />
 
             case 1:
                 return <AdvancedInformation /> // Import and use the 'AdvancedInformation' component properly.
@@ -37,7 +37,7 @@ export default function page({ }: Props) {
             case 3:
                 return <PublishCourse/> */
             default:
-                return <BasicInformation />
+                return <Curriculum />
         }
     }
     return (
