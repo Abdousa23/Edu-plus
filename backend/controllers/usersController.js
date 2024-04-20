@@ -127,11 +127,14 @@ const changeRoles = async (req, res) => {
     const { id } = req.params;
     const { role } = req.body;
     try {
+        
         const user = await User.findByIdAndUpdate(
             id,
             { roles: role },
             { new: true }
         );
+
+        
         res
             .status(200)
             .json({ user, message: `User role has been changed to ${role}` });

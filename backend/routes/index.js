@@ -34,4 +34,5 @@ router.use('/instructor', instructorRoutes);
 router.use('/addCourses', addCourseRoute);
 router.use('/chat',chatRoutes);
 
+
 module.exports = router
