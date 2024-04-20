@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CourseSidebar from './CourseSidebar'
 import { useState } from 'react'
 import Overview from './Overview'
@@ -10,15 +10,35 @@ import CourseLocation from './CourseLocation'
 import { Star } from '@mui/icons-material'
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
 import Person2Outlined from '@mui/icons-material/Person2Outlined'
+import ProfileHeader from '@/app/instructor/_components/ProfileHeader'
+import { getUserCourses } from '@/lib/getuserCourses'
 type course = {
     course?: CourseType
   }
 export default function CourseContent({course}:course) {
     const [activeTab, setActiveTab] = useState('overview')
-    
+    const [courses, setCourses] = useState<CourseType[]>([])
+    const [user, setUser] = useState<userType | null>(null)
+    const getUserData = async (id:string) => {
+        if(id!= ''){
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/${id}`)
+        const data = await response?.json();
+        setUser(data)
+        }
+    }
+    const usercourses = async (id:string)=>{
+        const data = await getUserCourses(id)
+            if (data.data) {
+                setCourses(data.data)
+            }
+    }
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         setActiveTab((e.target as HTMLButtonElement).name)
     }
+    useEffect(() => {
+        getUserData(course?.owner||'')
+        usercourses(course?.owner||'')
+    }, [])
     return (
     <div className="relative min-h-96 w-full container mx-auto flex max-md:flex-col-reverse">
   <div className='flex-grow'>
@@ -47,14 +67,15 @@ export default function CourseContent({course}:course) {
         }
         {
             activeTab === 'reviews' && 
-                <Reviews course={course} />
+                <Reviews user={user} />
         }
     
     <div>
         {course?.type === 'inperson' && <CourseLocation course={course}/>}
     </div>
+    <ProfileHeader courses={courses} user={user} />
     <div>
-        <h1 className=' font-medium text-2xl '>Course Instructor</h1>
+        {/* <h1 className=' font-medium text-2xl '>Course Instructor</h1>
         <div className='border-2 border-[#6E7485] my-6 flex w-[90%] '>
             <div className=' w-32 h-32 rounded-full overflow-hidden mx-6 my-8'>
                 <img src='https://res.cloudinary.com/dqnwniezl/image/upload/v1711373621/rixu2ifam0vvovqgmtaj.jpg' className='max-w-full' alt="" />
@@ -68,9 +89,9 @@ export default function CourseContent({course}:course) {
                     <li><PlayCircleOutlinedIcon className='text-strokeorg' /> courses</li>
                 </ul>
                 <p className=' font-normal text-sm text-[#6e7485]'>description</p>
-                <Link href={`/profile/${course?.owner}`}>Read more</Link>
+                <Link href={`/instructor/${course?.owner}`}>Read more</Link>
             </div>
-        </div>
+        </div> */}
     </div>
   </div>
   <div className='max-md:relative sticky my-8 top-0 w-[35%] max-md:w-full'>

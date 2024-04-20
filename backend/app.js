@@ -1,5 +1,7 @@
 const express = require('express');
-const app = express();
+// const app = express();
+const {app }= require('./socket/socket')
+const {server}= require('./socket/socket.js')
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const credentials = require('./middlewares/credentials');
@@ -11,6 +13,7 @@ const session = require('express-session');
 const passport = require('passport');
 const swaggerUi = require('swagger-ui-express');
 const Swagger = require('./swagger.json');
+
 
 require('./controllers/googleAuthController')
 dotenv.config();
@@ -50,12 +53,12 @@ app.use('/documentation', swaggerUi.serve, swaggerUi.setup(Swagger));
 
 connectDB()
 .then(() => {
-    app.listen(3001, () => {
-        console.log(`Server is running on port ${3001}`);
+    server.listen(3001, () => {
+        console.log(`Server is running on port 3001`);
     });
 })
 
 
 .catch((err) => {
     console.error(err.message);
-});
+});  

@@ -37,10 +37,10 @@ export default function Navbar() {
         router.push(`/home/${search}`)
     }
     useEffect(() => {
-        if (auth?.user) {
+        if (auth?.accessToken) {
             setIsAuthenticated(true)
         } else {
-            setIsAuthenticated(false)
+                setIsAuthenticated(false)
         }
     }, [auth])
     return (
@@ -75,8 +75,7 @@ export default function Navbar() {
                     <Link href="/AboutUs" className='max-md:hidden'>
                         About Us
                     </Link>
-                    {
-                        !isAuthenticated
+                    { !isAuthenticated
                             ? <div className='flex justify-between items-center'>
                                 <Link href='/auth/register' className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 border border-green+ rounded-lg order-5 self-stretch flex-grow-0 text-base text-green+'>Register</Link>
                                 <Link href='/auth/login' className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-base'>Login</Link>
@@ -103,7 +102,7 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className='relative' onClick={(e)=>setSelected(!selected)}>
-                                    <img src={auth?.user?.pfp.url || ''} className='max-w-full w-10 rounded-full' alt="" />
+                                    <img src={auth?.user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full w-10 rounded-full' alt="" />
                                 
                                 { selected && <ul className=' absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
                                     <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>

@@ -85,7 +85,11 @@ const userSchema = new schema ({
             type: String,
             default: ''
           }
-        }
+        },
+    cart:{
+        type : schema.Types.ObjectId,
+        ref : 'cart'
+    },
 } , 
 {timestamps : true}
 )

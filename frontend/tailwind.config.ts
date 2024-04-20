@@ -23,7 +23,7 @@ const config: Config = {
     },
   },
   plugins: [
-    // require("daisyui")
+     require("daisyui")
   ],
 };
 export default config;

@@ -68,7 +68,7 @@ import Logged from '@/app/_HOC/logged';
                 <form method='POST'className='w-[80%] mx-auto' onSubmit={handleSubmit}>
                     <div className='flex flex-col'>
                         <label htmlFor='email' className='text-[14px] text-black my-2'>Email address </label>
-                        <input id='email' type="email" name="email" onChange={e=>setEmail(e.target.value)} value={email} className='text-black abdouinput '  />
+                        <input id='email' type="email" placeholder="Enter you Email" name="email" onChange={e=>setEmail(e.target.value)} value={email} className='text-black abdouinput '  />                   
                     </div>
                     <div className='flex flex-col'>
                         <label htmlFor='password' className='my-2 text-[14px] text-black'>Password</label>
@@ -91,7 +91,7 @@ import Logged from '@/app/_HOC/logged';
                 <p className='text-base m-2'>Or log in with :</p>
                 <button type='submit' className='flex flex-row justify-center items-center px-4 py-2 w-[100%]  h-full border-2 border-org rounded-lg order-5 self-stretch flex-grow-0 text-base text-org'>log in with Google</button>
                 </div>
-                <hr className="w-[90%] border-t-2 m-8" />
+                 <hr className="w-[90%] border-t-2 m-6" />          
                 <Link href='/auth/register'>No account yet ? Sign Up</Link>
             </div>
             <div className='flex w-[45%] max-md:hidden'>

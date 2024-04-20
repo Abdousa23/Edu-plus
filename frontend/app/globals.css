@@ -17,7 +17,7 @@ height: 48px;
 
 background: #FFFFFF;
 border: 0.85px solid #E9EAF0;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+/* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
 flex: none;
 order: 1;
 align-self: stretch;

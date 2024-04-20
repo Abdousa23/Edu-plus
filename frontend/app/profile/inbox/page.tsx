@@ -6,13 +6,12 @@ import ChatBox from './_components/ChatBox'
 import { Toaster } from 'react-hot-toast'
 
 export default function page() {
+  
   return (
-    <div className='flex'>
-      
-        <Sidebar />
-        <SideBarMessages/>
-         <ChatBox/>
-        
+    <div className='flex gap-4 justify-between'>
+        <Sidebar/> 
+        <SideBarMessages />
+        <ChatBox/>
         <Toaster />
         
     </div>

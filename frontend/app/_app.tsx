@@ -1,4 +1,5 @@
 import {AuthProvider} from '@/context/authContext';
+import { SocketContextProvider } from '@/context/SocketContext';
 import PersistLogin from './_HOC/PersistLogin';
 
 function MyApp({ Component, pageProps }: any) {
@@ -6,9 +7,12 @@ function MyApp({ Component, pageProps }: any) {
   return( 
     <AuthProvider>
     <PersistLogin>
+    
+
     {getLayout(
       <Component {...pageProps} />
     )}
+  
     </PersistLogin>
     </AuthProvider> 
     )

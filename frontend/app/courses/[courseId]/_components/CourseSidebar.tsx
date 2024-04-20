@@ -9,11 +9,37 @@ import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import TvOutlinedIcon from '@mui/icons-material/TvOutlined';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LayersOutlinedIcon from '@mui/icons-material/LayersOutlined';
-
+import useFetchPrivate from '@/app/_hooks/useFetchPrivate';
+import ErrorComponent from '@/app/_components/Error';
+import Success from '@/app/_components/Success';
+import { useState } from 'react';
 type course = {
     course?: CourseType
   }
 export default function CourseSidebar({course}: course) {
+    const [error, setError] = useState<ErrorProps>({ errmessage: '' });
+    const [successMessage,setSuccessMessage]=useState('')
+    const fetchPrivate = useFetchPrivate();
+    const addToCart = async ()=>{
+        try {
+            const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`,{ 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    courseId: course?._id
+                })
+            })
+            const data = await response?.json();
+            if(!response?.ok){
+                throw new Error(data.message)
+            }
+            setSuccessMessage("course added to cart succesfullly")
+        } catch (error:any) {
+            setError({ errmessage: error.message })
+        }
+    }
   return (
     <div className='flex flex-col justify-center items-center  gap-7 relative w-full h-[fit]  top-[0px] bg-white border-[1.1934px] border-gray-100 shadow-md'>
         <div className='border-[1.1934px] border-gray-100 w-full flex items-center justify-start h-20'>
@@ -47,9 +73,15 @@ export default function CourseSidebar({course}: course) {
            </ul>
         </div>
         <div className='border-b-[1.1934px] border-gray-100 w-[90%] h-32 gap-4 flex flex-col items-center'>
-            <button className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%]  max-sm:h-8 max-sm:text-sm h-16 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-xl font-semibold'>add to cart</button>
+            <button onClick={addToCart} className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%]  max-sm:h-8 max-sm:text-sm h-16 bg-[#00977D] border-2 border-[#00977D] rounded-lg order-5 self-stretch flex-grow-0 text-white text-xl font-semibold'>add to cart</button>
             <button className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%]  max-sm:h-8 max-sm:text-sm h-16 bg-[#cde7e1] border-2 border-[#c4e7e1] rounded-lg order-5 self-stretch flex-grow-0 text-green+ text-xl font-semibold'>buy now</button>
         </div>
+        {
+            error.errmessage !== '' && <ErrorComponent errmessage={error.errmessage} />
+        }
+        {
+            successMessage.length > 0 && <Success successMessage={successMessage} />
+        }
         <div className='border-b-[1.1934px] border-gray-100 w-full flex flex-col ml-2'>
             <h1 className='font-medium text-xl w-[90%] mx-auto '>this course includes</h1>
             <ul className='font-normal text-base w-[90%] mx-auto text-[#4e5566]'>
@@ -70,6 +102,7 @@ export default function CourseSidebar({course}: course) {
                 <li className='flex justify-center items-center bg-[#f5f7fa] my-4 mx-2 px-2 py-4 w-14 h-14'> <WhatsApp /></li>
             </ul>
         </div>
+        
     </div>
   )
 }

@@ -4,14 +4,16 @@ import useChat from "../zustand/useChat"; // Assuming you import the useChat hoo
 type ChatProps = {
   _id : string;
   name: string
+  pic: string 
 };
 
-export default function Chat({ _id, name }: ChatProps) {
+export default function Chat({ _id, name , pic }: ChatProps) {
   const { setSelectedChat, selectedChat } = useChat();
 
   const infoAbouTheChat:selectedChat = {
     _id: _id,
     name: name,
+    pic:pic,
   }
 
   const handleClick = () => {
@@ -20,8 +22,11 @@ export default function Chat({ _id, name }: ChatProps) {
   };
 
   return (
-    <div className= {` flex gap-2 items-center rounded p-2 py-1 cursor-pointer ${selectedChat?.name==infoAbouTheChat.name ?'bg-slate-500':''} ` } onClick={handleClick}>
-      <p className="font-bold text-gray-200 " >{infoAbouTheChat.name}</p>
+    <div className= {` flex gap-2 items-center rounded p-2 py-1 text-black  cursor-pointer ${selectedChat?.name==infoAbouTheChat.name ?'bg-[#C4E7E1]':' '} ` } onClick={handleClick}>
+      <img src={infoAbouTheChat.pic} alt="category pic" className=' h-10 w-10 rounded-full' />
+      <p className="hidden sm:inline-block   " >{infoAbouTheChat.name}</p>
+      
+      
     </div>
   );
 }

@@ -4,6 +4,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cloudinary = require('cloudinary')
+const Course = require("../models/course");
 
 const getAllUsers = async (req, res) => {
     try {
@@ -173,6 +174,33 @@ const getUserByName = async (req, res) => {
         res.status(500).json({ error: error, message: "Something went wrong" });
     }
 };
+const getUserCourses = async (req, res) => {
+    console.log(req.params)
+    const { id } = req.params;
+    
+    console.log('sss')
+    try {
+        console.log('sss')
+        
+        const user = await User.findById(id);
+        const courses = await Course.find({ _id: { $in: user.courses } });
+        
+        console.log(user)
+        console.log(courses)
+        if (!courses) {
+            return res.status(404).json({ message: "No courses found" });
+        }
+        if (!user) {
+            return res.status(404).json({ message: "No user found" });
+        }
+        if (user.purchasedcourses.length === 0) {
+            return res.status(404).json({ message: "User has no courses" });
+        }
+        res.status(200).json(courses);
+    }catch(error){
+        res.status(500).json({ error: error, message: "Something went wrong" });
+    }
+}
 
 module.exports = {
     updateUser,
@@ -182,4 +210,5 @@ module.exports = {
     getAllUsers,
     getUserById,
     getUserByName,
+    getUserCourses
 };

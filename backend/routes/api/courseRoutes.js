@@ -4,8 +4,6 @@ const verifyRoles = require('../../middlewares/verifyRoles')
 const ROLES_LIST = require('../../config/rolesList')
 const courseController = require('../../controllers/courseController')
 
-
-router.get('/:courseId',verifyJWT,verifyRoles([ROLES_LIST.User]),courseController.getCourseResources)
-
+router.get('/:courseId',courseController.getCourseResources)
 
 module.exports = router;

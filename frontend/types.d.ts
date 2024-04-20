@@ -1,12 +1,13 @@
 
 
 type CourseType = {
+    map(arg0: (course: CourseType) => void): unknown;
     _id: number;
     title: string;
     category: string;
     description: string;
     owner : string;
-    lessons: [number];
+    lessons: [string];
     ressources: [string];
     level: string;
     language: string;
@@ -55,6 +56,8 @@ type userType ={
     country: string;
     phonenumber: string;
     firstname: string;
+    courses:[string];
+    purshasedCourses: [string];
     lastname: string;
     createdAt: string;
     updatedAt: string;
@@ -78,7 +81,6 @@ type CustomButtonProps= {
     btnType?:"button" | "submit"
 }
 type course = {
-    course?: CourseType
 }
 
 
@@ -89,6 +91,7 @@ type course = {
 type selectedChat = {
     _id:string;
     name:string;
+    pic:string;
   }
 
 
@@ -102,14 +105,16 @@ type ChatType = {
     name:string
     members:? [string];
     messages:? [string];
+    pic: string;
     createdAt:? string;
     updatedAt:? string;
 }
 type chatProps = {
     _id: string;
     name: string;
-    
-  }
+    pic: string;
+
+}
 
 
 type MessageType = {
@@ -117,6 +122,36 @@ type MessageType = {
     chat: string;
     sender: string;
     message: string;
+    senderphp: string;
     createdAt: string;
     updatedAt: string;
 }
+
+type SendMessageType = {
+    chat: string | undefined;
+    message: string;
+    sender: string;
+    senderphp: string;
+
+}
+
+
+// type 
+//     course?: CourseType
+//   }
+
+type ressource = {
+    title : string , 
+    ressourceUrl : string,
+    size : string
+    course : string
+}
+
+type review = {
+    username: string,
+    rating:number,
+    reviewtext : string,
+    courseId : string
+}
+
+
