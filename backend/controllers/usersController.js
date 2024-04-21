@@ -178,28 +178,17 @@ const getUserByName = async (req, res) => {
     }
 };
 const getUserCourses = async (req, res) => {
-    console.log(req.params)
     const { id } = req.params;
-    
-    console.log('sss')
     try {
-        console.log('sss')
-        
         const user = await User.findById(id);
         const courses = await Course.find({ _id: { $in: user.courses } });
-        
-        console.log(user)
-        console.log(courses)
         if (!courses) {
             return res.status(404).json({ message: "No courses found" });
         }
         if (!user) {
             return res.status(404).json({ message: "No user found" });
         }
-        if (user.purchasedcourses.length === 0) {
-            return res.status(404).json({ message: "User has no courses" });
-        }
-        res.status(200).json(courses);
+        res.status(200).json({courses:courses,user:user});
     }catch(error){
         res.status(500).json({ error: error, message: "Something went wrong" });
     }

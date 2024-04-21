@@ -107,7 +107,8 @@ const sendMessageController = async (req, res) => {
         const message = new Message({
             sender: senderName.username,
             message: req.body.message,
-            senderphp: senderName.pfp.url
+            senderphp: senderName.pfp.url,
+            chat: chat._id
         })
         await message.save()
         chat.messages.push(message)

@@ -12,7 +12,7 @@ const [loading, setLoading] = useState(false)
 const {selectedChat , messages, setMessages} = useChat()
 const fetchPrivate = useFetchPrivate()
 
-const  sendMessage  = async (message:SendMessageType) => {
+const  sendMessage  = async (message:any) => {
 
 try {
     setLoading(true)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useChat from "../zustand/useChat"; // Assuming you import the useChat hook from the correct location
 
 type ChatProps = {

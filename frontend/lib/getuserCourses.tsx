@@ -7,7 +7,8 @@ export const getUserCourses = async (userid: string) => {
 
         const data = await response.json()
         console.log(response.ok)
-        if (!response.ok) {
+        console.log(data)
+        if (!response.ok ) {
             throw new Error(data.message)
         }
         return { error: null, data: data}

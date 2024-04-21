@@ -1,3 +1,4 @@
+const { strict } = require('assert');
 const Cart = require('../models/cart');
 const Course = require('../models/course');
 const User = require('../models/user');
@@ -49,8 +50,9 @@ const addToCart = async (req, res) => {
 }
 
 const removeFromCart = async (req, res) => {
-    const user = req.user
+    const username = req.user
     const { courseId } = req.params
+    const user = await User.findOne({username:username})
     try {
         const course = await Course.findById(courseId)
         if (!course) {
@@ -73,15 +75,19 @@ const removeFromCart = async (req, res) => {
 }
 
 const getCart = async (req, res) => {
-    const user = req.user
+    const username = req.user
+    const user = await User.findOne({ username: username })
     try {
-        const cart = await Cart.findOne({ userId: user._id }).populate('items.courseId')
+        const cart = await Cart.findOne({ userId: user._id })
+        const items =  cart.items.map(item => item.courseId)
+        const courses = await Course.find({ _id: { $in: items } }).populate('owner')
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" })
         }
-        res.status(200).json(cart)
+        console.log("success")
+        res.status(200).json({cart, courses})
     } catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" })
+        res.status(500).json({ error: error, message: "Something went wrong"+error.message })
     }
 }
 const UpdateCart = async (req, res) => {

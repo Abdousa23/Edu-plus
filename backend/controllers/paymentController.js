@@ -40,6 +40,7 @@ const paymentCheckout =  async (req, res) => {
             courseID = req.params.courseID
             mailer.buyMail(email , courseID , username)
             console.log('done')
+            console.log(checkout)
             }
             catch(error){
                 console.error('Error fetching user' , error)

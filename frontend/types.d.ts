@@ -6,7 +6,7 @@ type CourseType = {
     title: string;
     category: string;
     description: string;
-    owner : string;
+    owner :  userType ;
     lessons: [string];
     ressources: [string];
     level: string;
@@ -81,8 +81,30 @@ type CustomButtonProps= {
     btnType?:"button" | "submit"
 }
 type course = {
+    course?: CourseType
+  }
+
+type ressource = {
+    title : string , 
+    ressourceUrl : string,
+    size : string
+    course : string
 }
 
+type review = {
+    username: string,
+    rating:number,
+    reviewtext : string,
+    courseId : string
+}
+
+type CartContextType = {
+    cartCourses: CourseType[]; // replace CourseType with the actual type of your courses
+    setCartCourses: (courses: CourseType[]) => void;
+    getCartCourses:  () => Promise<void>;
+    removeCourseFromCart: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
+    purchaseCourse: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
+  };
 
 
 
@@ -126,32 +148,3 @@ type MessageType = {
     createdAt: string;
     updatedAt: string;
 }
-
-type SendMessageType = {
-    chat: string | undefined;
-    message: string;
-    sender: string;
-    senderphp: string;
-
-}
-
-
-// type 
-//     course?: CourseType
-//   }
-
-type ressource = {
-    title : string , 
-    ressourceUrl : string,
-    size : string
-    course : string
-}
-
-type review = {
-    username: string,
-    rating:number,
-    reviewtext : string,
-    courseId : string
-}
-
-

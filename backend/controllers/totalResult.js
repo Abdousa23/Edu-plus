@@ -22,18 +22,33 @@ const totalUsers = async (req,res)=>{
 
 const totalSeles = async (req, res) => {
     try {
-        const users = await User.find();
+        
+
+        // Fetch all courses from the database
+        const courses = await Course.find();
+
+        // Initialize total revenue
         let total = 0;
-        users.forEach((user) => {
-            user.purchasedcourses.forEach((course) => {
-                total += course.price;
-            });
+
+        // Iterate over each course to calculate revenue
+        courses.forEach(course => {
+            // Calculate revenue for each course
+            const revenue = course.price * course.studentEnrolled.studentsNumber;
+            console.log(revenue)
+            // Add revenue to the total
+            if(revenue){
+                total += revenue;
+            }
+            
         });
+
+        console.log('Total Revenue:', total);
         res.status(200).json({ totalSales: total });
+        
     } catch (error) {
         console.log("error in the total sales controller");
         console.log(error);
-        res.status(500).json({ error: "an error occurred while calculating the total sales" });
+        res.status(500).json({ error: "An error occurred while calculating the total sales" });
     }
 };
 

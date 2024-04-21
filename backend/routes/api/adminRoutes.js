@@ -16,12 +16,12 @@ router.post('/',(req,res)=>{
 })
 
 router.get('/totalusers',totalResult.totalUsers)
-router.get('/totalseles',totalResult.totalSeles)
+router.get('/totalsales',totalResult.totalSeles)
 router.get('/totalcourses',totalResult.totalCourses)
 router.get('/newusersofweek',totalResult.newUsersOfWeek)
 router.get('/topcategories',topCategories)
 router.get('/topcreators', topCreators)
 // the only one that is not working ill cheak it later 
-router.get('./newusersofeverymonth',getUsersCountByMonth)
+router.get('/newusersofeverymonth',getUsersCountByMonth)
 
 module.exports = router;

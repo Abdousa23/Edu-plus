@@ -12,8 +12,8 @@ router.get('/',courseController.getAllCourses);
 router.get('/search/:name', courseController.getCoursesByName);
 
 
-router.get('/home/categories',categoryController.getAllCategories)
-router.get('/home/categories/:category', courseController.getCoursesByCategory);
+router.get('/categories',categoryController.getAllCategories)
+router.get('/categories/:category', courseController.getCoursesByCategory);
 
 router.get('/categories/', categoryController.getAllCategories);
 
