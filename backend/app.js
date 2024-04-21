@@ -13,9 +13,10 @@ const session = require('express-session');
 const passport = require('passport');
 const swaggerUi = require('swagger-ui-express');
 const Swagger = require('./swagger.json');
-
-
+const rateLimitMiddleware = require('./middlewares/rateLimiter');
 require('./controllers/googleAuthController')
+const mongoSanitize = require('express-mongo-sanitize');
+
 dotenv.config();
 // what is is the perpose of this line
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +33,8 @@ app.use(cors({...corsOptions,origin: 'http://localhost:3001',credentials:true}))
 //   origin: 'http://localhost:3001', // specify the origin
 //   credentials: true, // allow credentials
 // }));
-
+app.use(mongoSanitize());
+// app.use(rateLimitMiddleware);
 
 app.get('/', (_req, res) => {
     res.send('Welcome to my API');
