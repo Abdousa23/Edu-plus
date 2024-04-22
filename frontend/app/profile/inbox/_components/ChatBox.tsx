@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useRef } from 'react'
 import HeaderOfMessages from './HeaderOfChat'
 import Theconversataions from './Theconversations'
 import MessageInput from './MessageInput'
 import useChat from '../zustand/useChat'
 import SelectChat from './SelectChat'
+
 
 export default function ChatBox() {
 
@@ -17,7 +18,8 @@ useEffect(() => {
 
   return (
     
-    <div className=' w-[50vw] h-[95vh] '>
+    <div className=' w-[50vw] h-[95vh]  '>
+      
       {!selectedChat ? <SelectChat /> : 
       <>
     <HeaderOfMessages/>

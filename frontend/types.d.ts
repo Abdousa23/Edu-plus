@@ -149,32 +149,3 @@ type MessageType = {
     createdAt: string;
     updatedAt: string;
 }
-
-type SendMessageType = {
-    chat: string | undefined;
-    message: string;
-    sender: string;
-    senderphp: string;
-
-}
-
-
-// type 
-//     course?: CourseType
-//   }
-
-type ressource = {
-    title : string , 
-    ressourceUrl : string,
-    size : string
-    course : string
-}
-
-type review = {
-    username: string,
-    rating:number,
-    reviewtext : string,
-    courseId : string
-}
-
-

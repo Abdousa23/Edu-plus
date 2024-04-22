@@ -17,7 +17,7 @@ router.post('/',(req,res)=>{
 })
 
 router.get('/totalusers',totalResult.totalUsers)
-router.get('/totalseles',totalResult.totalSeles)
+router.get('/totalsales',totalResult.totalSeles)
 router.get('/totalcourses',totalResult.totalCourses)
 router.get('/newusersofweek',totalResult.newUsersOfWeek)
 router.get('/topcategories',topCategories)

@@ -42,6 +42,7 @@
     "random-bytes": "^1.0.0",
     "signature": "^0.0.2",
     "socket.io": "^4.7.5",
+    "swagger": "^0.7.5",
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
