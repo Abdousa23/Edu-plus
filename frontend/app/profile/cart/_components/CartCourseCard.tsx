@@ -1,4 +1,4 @@
-import { Star } from '@mui/icons-material'
+import { Star } from '@mui/icons-material'// parfait
 import Link from 'next/link'
 import React, { useContext } from 'react'
 import  {CartContext}  from '@/context/cartContext'

@@ -1,11 +1,13 @@
 'use client'
-
+ /* good */
 import {useEffect, useState} from 'react'
 import Sidebar from '../_components/Sidebar'
 import Navbar from '@/app/_components/Navbar' 
 import CartContent from './_components/CartContent'
+import CartCourseCard from './_components/CartCourseCard'
+
 export default function page() {
-    const [cartCourses, setCartCourses] = useState<CourseType[]>([])
+    // const [cartCourses, setCartCourses] = useState<CourseType[]>([])/* --- */
     return (
         <div className='flex bg-[#E9EAF0]'>
             <Sidebar />

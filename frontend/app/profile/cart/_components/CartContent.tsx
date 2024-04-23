@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react' /* parfait */
 import CartCourseCard from './CartCourseCard'
 import { useContext } from 'react'
 import { CartContext } from '@/context/cartContext'
