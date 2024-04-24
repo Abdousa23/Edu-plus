@@ -44,13 +44,6 @@ app.use('/api', router);
 
 
 
-// app.post('/upload',fileExtLimiter ,upload.single("image"),
-// cloudinaryMW, (req, res) => {
-//     console.log(req.fileUrls);
-//     res.send('Image uploaded');
-// });
-
-
 app.use('/documentation', swaggerUi.serve, swaggerUi.setup(Swagger));
 
 connectDB()

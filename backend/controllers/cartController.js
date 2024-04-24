@@ -7,35 +7,22 @@ const addToCart = async (req, res) => {
     const username = req.user
     const { courseId } = req.body
     try {
-        console.log('ss')
-        console.log(courseId)
         const user = await User.findOne({ username: username })
         const course = await Course.findById(courseId)
-        console.log('ssa')
-        console.log(course)
         if (!user) {
             return res.status(404).json({ message: "User not found,please log in first" })
         }
         if (!course) {
             return res.status(404).json({ message: "Course not found" })
         }
-        console.log("cart part")
         const cart = await Cart.findOne({ userId: user._id })
-        console.log(cart)
         if (!cart) {
-            console.log('cart part 1')
             // const newCart = await Cart.create({userId: user._id, items: [{courseId: course._id}]})
             const newCart = new Cart({ userId: user._id, items: [{ courseId: course._id }] });
-            console.log("cccc")
             // await newCart.save();
-            console.log("no cart detected")
-            console.log('cart part 1.1')
-            console.log(newCart)
-            console.log('cart part 1.1')
             newCart.save()
             return res.status(200).json(newCart)
         }
-        console.log('cart part 2')
         const item = cart.items.find(item => item.courseId.toString() === course._id.toString())
         if (item) {
             return res.status(400).json({ message: "Course already in cart" })
@@ -84,7 +71,6 @@ const getCart = async (req, res) => {
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" })
         }
-        console.log("success")
         res.status(200).json({cart, courses})
     } catch (error) {
         res.status(500).json({ error: error, message: "Something went wrong"+error.message })

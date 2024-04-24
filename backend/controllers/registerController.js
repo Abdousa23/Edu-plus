@@ -28,7 +28,6 @@ const register = async (req, res) => {
             roles = {User: 2000};
         }
         var phone = phonenumber || ""
-        console.log(roles)
         const newUser = new User({
             username: req.body.username,
             firstname: req.body.firstname,
@@ -40,7 +39,6 @@ const register = async (req, res) => {
         })
 
         const user = await newUser.save();
-        console.log(user)
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json(err.message);
