@@ -10,17 +10,17 @@ function MyApp({ Component, pageProps }: any) {
  
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then((registration) => {
-          console.log('Service worker registered:', registration);
-        }, (err) => {
-          console.log('Service worker registration failed:', err);
-        });
-      });
-    }else{
-      console.log("it doesn't work")
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service worker registered:', registration)
+          })
+          .catch(error => {
+            console.error('Service worker registration failed:', error)
+          })
+      })
     }
-  }, []);
+  }, [])
  
   return(
     

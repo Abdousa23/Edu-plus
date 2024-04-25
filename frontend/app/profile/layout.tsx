@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { AuthProvider } from "@/context/authContext";
 import PersistLogin from "../_HOC/PersistLogin";

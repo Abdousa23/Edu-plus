@@ -108,7 +108,9 @@ export default function Settings() {
       }
     });
   
+    console.log(data)
     try {
+      console.log(data)
       const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/profile/${formData.id}`, {
         method: 'PUT',
         body: data,

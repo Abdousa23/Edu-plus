@@ -2,17 +2,14 @@
 import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
-  dest: "public",
-  cacheOnFrontendNav: true,
+  cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
-  swcMinifiy:true,
-  disable:false,
-  workboxOptions:{
-    disableDevLogs:true,
+  swcMinify: true,
+  dest: "public",
+  fallbacks: {
+    document: "/offline",
   }
-
-
 });
 
 
@@ -20,4 +17,5 @@ const withPWA = withPWAInit({
 const nextConfig = {};
 
 
-export default nextConfig;
+export default withPWA(nextConfig);
+// export default nextConfig
