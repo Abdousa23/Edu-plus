@@ -37,9 +37,8 @@ export default function Footer() {
         <div className="w-[30%] max-md:hidden">
           <h1 className="font-semibold text-[26px] mb-4">Useful links</h1>
           <ul>
-           
             <li className="font-medium text-2xl text-[#363636] px-2 py-4">
-              <Link href={"/community"}>Community</Link>
+              <Link href={"/Community"}>Community</Link>
             </li>
             <li className="font-medium text-2xl text-[#363636] px-2 py-4">
               <Link href={"/aboutus"}>About us</Link>

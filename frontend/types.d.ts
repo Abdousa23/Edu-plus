@@ -25,6 +25,13 @@ type CourseType = {
     category: string;
 }
 
+type LessonType ={
+    title: String,
+    description: String,
+    videoUrl: String,
+    course : [string],
+}
+
 
 
 type CategoryType = {
@@ -104,6 +111,12 @@ type CartContextType = {
     getCartCourses:  () => Promise<void>;
     removeCourseFromCart: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
     purchaseCourse: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
+ };
+
+  type lessonContextType = {
+    lessons: LessonType[]; 
+    setLessons: (lessons: [string]) => void;
+    getCoursLesssons:  () => Promise<void>;
   };
 
 
