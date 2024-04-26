@@ -1,20 +1,20 @@
-'use client'
-import React, { useEffect } from 'react'
-import Link from 'next/link'
-import LanguageIcon from '@mui/icons-material/Language';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpIcon from '@mui/icons-material/Help';
-import LogoutIcon from '@mui/icons-material/Logout';
-import MailIcon from '@mui/icons-material/Mail';
-import Image from 'next/image'
-import useAuth from '../_hooks/useAuth';
-import { useState } from 'react';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import useLogout from '../_hooks/useLogout';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useEffect } from "react";
+import Link from "next/link";
+import LanguageIcon from "@mui/icons-material/Language";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SettingsIcon from "@mui/icons-material/Settings";
+import HelpIcon from "@mui/icons-material/Help";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MailIcon from "@mui/icons-material/Mail";
+import Image from "next/image";
+import useAuth from "../_hooks/useAuth";
+import { useState } from "react";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import useLogout from "../_hooks/useLogout";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
     const { auth } = useAuth()

@@ -25,7 +25,7 @@ const course = new schema({
     
     lessons:{
         type:[schema.Types.ObjectId],
-        ref:'lessons'
+        ref:'Lessons'
     },
     resources : {
         type : [schema.Types.ObjectId],

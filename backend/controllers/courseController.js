@@ -39,7 +39,7 @@ const getCourseById = async (req, res) => {
             return res.status(404).json({ message: "Course not found" })
         }
         console.log("hhhh")
-        const course = await Course.findById(id).populate("owner")
+        const course = await Course.findById(id).populate("owner").populate('lessons')
         console.log(course)
 
 
