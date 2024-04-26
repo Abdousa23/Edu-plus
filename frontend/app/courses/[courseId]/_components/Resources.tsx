@@ -54,8 +54,8 @@ export default function Resources({ course }: course) {
 
       {
         error ? <ErrorComponent errmessage={error.errmessage} /> :
-          ressources.length > 0 ? ressources.map((ressource: any) => (
-            <div className='my-1 bg-gray-200 flex justify-between w-[90%]'>
+          ressources.length > 0 ? ressources.map((ressource: any,index) => (
+            <div key={index} className='my-1 bg-gray-200 flex justify-between w-[90%]'>
               <div className='mx-4 my-4 flex justify-around'>
                 <div className='text-neworg mx-4 '>
                   <TextSnippetOutlinedIcon className='text-2xl' />

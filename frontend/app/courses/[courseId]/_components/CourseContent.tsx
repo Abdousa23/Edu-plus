@@ -36,8 +36,7 @@ export default function CourseContent({course}:course) {
         setActiveTab((e.target as HTMLButtonElement).name)
     }
     useEffect(() => {
-        getUserData(course?.owner||'')
-        usercourses(course?.owner||'')
+        usercourses(course?.owner?._id||'')
     }, [])
     return (
     <div className="relative min-h-96 w-full container mx-auto flex max-md:flex-col-reverse">

@@ -1,5 +1,5 @@
 import CategoryCard from './CategoryCard'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 
 export default function Section4() {
@@ -7,6 +7,7 @@ export default function Section4() {
   const handleClick = (index: number) => {
     setSelectedCard(index);
   };
+
   const Categories = ['Design','Development','Marketing','Business','IT & Software','Photography','Music','Health & Fitness','Lifestyle','Language','Teaching','Data Science','Finance']
 
   return (

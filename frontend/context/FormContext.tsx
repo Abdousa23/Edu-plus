@@ -13,6 +13,7 @@ interface contextProps {
         duration: string;
         thumbnail: any;
         description : string
+        price : number
     };
     setFormData: Dispatch<SetStateAction<{
         title: string;
@@ -24,6 +25,7 @@ interface contextProps {
         duration: string;
         thumbnail: any;
         description : string
+        price : number
     }>>;
 }
 
@@ -32,15 +34,17 @@ const FormContext = createContext<any>({});
 export const FormContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [formData, setFormData] = useState({
         title: '',
-        type: '',
-        category: '',
+        type: 'Online',
+        category: 'Web Development',
         topic: '',
-        language: '',
-        level: '',
+        language: 'English',
+        level: 'Beginner',
         duration: '',
         thumbnail: null,
         description : '',
-        lesson : [{id: 0, title: 'lesson title', description: '', videoUrl: null}]
+        lesson : [{id: 0, title: 'lesson title', description: '' , videoUrl : null , videoName : ''}],
+        lessonVid : [],
+        price  : 0
     });
     const [lessonContent, setLessonContent] = useState<any>([
         {

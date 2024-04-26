@@ -18,101 +18,41 @@ export default function Curriculum() {
 
     return (
         <section
-            style={{
-                padding: "10px 40px",
-                height: "1239px",
-                width: "77%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-            }}
+            className="mx-auto w-[95%] flex flex-col items-center"
         >
-            <div
-                style={{
-                    backgroundColor: "#F5F7FA",
-                    width: "73%",
-                    alignItems: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    padding: "10px 20px",
-                }}
-            >
+            <div className="bg-[#F5F7FA] flex flex-col items-center justify-center mx-auto my-4 w-full" >
                 {console.log(lessonContent)}
                 {lessonContent.map((item: any) => {
                     return (
                         <div
                             key={item.id}
-                            style={{
-                                height: "80%",
-                                width: "91%",
-                                backgroundColor: "white",
-                                marginLeft: "30px",
-                                marginRight: "20px",
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                marginTop: "20px",
-                            }}
-                        >
+                            className="w-[80%] bg-white flex flex-row justify-between mx-10 my-8"
+                            >
+                            <Popover
+                            >
                             <LessonCard lessonContent={lessonContent} setLessonContent={setLessonContent} formData={formData} setFormData={setFormData} item={item}></LessonCard>
-                            <Popover>
-                                <PopoverTrigger>
-                                    <div
-                                        style={{
-                                            width: "100%",
-                                            height: "34px",
-                                            margin: "20px 10px",
-                                            backgroundColor: "#E9F8F3",
-                                            border: "none",
-                                            color: "#00977D",
-                                            cursor: "pointer",
-                                            fontWeight: "bold",
-                                        }}
-                                    >
-                                        content
-                                    </div>
-                                </PopoverTrigger>
+                            
+
 
                                 <PopoverContent
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        width: "40%",
-                                        height: "90%",
-                                        backgroundColor: "white",
-                                        borderRadius: "10px",
-                                        boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-                                        padding: "20px",
-                                    }}
+                                    className="flex flex-col w-1/2 h-1/6 bg-white rounded-md shadow-md p-20"
                                 >
-                                    <ul className="w-[100%] flex flex-col items-center content-center p-0">
-                                        <li
+                                    <div className="w-[100%] flex flex-col items-center content-center justify-start h-[50px] gap-4 my-auto">
+                                        <div className="mb-[41px]">
+                                        <div
                                             onClick={() => handlePop(item.id, lessonContent, setLessonContent, formData, setFormData)}
-                                            style={{
-                                                margin: '0px 0px',
-                                                padding: '0px 0px',
-                                                width: '10%',
-                                                border: "none",
-                                                color: "#00977D",
-                                                cursor: "pointer",
-                                                fontWeight: "bold",
-                                            }}
+                                            className="text-[#4E5566] cursor-pointer font-normal mr-12"
                                         >
                                             Attach video
-                                        </li>
-                                        <li
-                                            style={{
-                                                border: "none",
-                                                color: "#00977D",
-                                                cursor: "pointer",
-                                                fontWeight: "bold",
-                                            }}
+                                        </div>
+                                        <div
+                                        className="text-[#4E5566] cursor-pointer font-normal mr-4"
                                             onClick={() => { item.pop1 = true, setLessonContent([...lessonContent]) }}
                                         >
                                             Add description
-                                        </li>
-                                    </ul>
+                                        </div>
+                                        </div>
+                                    </div>
                                 </PopoverContent>
                             </Popover>
                             {!item.pop && (
@@ -125,8 +65,8 @@ export default function Curriculum() {
                                             <input
                                                 type="file"
                                                 id={item.id}
-                                                name="videoFile"
-                                                accept="video/"
+                                                name="video"
+                                                accept="video/" 
                                                 className="hidden"
                                                 onChange={(e) => {
                                                     const id = item.id;
@@ -147,12 +87,13 @@ export default function Curriculum() {
                                         </div>
                                         <div className="flex gap-4">
                                             <button
+                                            type="button"
                                                 className="btn btn-light w-full"
                                                 onClick={() => { lessonContent[item.id].open = false, setLessonContent([...lessonContent]) }}
                                             >
                                                 Cancel
                                             </button>
-                                            <button className="w-full h-14 bg-[#ECF9F5] text-[#00977D] font-bold cursor-pointer border-none">Delete</button>
+                                            {/* <button type="button" className="w-full h-14 bg-[#ECF9F5] text-[#00977D] font-bold cursor-pointer border-none">Delete</button> */}
                                         </div>
                                     </div>
                                 </Modal>
@@ -163,13 +104,13 @@ export default function Curriculum() {
                                         <div
                                             className="mx-auto my-4 w-600 h-100 bg-white border border-gray-200 flex flex-row items-center p-6 gap-4"
                                         >
-                                            <video className="w-[250px] h-[100px]" src={URL.createObjectURL(item.videoUrl)}></video>
+                                            {item.videoUrl instanceof File && <video className="w-[250px] h-[100px]" src={URL.createObjectURL(item.videoUrl)}></video>}
                                             <h1 className="text-[#1D2026] font-bold">{item.videoUrl.name} {item.id}</h1>
                                             <div>
                                                 <input
                                                     type="file"
                                                     id={item.id}
-                                                    name="videoFile"
+                                                    name="video"
                                                     accept="video/"
                                                     className="hidden"
                                                     onChange={(e) => {
@@ -187,12 +128,13 @@ export default function Curriculum() {
                                         </div>
                                         <div className="flex gap-4">
                                             <button
+                                            type="button"
                                                 className="btn btn-light w-full"
                                                 onClick={() => handleClose(item.id, lessonContent, setLessonContent, formData, setFormData)}
                                             >
                                                 Cancel
                                             </button>
-                                            <button className="w-full h-14 bg-[#ECF9F5] text-[#00977D] font-bold cursor-pointer border-none" onClick={() => { lessonContent[item.id].open = false, item.pop = false, setLessonContent([...lessonContent]) }}>Done</button>
+                                            <button type="button" className="w-full h-14 bg-[#ECF9F5] text-[#00977D] font-bold cursor-pointer border-none" onClick={() => { lessonContent[item.id].open = false, item.pop = false, setLessonContent([...lessonContent]) }}>Done</button>
                                         </div>
                                     </div>
                                 </Modal>
@@ -215,7 +157,7 @@ export default function Curriculum() {
                                             </div>
                                         </div>
                                         <div className="flex gap-4">
-                                            <button className="w-full h-14 bg-[#ECF9F5] text-[#00977D] font-bold cursor-pointer border-none" onClick={() => { lessonContent[item.id].open = false, item.pop1 = false, setLessonContent([...lessonContent]) }}>Done</button>
+                                            <button type="button" className="w-full h-14 bg-[#ECF9F5] text-[#00977D] font-bold cursor-pointer border-none" onClick={() => { lessonContent[item.id].open = false, item.pop1 = false, setLessonContent([...lessonContent]) }}>Done</button>
                                         </div>
                                     </div>
                                 </Modal>
@@ -224,11 +166,11 @@ export default function Curriculum() {
                     );
                 })}
             </div>
-            <button
+            <button type="button"
                 onClick={() => {
                     handleAddLesson(lessonContent, setLessonContent, formData, setFormData);
                 }}
-                className="w-full h-10 bg-[#E9F8F3] border-none text-black cursor-pointer mt-[20px] mr-[10px]"
+                className="w-full h-10 bg-[#E9F8F3] border-none text-[#00977D] font-semibold text-[14px] cursor-pointer my-8 mr-[10px]"
             >
                 Add lecture
             </button>

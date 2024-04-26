@@ -6,6 +6,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import LogoutIcon from '@mui/icons-material/Logout';
+import MailIcon from '@mui/icons-material/Mail';
 import Image from 'next/image'
 import useAuth from '../_hooks/useAuth';
 import { useState } from 'react';
@@ -65,7 +66,6 @@ export default function Navbar() {
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
                         </label>
                         <input type="text" id='search' value={search} onChange={handleSearchChange} className="flex flex-row items-center px-5 space-x-4.5 w-76 h-10 bg-gray-100 rounded-full" placeholder="Search Anything" />
-
                     </form>
                     <Link href="/" className='max-md:hidden max'>
                         Home
@@ -73,9 +73,7 @@ export default function Navbar() {
                     <Link href="categories" className='max-md:hidden'>
                         Categories
                     </Link>
-                    <Link href="/AboutUs" className='max-md:hidden'>
-                        About Us
-                    </Link>
+
                     { !isAuthenticated
                             ? <div className='flex justify-between items-center'>
                                 <Link href='/auth/register' className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 border border-green+ rounded-lg order-5 self-stretch flex-grow-0 text-base text-green+'>Register</Link>
@@ -87,19 +85,19 @@ export default function Navbar() {
                             </div>
                             : <div className='flex justify-between items-center'>
                                 <div className='mx-4'>
-                                    <Link href={'./cart'}>
+                                    <Link href={'/profile/cart'}>
                                         <ShoppingCartOutlinedIcon />
                                     </Link>
                                 </div>
                                 <div className='mx-4'>
-                                    <Link href={'./wishlist'}>
+                                    <Link href={'/profile/notification'}>
                                         <NotificationsNoneOutlinedIcon />
                                     </Link>
 
                                 </div>
                                 <div className='mx-4'>
-                                    <Link href={'./favourites'}>
-                                        <FavoriteBorderIcon />
+                                    <Link href={'/profile/inbox'}>
+                                        <MailIcon />
                                     </Link>
                                 </div>
                                 <div className='relative' onClick={(e)=>setSelected(!selected)}>

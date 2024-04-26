@@ -72,15 +72,15 @@ require('dotenv').config();
 // }
 const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
-    console.log(cookies);
+    /* console.log(cookies); */
     if (!cookies?.jwt) return res.sendStatus(401);
     const refreshToken = cookies.jwt;
 
     const user = await User.findOne({ refreshToken }).exec();
-    console.log(user);
+    /* console.log(user); */
     if (!user) return res.sendStatus(403); //Forbidden 
     // evaluate jwt 
-    console.log(user.username);
+    /* console.log(user.username); */
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,

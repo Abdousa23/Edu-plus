@@ -10,7 +10,7 @@ filename: (req,file,cb)=> {
     console.log(file.originalname)
     cb(null, Date.now() +path.extname(file.originalname) )
 }
-});
+});  
 
 const upload = multer({storage: storage});
 

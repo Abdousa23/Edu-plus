@@ -7,7 +7,7 @@ const verifyRoles = require('../../middlewares/verifyRoles');
 
 
 // Add course to cart
-router.post('/add',verifyJWT, cartController.addToCart);
+router.post('/add/',verifyJWT, cartController.addToCart);
 
 // Remove course from cart
 router.delete('/remove/:courseId',verifyJWT,verifyRoles(ROLES_LIST.User), cartController.removeFromCart);

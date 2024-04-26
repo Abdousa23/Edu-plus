@@ -140,8 +140,9 @@ const getAllUserReviews = async (req,res) => {
 
 const getAllRatings = async (req, res) => {
     const username = req.user
+    const user = await User.findOne({ username: username })
     try {
-        const courses = await Course.find({ owner: username })
+        const courses = await Course.find({ owner: user._id })
         if (!courses) {
             return res.status(404).json({ message: "no courses found" })
         }

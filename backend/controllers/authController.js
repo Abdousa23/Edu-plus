@@ -8,19 +8,19 @@ require('dotenv').config();
 
 const handleAuth = async (req,res)=>{
     const cookies = req.cookies;
-    console.log(`cookie available at login: ${JSON.stringify(cookies)}`);
+    /* console.log(`cookie available at login: ${JSON.stringify(cookies)}`); */
     const { email, password } = req.body;
-    console.log(email,password) 
+    /* console.log(email,password)  */
     if (!email || !password) return res.status(400).json({ 'message': 'Username and password are required.' });
     const foundUser = await User.findOne({ email:email }).exec();
     // if(bcrypt.compare(process.env.RPWD ,foundUser.password)) return res.status(401).send(json({"message" : "access denied"}))
-    console.log(foundUser);
+    /* console.log(foundUser); */
     if (!foundUser) return res.status(404).json({ 'message': 'no user found.' })
     // evaluate password 
     const match = await bcrypt.compare(password, foundUser.password);
     if (match) {
         const roles = Object.values(foundUser.roles).filter(Boolean);
-        console.log(roles);
+        /* console.log(roles); */
         // create JWTs
         const accessToken = jwt.sign(
             {
@@ -30,7 +30,7 @@ const handleAuth = async (req,res)=>{
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '45s' }
+            { expiresIn: '1h' }
         );
         const newRefreshToken = jwt.sign(
             { "username": foundUser.username },
@@ -39,8 +39,8 @@ const handleAuth = async (req,res)=>{
         );
         foundUser.refreshToken = newRefreshToken;
         const result = await foundUser.save();
-        console.log(result);
-        console.log(roles);
+       /*  console.log(result);
+        console.log(roles); */
 
         // Creates Secure Cookie with refresh token
         // Send authorization roles and access token to user
@@ -50,7 +50,7 @@ const handleAuth = async (req,res)=>{
         } catch (error) {
             console.log("cookie not set")
         }
-        console.log(req.user)
+        /* console.log(req.user) */
         res.status(200).json({ foundUser,roles, accessToken });
 
     } else {

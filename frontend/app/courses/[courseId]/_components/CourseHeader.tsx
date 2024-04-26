@@ -38,7 +38,7 @@ export default function CourseHeader({ course,user }: course) {
             {renderStars(course?.rating || 0)}
           </div>
           <div>
-            <span className='text-[#737373]'>({course?.studentEnrolled.studentsNumber})</span>
+            <span className='text-[#737373]'>({course?.studentEnrolled?.studentsNumber})</span>
           </div>
         </div>
         <div className='flex justify-around my-4 w-fit max-md:mx-auto'>

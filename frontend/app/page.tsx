@@ -11,6 +11,7 @@ import Section5 from './_components/_landingComponents/Section5';
 import Section6 from './_components/_landingComponents/Section6';
 import Section7 from './_components/_landingComponents/Section7';
 import { useEffect,useState } from 'react';
+
 const Home = () => {
     const [courses,setCourses] = useState<CourseType[]>([]);
     const getCourses = async () => { 

@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Abdousa23/2CPproject#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
@@ -28,6 +29,7 @@
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.2",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.11",
     "nodemon": "^3.0.3",
     "nopt": "^7.2.0",
@@ -42,5 +44,8 @@
     "swagger-ui-express": "^5.0.0",
     "uid-safe": "^2.1.5",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7"
   }
 }
