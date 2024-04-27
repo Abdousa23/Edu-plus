@@ -7,7 +7,7 @@ type CourseType = {
     category: string;
     description: string;
     owner :  userType ;
-    lessons: [string];
+    lessons: [LessonType];
     ressources: [string];
     level: string;
     language: string;
@@ -23,6 +23,14 @@ type CourseType = {
     imageUrl: string;
     type : string;
     category: string;
+}
+
+type LessonType ={
+    _id:String
+    title: String,
+    description: String,
+    videoUrl: String,
+    course : [String],
 }
 
 
@@ -105,6 +113,12 @@ type CartContextType = {
     getCartCourses:  () => Promise<void>;
     removeCourseFromCart: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
     purchaseCourse: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
+ };
+
+  type lessonContextType = {
+    lessons: LessonType[]; 
+    setLessons: (lessons: [string]) => void;
+    getCoursLesssons:  () => Promise<void>;
   };
 
 
@@ -149,32 +163,3 @@ type MessageType = {
     createdAt: string;
     updatedAt: string;
 }
-
-type SendMessageType = {
-    chat: string | undefined;
-    message: string;
-    sender: string;
-    senderphp: string;
-
-}
-
-
-// type 
-//     course?: CourseType
-//   }
-
-type ressource = {
-    title : string , 
-    ressourceUrl : string,
-    size : string
-    course : string
-}
-
-type review = {
-    username: string,
-    rating:number,
-    reviewtext : string,
-    courseId : string
-}
-
-

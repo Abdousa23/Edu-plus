@@ -39,14 +39,16 @@ const addReview = async (req, res) => {
     if (duplicateReview.length > 0) {
         return res.status(401).json({ message: "you have already reviewed this course" })
     }
-    const newReview = new Review({
-        username,
-        rating,
-        reviewText,
-        courseId
-    })
+    
     try {
         const course = await courses.findById(courseId)
+        const newReview = new Review({
+            username,
+            rating,
+            reviewText,
+            courseId,
+            courseOswner:course.owner
+        })
         course.reviews.push(newReview)
         await newReview.save()
         await course.save()
@@ -155,4 +157,4 @@ const getAllRatings = async (req, res) => {
         res.status(500).json(err.message)
     }
 }
-module.exports = { addReview, deleteReview, updateReview, getAllReviews,getAllUserReviews,getAllRatings }
+module.exports = { adjustRating,addReview, deleteReview, updateReview, getAllReviews,getAllUserReviews,getAllRatings }

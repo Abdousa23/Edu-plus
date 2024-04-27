@@ -1,15 +1,18 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React from 'react'
+import { useState, useEffect } from 'react'
 import useFormContext from '../hooks/useFormContext';
-import getAllCategories from '@/lib/getAllCategories';
-type Props = {};
+
+
+type Props = {}
+
+
 
 export default function BasicInformation({ }: Props) {
-    
     const { formData, updateFormData, maxLength, setMaxLength } = useFormContext();
 
     const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         updateFormData({
+
             type: event.target.value,
         });
     };
@@ -25,67 +28,34 @@ export default function BasicInformation({ }: Props) {
             level: event.target.value,
         });
     };
-
-    const handleTitleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMaxLength(event.target.value.length);
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMaxLength(event.target.value.length)
         updateFormData({
             title: event.target.value,
         });
-        const data = await getAllCategories()
-        console.log(data)
-    };
-
+    }
     const handleTopicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         updateFormData({
             topic: event.target.value,
         });
-    };
-
-
+    }
     return (
-        <div className="flex flex-wrap w-full mb-20 justify-between">
-            <label htmlFor="title" className="block font-bold mb-1">
-                Title
-            </label>
-            <div className="grid grid-cols-2 items-center p-2">
-                <input
-                    id="title"
-                    value={formData.title}
-                    type="text"
-                    placeholder="Your course title"
-                    maxLength={80}
-                    required
-                    className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    onChange={(e) => handleTitleChange(e)}
-                />
-                <div className="flex justify-end">
-                    <span className="text-gray-500 text-sm">
-                        {maxLength}/{80}
-                    </span>
+        <div className='flex flex-wrap w-full mx-auto'>
+            <label>Title</label>
+            <div className="grid grid-cols-2 items-center p-5
+            ">
+                <input value={formData.title} type='text' placeholder='Your course title' maxLength={80} required onChange={(e) => handleTitleChange(e)} />
+                <div className='flex'>
+                    <span > {maxLength.toString()}/80 </span>
                 </div>
             </div>
-        <div>
-            <label htmlFor="type" className="block font-bold mb-1">
-                Course Type
-            </label>
-            <select
-                id="type"
-                value={formData.type}
-                onChange={(e) => handleTypeChange(e)}
-                className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-                <option value="Online">Online</option>
-                <option value="in person">In Person</option>
+            <label>Couse type</label>
+            <select value={formData.type} onChange={(e) => handleTypeChange(e)}>
+                <option value='Online'>Online</option>
+                <option value='in person'>in person</option>
             </select>
-            </div>
-        <div>
-            <label htmlFor="category" className="block font-bold mb-1">
-                Category
-            </label>
-            <select
-                id="category"
-                className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
+            <label>Category</label>
+            <select>
                 <option>Category</option>
                 <option>Development</option>
                 <option>Business</option>
@@ -99,73 +69,35 @@ export default function BasicInformation({ }: Props) {
                 <option>Academics</option>
                 <option>Language</option>
             </select>
-            </div>
-            <br/>
-            <div>
-            <label htmlFor="topic" className="block font-bold mb-1">
-                Course Topic
-            </label>
-            <input
-                id="topic"
-                value={formData.topic}
-                type="text"
-                placeholder="Course topic"
-                required
-                className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                onChange={handleTopicChange}
-            />
-            </div>
+            <label>Course topic</label>
+            <input value={formData.topic} type='text' placeholder='Course topic' required onChange={handleTopicChange} />
 
-            <div className="flex flex-wrap w-full mb-6">
-                <label htmlFor="language" className="block font-bold mb-1 w-        1/2">
-                    Course Language
-                </label>
-                <select
-                    id="language"
-                    value={formData.language}
-                    onChange={(e) => handleLanguageChange(e)}
-                    className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                    <option value="English">English</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="French">French</option>
+
+            <div className=' w-full rounded-md flex items-center justify-space-around p-5 px-10' >
+                <label>course Language</label>
+                <select value={formData.language} onChange={(e) => handleLanguageChange(e)}>
+                    <option value='English'>English</option>
+                    <option value='Arabic'>Arabic</option>
+                    <option value='French'>French</option>
                 </select>
-
-                <label htmlFor="level" className="block font-bold mb-1 w-1/2">
-                    Course Level
-                </label>
-                <select
-                    id="level"
-                    value={formData.level}
-                    onChange={(e) => handleLevelChange(e)}
-                    className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
+                <label>course level</label>
+                <select value={formData.level} onChange={(e) => handleLevelChange(e)}>
+                    <option value='Beginner'>Beginner</option>
+                    <option value='Intermediate'>Intermediate</option>
+                    <option value='Advanced'>Advanced</option>
                 </select>
-            </div>
-
-            <div className="flex flex-wrap w-full">
-                <label htmlFor="duration" className="block font-bold mb-1 w-1/2">
-                    Duration
-                </label>
-                <div className="flex w-full">
-                    <input
-                        id="duration"
-                        type="text"
-                        placeholder="Enter duration"
-                        className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                    <select
-                        className="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 ml-2"
-                    >
-                        <option value="minutes">Minutes</option>
+                <div className='flex items-safe w-full'>
+                    <label>duration </label>
+                    <input type="text" placeholder="Enter duration" />
+                    <select className="course-day">
+                        <option value="minutes">minutes</option>
                         <option value="Hours">Hours</option>
+
                     </select>
                 </div>
             </div>
-        </div>
-    );
-}
 
+
+        </div >
+    )
+} 

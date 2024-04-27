@@ -31,7 +31,7 @@ export default function MessageInput() {
 
     return (
         <form onSubmit={handleSubmit}> {/* Attach handleSubmit to onSubmit event */}
-            <div className="w-full relative">
+            <div className="  w-full relative">
                 <div className="px-4 my-3">
                     <div className="w-full">
                         <input

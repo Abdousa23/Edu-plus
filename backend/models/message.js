@@ -11,6 +11,11 @@ const message = new schema({
         type: String,
         required: true,
     },
+    chat:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chat',
+        required: true,
+    },
     senderphp: {
         type: String,
         required: true,

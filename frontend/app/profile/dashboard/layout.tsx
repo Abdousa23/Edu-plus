@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import PersistLogin from "@/app/_HOC/PersistLogin";
 import { AuthProvider } from "@/context/authContext";
+import Sidebar from "../_components/Sidebar";
+import Navbar from "@/app/_components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

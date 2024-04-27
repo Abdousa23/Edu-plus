@@ -13,6 +13,7 @@ const reviews = require("./api/reviews")
 const courseRoutes = require('./api/courseRoutes')
 const instructorRoutes = require('./api/instructorRoutes')
 const chatRoutes= require('./api/chatRoutes')
+const MLModelRoutes = require('./api/MLModel')
 // const googleAuth = require("./googleAuth")
 // require('./auth');
 
@@ -32,5 +33,7 @@ router.use('/reviews', reviews);
 router.use('/instructor', instructorRoutes);
 // router.use('/addCourses', addCourseRoute);
 router.use('/chat',chatRoutes);
+router.use('/model', MLModelRoutes)
+
 
 module.exports = router

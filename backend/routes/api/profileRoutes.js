@@ -9,6 +9,7 @@ const upload = require('../../middlewares/multer')
 const cloudinaryMW = require('../../middlewares/cloudinaryMW')
 const fileSizeLimiter = require('../../middlewares/fileSizeLimiter')
 
+
 // verifyJWT
 
 router.get('/:id',userController.getUserById);
@@ -20,6 +21,8 @@ router.put('/:id' ,verifyJWT,verifyRoles([ROLES_LIST.User]),upload.single("pfp")
 router.post('/:id',verifyJWT,verifyRoles(ROLES_LIST.User),userController.addCourseToUser)
 
 router.delete('/:id',verifyJWT,verifyRoles([ROLES_LIST.User,ROLES_LIST.Admin,ROLES_LIST.Editor]),userController.deleteUser)
+
+router.post('/changerole/:id',verifyJWT,userController.changeRoles)
 
 
 

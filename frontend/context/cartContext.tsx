@@ -15,7 +15,11 @@ export const CartContext = createContext<CartContextType>({
     purchaseCourse: () => {},
   });
 export const CartProvider = ({ children }:CartContextProps) => {
+
+
     const [cartCourses, setCartCourses] = useState<CourseType[]>([])
+
+    
     const fetchPrivate = useFetchPrivate()
 
     const getCartCourses = async () => {

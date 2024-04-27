@@ -18,10 +18,10 @@ export const SocketContextProvider = ({ children }: SocketContextProps) => {
     const [onlineUsers, setOnlineUsers] = useState<any>([]);
     const { auth ,setAuth } = useAuth();
 
-    useEffect(() => {''
+    useEffect(() => {
         if (auth?.user) {
 
-            const socket = io('http://localhost:3001', {
+            const socket = io('http://localhost:3000', {
                 query:{
                     userId: auth?.user?._id
                 }

@@ -1,0 +1,1 @@
+self.fallback=async e=>{let{destination:a,url:n}=e,c={document:"/watchOffline",image:!1,audio:!1,video:!1,font:!1}[a];return c?caches.match(c,{ignoreSearch:!0}):Response.error()};
