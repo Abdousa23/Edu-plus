@@ -21,12 +21,12 @@ app.use(bodyParser.urlencoded({ extended: true })); // Add this line
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET , resave: false, saveUninitialized: true ,cookie: { maxAge: 60000 }}));
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET , resave: false, saveUninitialized: true ,cookie: { maxAge: 60000 }}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(credentials)
-app.use(cors({...corsOptions,origin: 'http://localhost:3001',credentials:true}));
+app.use(cors({...corsOptions,origin: 'http://localhost:3001',methods : 'GET,POST,PUT,DELETE' , credentials:true}));
 // app.use(cors({
 //   origin: 'http://localhost:3001', // specify the origin
 //   credentials: true, // allow credentials

@@ -35,10 +35,10 @@ export default function Curriculum() {
 
 
                                 <PopoverContent
-                                    className="flex flex-col w-1/2 h-1/6 bg-white rounded-md shadow-md p-20"
+                                    className="w-1/2 h-1/6 bg-white rounded-md shadow-md p-20"
                                 >
-                                    <div className="w-[100%] flex flex-col items-center content-center justify-start h-[50px] gap-4 my-auto">
-                                        <div className="mb-[41px]">
+                                    <div className="w-[80px] mt-[-36px] flex flex-col items-center content-center justify-start h-[50px] gap-4 my-auto">
+                                        <div className="mb-[41px] mr-8">
                                         <div
                                             onClick={() => handlePop(item.id, lessonContent, setLessonContent, formData, setFormData)}
                                             className="text-[#4E5566] cursor-pointer font-normal mr-12"

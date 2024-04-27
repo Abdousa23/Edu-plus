@@ -13,11 +13,11 @@ const reviews = require("./api/reviews")
 const courseRoutes = require('./api/courseRoutes')
 const instructorRoutes = require('./api/instructorRoutes')
 const chatRoutes= require('./api/chatRoutes')
-// const googleAuth = require("./googleAuth")
+const googleAuth = require("./googleAuth")
 // require('./auth');
 
 router.use('/home', homeRoutes);
-// router.use('/auth/google' , googleAuth)
+router.use('/auth/google' , googleAuth)
 router.use('/cart', cartRoutes);
 
 // router.use('/payment', paymentRoutes);

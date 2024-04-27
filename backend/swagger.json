@@ -175,6 +175,60 @@
         }
       }
     },
+    "/api/auth/google/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/auth/google/callback": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/google/failure": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/cart/add/": {
       "post": {
         "description": "",
@@ -851,6 +905,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "lesson": {
+                  "example": "any"
+                },
                 "title": {
                   "example": "any"
                 },
@@ -867,6 +924,9 @@
                   "example": "any"
                 },
                 "language": {
+                  "example": "any"
+                },
+                "type": {
                   "example": "any"
                 }
               }
