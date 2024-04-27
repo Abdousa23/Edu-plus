@@ -16,10 +16,11 @@ const Swagger = require('./swagger.json');
 const rateLimitMiddleware = require('./middlewares/rateLimiter');
 require('./controllers/googleAuthController')
 const mongoSanitize = require('express-mongo-sanitize');
-
+const bodyParser = require('body-parser');
 dotenv.config();
 // what is is the perpose of this line
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); // Add this line
 app.use(express.json());
 app.use(cookieParser());
 

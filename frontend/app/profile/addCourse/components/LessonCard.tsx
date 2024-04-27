@@ -1,41 +1,45 @@
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { BsList } from "react-icons/bs";
 import React from 'react'
-import { handleTitle , handleDeleteLesson } from './Handlers'
-const LessonCard = ({ formData , setFormData, lessonContent , setLessonContent, item} : any) => {
+import { BiTrash } from "react-icons/bi";
+import { handleTitle, handleDeleteLesson } from './Handlers'
+const LessonCard = ({ formData, setFormData, lessonContent, setLessonContent, item }: any) => {
     return (
-        
-            <div>
-                            <h1 style={{ fontSize: "20px", padding: "10px 10px " }}>
-                                {" "}
-                                <input
-                                    type="text"
-                                    required
-                                    defaultValue={"lesson title"}
-                                    onChange={(e) => handleTitle(item.id, e,lessonContent , setLessonContent, formData , setFormData)}
-                                ></input>
-                            </h1>
-                            <div
-                                style={{
-                                    width: "29%",
-                                    alignContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <button
-                                    onClick={() => {
-                                        handleDeleteLesson(item.id,lessonContent , setLessonContent, formData , setFormData);
-                                    }}
-                                    style={{
-                                        width: "21%",
-                                        height: "34px",
-                                        backgroundColor: "red",
-                                        color: "white",
-                                        border: "none",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    X
-                                </button>
-                                </div>
+
+        <div className='flex flex-row justify-between items-center my-4 w-full mx-4 max-sm:flex-col max-sm:gap-4'>
+            <div className="flex content-center items-center gap-2">
+                <BsList className='text-[#6E7485]' />
+                <input
+                    type="text"
+                    required
+                    placeholder="Lesson title"
+                    className='my-auto'
+                    onChange={(e) => handleTitle(item.id, e, lessonContent, setLessonContent, formData, setFormData)}
+                ></input>
+                </div>
+            <div
+                className="flex flex-row gap-2 content-center items-center ml-auto"
+            >
+                <PopoverTrigger>
+                    <div
+                        className="w-[100px] bg-[#c3e6db] text-[#00977D] font-semibold"
+                    >
+                        Contents
+                    </div>
+                </PopoverTrigger>
+                <BiTrash
+                    onClick={() => {
+                        handleDeleteLesson(item.id, lessonContent, setLessonContent, formData, setFormData);
+                    }}
+                    className="text-[#E34444] cursor-pointer"
+                >
+                    X
+                </BiTrash>
+            </div>
         </div>
     )
 }
