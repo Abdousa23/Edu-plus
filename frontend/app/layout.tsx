@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "@/context/authContext";
 import "./globals.css";
-import { SocketContextProvider } from "@/context/SocketContext";
+// import { SocketContextProvider } from "@/context/SocketContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,9 +27,9 @@ export default function RootLayout({
       </head>
       <body>
         <AuthProvider>
-          <SocketContextProvider>
+          {/* <SocketContextProvider> */}
         {children}
-          </SocketContextProvider>
+          {/* </SocketContextProvider> */}
         </AuthProvider>
         
       </body>

@@ -8,7 +8,7 @@ type course = {
   selectedLesson:any,
 }
 export default function SidebarWatchCourse({course,setSelectedLesson,selectedLesson}:course) {
-  const lessons =course?.lessons
+  const lessons = course?.lessons ?   course?.lessons : course as any
   useEffect(()=>{
     console.log('this is the course')
     console.log(course)
@@ -20,7 +20,7 @@ export default function SidebarWatchCourse({course,setSelectedLesson,selectedLes
         {/* <h1 className='text-[#23BD33] text-[14px]'>15% Completed</h1> */}
       </div>
       {
-        lessons?.map((lesson)=>{
+        lessons?.map((lesson : any)=>{
           return <LessonsCard key={lesson._id.toString()} setSelectedLesson={setSelectedLesson} selectedLesson={selectedLesson} lesson={lesson} />
         })
       }

@@ -8,7 +8,7 @@ const withPWA = withPWAInit({
   swcMinify: true,
   dest: "public",
   fallbacks: {
-    document: "/offline",
+    document: "/watchOffline",
   }
 });
 
@@ -18,4 +18,4 @@ const nextConfig = {};
 
 
 export default withPWA(nextConfig);
-// export default nextConfig
+//  export default nextConfig

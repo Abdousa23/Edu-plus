@@ -27,7 +27,7 @@ export async function generateMetadata({params:{courseId}}:Params):Promise<Metad
 interface Props {
     children: React.ReactNode;
 }
-export default function SearchLayout({
+export default function WacthLayout({
     children
 } : Props) {
     return (

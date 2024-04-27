@@ -15,7 +15,7 @@ export const viewport: Viewport = {
     themeColor: "#FFFFFF",
 };
 
-export default function RootLayout({
+export default function cartLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
@@ -30,7 +30,6 @@ export default function RootLayout({
                         </CartProvider>
                     </PersistLogin>
                 </AuthProvider>
-
             </body>
         </html>
     );
