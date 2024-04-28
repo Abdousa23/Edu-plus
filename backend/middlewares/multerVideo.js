@@ -7,7 +7,6 @@ destination : (req, file, cb) => {
     cb(null, 'video')
 },
 filename: (req,file,cb)=> {
-    console.log(file.originalname)
     cb(null, Date.now() +path.extname(file.originalname) )
 }
 });  

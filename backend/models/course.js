@@ -20,7 +20,7 @@ const course = new schema({
     owner: {
         type:schema.Types.ObjectId,
         required : true,
-        ref: 'users'
+        ref: 'User'
     },
     
     lessons:{

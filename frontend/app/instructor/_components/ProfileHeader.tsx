@@ -53,7 +53,7 @@ return (
                 </ul>
                 <p className=' font-normal text-sm text-[#6e7485]'>{user?.bio || (user?.username||'unknown')+' profile page'}</p>
                 {
-                userid !== user?._id && <Link href={`/profile/${user?._id}`}>Read more</Link>
+                userid !== user?._id && <Link href={`/instructor/${user?._id}`}>Read more</Link>
                 }
                 
             </div>

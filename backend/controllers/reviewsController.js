@@ -47,7 +47,7 @@ const addReview = async (req, res) => {
             rating,
             reviewText,
             courseId,
-            courseOswner:course.owner
+            courseOwner:course.owner
         })
         course.reviews.push(newReview)
         await newReview.save()
@@ -64,16 +64,13 @@ const addReview = async (req, res) => {
 const deleteReview = async (req, res) => {
     const { courseId } = req.params
     const username = req.user
-    console.log(username)
     try {
         const review = await Review.find({username:username, courseId: courseId}).exec()
-        console.log(review)
         if (!review || review.length === 0) {
             return res.status(404).json({ message: "review not found" })
         }
         const reviewId = review[0]._id.toString(); // Ensure review is not undefined before accessing its properties
         let course = await courses.findById(courseId).exec()
-        console.log(course)
         const filteredArray = course.reviews.filter(Review => Review._id.toString() !== reviewId)
         course.reviews = filteredArray; // Update the reviews array with the filtered array
         await course.save()
@@ -126,14 +123,21 @@ const getAllReviews = async (req, res) => {
 const getAllUserReviews = async (req,res) => {
     const {username} = req.params
     try {
-        const reviews = await Review.find({username: username})
+        const user = await User.findOne({username:username})
+        const reviews = await Review.find({courseOwner:user._id})
         if(!reviews){
             return res.status(404).json({message: "user not found"})
         }
         if(reviews.length===0){
             return res.status(404).json({message: "no reviews found"})
         }
-        res.status(200).json(reviews)
+        const reviewsWithUser = await Promise.all(reviews.map(async (review) => {
+            const user = await User.findOne({username:review.username});
+            // Create a new object with the review data and the user
+            return {...review.toObject(), user};
+        }));
+        
+        res.status(200).json(reviewsWithUser);
     }
     catch (err) {
         res.status(500).json(err.message)

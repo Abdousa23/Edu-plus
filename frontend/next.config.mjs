@@ -7,6 +7,10 @@ const withPWA = withPWAInit({
   reloadOnOnline: true,
   swcMinify: true,
   dest: "public",
+  additionalManifestEntries: [
+    { url: '/watchOffline', revision: '1' },
+  ],
+
   fallbacks: {
     document: "/watchOffline",
   }
@@ -18,4 +22,4 @@ const nextConfig = {};
 
 
 export default withPWA(nextConfig);
-//  export default nextConfig
+  // export default nextConfig

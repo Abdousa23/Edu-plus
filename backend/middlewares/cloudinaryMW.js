@@ -3,7 +3,7 @@ const cloudinary = require("../utils/cloudinary");
 const videoupload = require("./multer");
 
 const cloudinaryMW = async (req, res, next) => {
-    console.log('sssss')
+    
     try {
         if (req.file) {
         let result = await cloudinary.uploader.upload(req.file.path);
@@ -15,7 +15,6 @@ const cloudinaryMW = async (req, res, next) => {
         next();
         }
     } catch (error) {
-        console.log(error);
         res.status(500).json({
         success: false,
         message: "Server error",
@@ -39,14 +38,12 @@ const cloudinaryMW = async (req, res, next) => {
                         }
                     );
                 })
-                console.log(result)
                 req.fileUrls = result.secure_url;
                 next();
             } else {
                 next();
             }
         } catch (error) {
-            console.log(error);
             res.status(500).json({
                 success: false,
                 message: "Server error",

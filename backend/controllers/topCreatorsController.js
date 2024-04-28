@@ -11,8 +11,7 @@ const topCreators= async (req,res)=>{
 
         res.status(200).json({topCreators:topCreators})
     } catch (error) {
-        console.log("errore in top creatores controler ")
-        console.log (error)
+        res.status(500).json({ error: "an error occurred while calculating the top creators" })
         
     }
 }

@@ -20,7 +20,7 @@ const reviewSchema = new schema({
         type:schema.Types.ObjectId,
         ref:'Course',
     },
-    courseOswner : {
+    courseOwner : {
         type:schema.Types.ObjectId,
         ref:'User'
     }

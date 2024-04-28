@@ -53,16 +53,12 @@ const getCoursesByName = async (req, res) => {
 // const get all categories filter catgeroies
 const getCourseById = async (req, res) => {
     const { id } = req.params
-    console.log(id);
+
     try {
         if (!ObjectId.isValid(id)) {
             return res.status(404).json({ message: "Course not found" })
         }
-        console.log("hhhh")
         const course = await Course.findById(id).populate("owner").populate('lessons')
-        console.log(course)
-
-
         if (!course) {
             return res.status(404).json({ message: "Course not found" })
         }
@@ -96,7 +92,6 @@ const addOfflineCourse = async (req, res) => {
 }
 const addOnlineCourse = async (req, res) => {
     const { title, description, category, price, level, language , type } = req.body
-    console.log(req.files)
     const lessons = JSON.parse(req.body.lesson)
     /* console.log('else : ' , title , category) */
 
@@ -138,7 +133,6 @@ const addOnlineCourse = async (req, res) => {
             } */
             await (lessonAdder(uploadResult , lessons , course))
             await course.save()
-            console.log(course)
         }
         res.status(200).json(course)
     } catch (error) {
@@ -176,14 +170,11 @@ const addOnlinelesson = async (req, res) => {
 }
 const updateCourse = async (req, res) => {
     const { courseId } = req.params
-    console.log(courseId);
     const { title, description, category, lessons, level, language, imageUrl, location, date, price } = req.body
     try {
         // const course = await Course.findById(courseId)
         const course = await Course.findByIdAndUpdate(courseId, { title, description, category, lessons, level, language, imageUrl, location, date, price }, { new: true })
-        console.log(course);
         await course.save()
-        console.log(course);
         res.status(200).json(course)
     } catch (error) {
         res.status(500).json({ error: error, message: "Something went wrong" })
@@ -204,7 +195,6 @@ const deleteCourse = async (req, res) => {
 }
 const updateLesson = async (req, res) => {
     const { id } = req.params
-    console.log(id);
     const { title, description, videoUrl } = req.body
     try {
         const course = await Course.findOne({ title: courseName })
@@ -216,9 +206,7 @@ const updateLesson = async (req, res) => {
         }
         const courseId = course?._id
         const lesson = await Lesson.findByIdAndUpdate(id, { title, description, videoUrl, course: courseId }, { new: true })
-        console.log(lesson);
         await lesson.save()
-        console.log(lesson);
         res.status(200).json(lesson)
     } catch (error) {
         res.status(500).json({ error: error, message: "Something went wrong" })
@@ -256,15 +244,10 @@ const getCoursesByCategory = async (req, res) => {
 const getCourseResources = async (req, res) => {
     const { courseId } = req.params
     const username = req.user
-    console.log('ssfadspkmde')
-    console.log(courseId)
-    console.log(username)
     try {
         const resources = await Resource.find({ course: courseId })
         const user = await User.findOne({ username: username })
         const course = await Course.findById(courseId)
-        console.log(resources)
-        console.log('sadasdqw')
         if (!course) {
             return res.status(404).json({ message: "Course not found" })
         }
@@ -315,9 +298,7 @@ const getEnrolledCourses = async (req, res) => {
     const user = await User.findOne({ username: username })
     userId = JSON.stringify(user._id)
     const totalCourses = await Course.find({ owner: user._id })
-    console.log(totalCourses)
     const studentsNumberArr = (totalCourses.map(course => { return course.studentEnrolled.studentsNumber }))
-    console.log(studentsNumberArr)
     const studentsNumber = studentsNumberArr.reduce((a, b) => a + b, 0)
     res.status(200).json({ studentsNumber })
 }

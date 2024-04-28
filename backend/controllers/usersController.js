@@ -19,7 +19,6 @@ const getAllUsers = async (req, res) => {
 const updateUser = async (req, res) => {
     const { firstname, lastname, username, email, oldPassword, password, country, city, bio, phonenumber, id } =
         req.body;
-    console.log(req.body)
     const pfp = {
         url: req.fileUrls,
         publicId: req.publicId
@@ -44,13 +43,7 @@ const updateUser = async (req, res) => {
         const match = await bcrypt.compare(oldPassword, user.password);
         const duplicatedUser = await User.find({ _id: { $ne: id }, $or: [{ email: email }, { username: username }] });
         const prevPfpUrl = user.pfp.url;
-        console.log(user.password)
-        console.log(oldPassword)
-        console.log(match)
-        console.log(password)
         if (password && !match) {
-            console.log(oldPassword)
-            console.log(match)
             return res.status(401).json({ message: 'Old password is incorrect' });
         }
         if (duplicatedUser.length !== 0) {
@@ -81,7 +74,6 @@ const updateUser = async (req, res) => {
         const filteredInformation = Object.entries(currentInformation).reduce((acc, [key, value]) => {
             if (value !== undefined && value !== null && value !== '') {
                 if (typeof value === 'object' && !Object.values(value).every(v => v !== undefined)) {
-                    console.log('no profile pic provided')
                 } else {
                     acc[key] = value;
                 }
@@ -106,7 +98,6 @@ const updateUser = async (req, res) => {
         res.clearCookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'Strict' });
         res.cookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'Strict', maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json(updatedUser);
-        console.log("gg")
     } catch (error) {
         res
             .status(500)
@@ -117,9 +108,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        console.log('user delete')
         const user = await User.findByIdAndDelete(id);
-        console.log(user)
         res.status(200).json(user);
     } catch {
         res.status(500).json({ error: error, mssage: "somthing gooes wrong " });
@@ -266,8 +255,6 @@ const multipleDelete = async (req, res) => {
 }
 const addMod = async (req, res) => {
     const { ids } = req.body;
-    console.log("testing")
-    console.log(ids)
     try {
         const users = await User.updateMany({ _id: { $in: ids } }, { $set: { 'roles.Editor': ROLES_LIST.Editor } });
         if (!users) {
@@ -288,8 +275,6 @@ const addMod = async (req, res) => {
 }
 const removeMod = async (req, res) => {
     const { ids } = req.body;
-    console.log("testing")
-    console.log(ids)
     try {
         const users = await User.updateMany({ _id: { $in: ids } }, { $unset: { 'roles.Editor': '' } });
          if (!users) {
