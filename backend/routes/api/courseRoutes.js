@@ -8,8 +8,8 @@ const upload = require('../../middlewares/multer')
 
 router.get('/enrolled', verifyJWT,courseController.getEnrolledCourses);
 router.get('/all/online', verifyJWT,courseController.getAllOnlineCourses);
-router.get('/all/offline', verifyJWT,courseController.getAllOfflineCourses,
-);
+router.get('/all/offline', verifyJWT,courseController.getAllOfflineCourses,);
+router.get('/all/student' , verifyJWT , courseController.getAllStudentCourses)
 router.get('/all/teacher/online', verifyJWT,courseController.getTeacherOnlineCourses);
 router.get('/all/teacher/inperson', verifyJWT,courseController.getTeacherOfflineCourses);
 router.get('/all/teacher', verifyJWT,courseController.getTeacherAllCourses);

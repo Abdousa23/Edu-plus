@@ -75,6 +75,8 @@ export default function TeacherDashboard() {
           console.log('111111', course.studentEnrolled.studentsNumber)
           return acc + course?.studentEnrolled?.studentsNumber
         }, 0)
+        const tot3 = courses.length
+        setData1(tot3)
         setOnlineStudents(tot2)
         setData3(prevData => prevData + tot)
 
