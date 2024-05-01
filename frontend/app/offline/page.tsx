@@ -23,7 +23,7 @@ export default function page() {
               href="/watchOffline"
               className="flex flex-row justify-center items-center mx-1  w-[100%]  h-[40px]  bg-orange-400 rounded-lg order-5  text-white py-1 px-1"
             >
-              see downloded course
+              see downloded courses
             </Link>
           </div>
         </div>
