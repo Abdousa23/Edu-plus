@@ -55,6 +55,9 @@ if (selectedFile.type.split("/")[0] === "video") {
         // Check if formData.lesson is an array and it has an element at the index id
         if (Array.isArray(newFormData.lesson) && newFormData.lesson[id]) {
             newFormData.lesson[id].videoUrl = selectedFile;
+            newFormData[`lesson${id}`] = selectedFile
+            setFormData(newFormData)
+            console.log(newFormData)
         } else {
             // If formData.lesson[id] is undefined, initialize it with an empty object and then set the videoUrl property
             newFormData.lesson[id] = {};

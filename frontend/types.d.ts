@@ -101,10 +101,12 @@ type ressource = {
 }
 
 type review = {
+    user?: any;
     username: string,
     rating:number,
-    reviewtext : string,
-    courseId : string
+    reviewText : string,
+    courseId : string,
+    courseOwner:string
 }
 
 type CartContextType = {

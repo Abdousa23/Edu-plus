@@ -5,8 +5,6 @@ const fileSizeLimiter = (MB) => {
     return (req, res, next) => {
     const FILE_SIZE_LIMIT = MB * 1024 * 1024
       const files = req.files || req.file;
-      console.log("files size check");
-      console.log(files);
       if (!files) {
         next();
       } else {

@@ -33,7 +33,8 @@ const course = new schema({
     },
     level: {
         type: String,
-        enum: ['beginner', 'intermediate', 'pro']
+        enum: ['Beginner', 'Intermediate', 'Advanced'],
+        required: true
     },
     language:{
         type:String,
@@ -89,7 +90,8 @@ const course = new schema({
     },
     type:{
         type:String,
-        enum:['online', 'inperson']
+        enum:['Online', 'In Person'],
+        required:true
     }
     },
     {timestamps:true});

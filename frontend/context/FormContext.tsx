@@ -13,6 +13,7 @@ interface contextProps {
         duration: string;
         thumbnail: any;
         description : string
+        price : number
     };
     setFormData: Dispatch<SetStateAction<{
         title: string;
@@ -24,6 +25,7 @@ interface contextProps {
         duration: string;
         thumbnail: any;
         description : string
+        price : number
     }>>;
 }
 
@@ -32,15 +34,30 @@ const FormContext = createContext<any>({});
 export const FormContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [formData, setFormData] = useState({
         title: '',
-        type: '',
-        category: '',
+        type: 'Online',
+        category: 'Web Development',
         topic: '',
-        language: '',
-        level: '',
+        language: 'English',
+        level: 'Beginner',
         duration: '',
         thumbnail: null,
-        description : ''
+        description : '',
+        lesson : [{id: 0, title: 'lesson title', description: '' , videoUrl : null , videoName : ''}],
+        lessonVid : [],
+        price  : 0
     });
+    const [lessonContent, setLessonContent] = useState<any>([
+        {
+            id: 0,
+            title: 'lesson title',
+            description: '',
+            videoUrl: '',
+            clicked : false,
+            open : false,
+            pop : false,
+            pop1 : false,
+        }
+    ])
     const [step, setStep] = useState(0);
     const [maxLength, setMaxLength] = useState(0)
     const [selectedImage, setSelectedImage] = useState<File | null>(null);

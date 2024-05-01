@@ -21,6 +21,7 @@ export default function Course({params:{courseId}}:Params) {
     const purshased = auth?.user?.courses?.includes(courseId) ? true : false
     const getCourseData = async () => {
        try {
+        console.log(courseId)
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/${courseId}`)
         const data:CourseType = await response?.json();
         if(response?.status === 404){
@@ -28,6 +29,8 @@ export default function Course({params:{courseId}}:Params) {
         }
         console.log(data)
         setCourse(data);
+        setUser(data.owner)
+        console.log(data.owner)
     
       } catch (error: any) {
         setError(error.message)    
@@ -46,12 +49,13 @@ export default function Course({params:{courseId}}:Params) {
         setLoading(false)
         console.log(purshased)
         console.log("thiiiiiis")
+        console.log(course)
     },[])
     return (
     <>
       <Navbar />
       <CourseHeader user={user} course={course} />
-        {loading ? <div>Loading...</div> : error ? <div>{error}</div> : <div> <CourseContent course={course} purshased={purshased} /></div>}
+        {loading ? <div>Loading...</div> : error ? <div>{error}</div> : <div> <CourseContent course={course} purshased={purshased} user={user} /></div>}
       <Footer  />
     </>
   )

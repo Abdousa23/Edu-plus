@@ -20,7 +20,7 @@ export default function SidebarWatchCourse({course,setSelectedLesson,selectedLes
         {/* <h1 className='text-[#23BD33] text-[14px]'>15% Completed</h1> */}
       </div>
       {
-        lessons?.map((lesson : any)=>{
+        lessons?.length > 0 && lessons?.map((lesson : any)=>{
           return <LessonsCard key={lesson._id.toString()} setSelectedLesson={setSelectedLesson} selectedLesson={selectedLesson} lesson={lesson} />
         })
       }

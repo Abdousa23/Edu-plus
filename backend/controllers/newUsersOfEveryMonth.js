@@ -13,7 +13,6 @@ function getMonthStartEndDates(year) {
 
 // Controller to get the count of users for each month of the current year
 const getUsersCountByMonth = async (req, res) => {
-    console.log('test 1 has been passed ')
   const year = moment().year(); // Get the current year
   const monthStartEndDates = getMonthStartEndDates(year); // Get start and end dates of each month
 

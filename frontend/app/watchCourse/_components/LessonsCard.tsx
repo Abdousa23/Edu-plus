@@ -75,9 +75,12 @@ export default function LessonsCard({ lesson, setSelectedLesson, selectedLesson 
       lessonTitle = `${lessonTitle}(${suffix})`;
     }
     console.log(lesson.title)
-    const lessonWithVideo = { ...lesson, videoUrl: URL.createObjectURL(blob) };
-    await db.put('downloadedCourses', lessonWithVideo, lessonTitle);
+    // const lessonWithVideo = { ...lesson, videoUrl: URL.createObjectURL(blob) };
+    // await db.put('downloadedCourses', lessonWithVideo, lessonTitle);
 
+    const lessonWithVideo = { ...lesson, videoBlob: blob }; // Store the Blob instead of the Blob URL
+    await db.put('downloadedCourses', lessonWithVideo, lessonTitle);
+  
     const url = URL.createObjectURL(blob);
     setVideoUrl(url);
   }

@@ -1,3 +1,4 @@
+'use client'
 import useAuth from '@/app/_hooks/useAuth'
 import React, { useEffect,useState } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
@@ -89,5 +90,6 @@ export default function Sidebar() {
         </button>
         </div>
     </div>
+
   )
 }

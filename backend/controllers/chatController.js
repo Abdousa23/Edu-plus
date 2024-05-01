@@ -66,16 +66,6 @@ const getMessageContoller= async (req, res) =>  {
         const room = req.params.id
         const chat = await Chat.findById(room).populate("messages")
         const senderID = user._id
-        // console.log("sender id is ",senderID)
-        // console.log("chat is ",chat)
-        // if(!chat){
-        //     return res.status(404).json({message:"chat not found"})
-        // }
-        
-        // if(!chat.participent.includes(senderID)){
-        //     return res.status(200).json({message:"you are not allowed to see the messages of this chat enrole on course to get in the chat "})
-        // }
-
         const messages = await chat.messages
         
         return res.status(200).json({messages:messages})

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { use } from 'react'
 import { Star } from '@mui/icons-material'
 import { StarHalf } from '@mui/icons-material'
 import { StarOutline } from '@mui/icons-material'
 import useAuth from '@/app/_hooks/useAuth'
-
+import { useEffect } from 'react'
 type course = {
   course?: CourseType
   user:userType | null
@@ -24,6 +24,10 @@ export default function CourseHeader({ course,user }: course) {
       </>
     );
   }
+  useEffect(() => {
+    console.log('users')
+    console.log(user)
+  }, [])
   return (
     <div className='bg-[#fffaf5] w-full py-4'>
       <div className='container mx-auto max-md:text-center '>

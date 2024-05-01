@@ -130,9 +130,9 @@ export default function Search({params:{search}}:Params) {
                 <li className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm' >
                     <select onChange={handleSelectChange} name="level" id="">
                     <option value="">Level</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="pro">Pro</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Pro">Pro</option>
                     </select>
                 </li>
                 <li className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm' >

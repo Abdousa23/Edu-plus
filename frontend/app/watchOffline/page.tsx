@@ -10,15 +10,29 @@ export default function page() {
   const [lessons, setLessons] = useState<LessonType[]>([])
   const [selectedLesson, setSelectedLesson] = useState<LessonType | null>(null)
 
+  // const fetchCourses = async () => {
+  //   try {
+  //     const db = await openDB('VideosDb', 1);
+  //     const downloadedCourses = await db.getAll('downloadedCourses');
+  //     console.log(downloadedCourses)
+  //     setLessons(downloadedCourses);
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
   const fetchCourses = async () => {
-    try {
-      const db = await openDB('VideosDb', 1);
-      const downloadedCourses = await db.getAll('downloadedCourses');
-      console.log(downloadedCourses)
-      setLessons(downloadedCourses);
-    } catch (e) {
-      console.log(e)
-    }
+    const db = await openDB('VideosDb', 1);
+    const downloadedCourses = await db.getAll('downloadedCourses');
+  
+    // Create a new Blob URL for each course
+    const coursesWithUrls = downloadedCourses.map(course => ({
+      ...course,
+      videoUrl: URL.createObjectURL(course.videoBlob),
+    }));
+  
+    console.log(coursesWithUrls);
+    console.log("here")
+    setLessons(coursesWithUrls);
   }
   useEffect(() => {
     fetchCourses()

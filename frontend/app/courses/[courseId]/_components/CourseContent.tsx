@@ -15,18 +15,19 @@ import SidebarWatchCourse from '@/app/watchCourse/_components/SidebarWatchCourse
 import { getUserCourses } from '@/lib/getuserCourses'
 type course = {
     course?: CourseType,
-    purshased: Boolean
+    purshased: Boolean,
+    user: userType | null
 }
-export default function CourseContent({ course, purshased }: course) {
+export default function CourseContent({ course, purshased,user }: course) {
     const [activeTab, setActiveTab] = useState('overview')
     const [courses, setCourses] = useState<CourseType[]>([])
-    const [user, setUser] = useState<userType | null>(null)
+    // const [user, setUser] = useState<userType | null>(null)
     const [selectedLesson , setSelectedLesson] = useState<LessonType | null>(null)
     const getUserData = async (id: string) => {
         if (id != '') {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/profile/${id}`)
             const data = await response?.json();
-            setUser(data)
+            // setUser(data)
         }
     }
     const selectLesson = (lesson: LessonType) => {
