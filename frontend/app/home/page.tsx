@@ -14,6 +14,7 @@ import { getUserCourses } from '@/lib/getuserCourses';
     const [courses, setCourses] = useState<CourseType[]>([]);
     const [myCourses, setMyCourses] = useState<CourseType[]>([]);
     const getCourses = async () => {
+       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home`, {
           method: 'GET',
       });
@@ -23,6 +24,9 @@ import { getUserCourses } from '@/lib/getuserCourses';
       }
       console.log(data)
       setCourses(data);
+       } catch (error: any) {
+        console.log(error.message)
+       }
     }
     const getMyCourses = async () => {
       const response = await getUserCourses(auth?.user._id);

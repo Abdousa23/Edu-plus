@@ -24,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/images/logo72x72.png" />
+        <link rel="manifest" href="/manifest.json"></link>
       </head>
       <body>
         <AuthProvider>

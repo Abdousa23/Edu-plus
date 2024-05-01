@@ -9,10 +9,13 @@ const withPWA = withPWAInit({
   dest: "public",
   additionalManifestEntries: [
     { url: '/watchOffline', revision: '1' },
+    { url: '/offline', revision: '1' },
+    { url: 'manifest.json', revision: '1' },
   ],
 
   fallbacks: {
     document: "/watchOffline",
+
   }
 });
 

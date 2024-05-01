@@ -11,7 +11,6 @@ const handleAuth = async (req,res)=>{
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ 'message': 'Username and password are required.' });
     const foundUser = await User.findOne({ email:email }).exec();
-    // if(bcrypt.compare(process.env.RPWD ,foundUser.password)) return res.status(401).send(json({"message" : "access denied"}))
     if (!foundUser) return res.status(404).json({ 'message': 'no user found.' })
     // evaluate password 
     const match = await bcrypt.compare(password, foundUser.password);
@@ -72,35 +71,6 @@ const signToken = async (req, res) => {
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '1d' }
     );
-    // Changed to let keyword
-    // let newRefreshTokenArray =
-    //     !cookies?.jwt
-    //         ? foundUser.refreshToken
-    //         : foundUser.refreshToken.filter(rt => rt !== cookies.jwt);
-
-    // if (cookies?.jwt) {
-
-    //     /* 
-    //     Scenario added here: 
-    //         1) User logs in but never uses RT and does not logout 
-    //         2) RT is stolen
-    //         3) If 1 & 2, reuse detection is needed to clear all RTs when user logs in
-    //     */
-    //     const refreshToken = cookies.jwt;
-    //     const foundToken = await User.findOne({ refreshToken }).exec();
-
-    //     // Detected refresh token reuse!
-    //     if (!foundToken) {
-    //         console.log('attempted refresh token reuse at login!')
-    //         // clear out ALL previous refresh tokens
-    //         newRefreshTokenArray = [];
-    //     }
-
-    //     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
-    // }
-
-    // // Saving refreshToken with current user
-    // foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
     const result = await foundUser.save();
 
     // Creates Secure Cookie with refresh token
@@ -112,33 +82,4 @@ const signToken = async (req, res) => {
 module.exports= { handleAuth }
 
 
-        // console.log(newRefreshToken);
-        // console.log(foundUser.refreshToken);
-        // // Changed to let keyword
-        // let newRefreshTokenArray =
-        //     !cookies?.jwt
-        //         ? foundUser.refreshToken
-        //         : foundUser.refreshToken.filter(rt => rt !== cookies.jwt);
-
-        // if (cookies?.jwt) {
-
-        //     /* 
-        //     Scenario added here: 
-        //         1) User logs in but never uses RT and does not logout 
-        //         2) RT is stolen
-        //         3) If 1 & 2, reuse detection is needed to clear all RTs when user logs in
-        //     */
-        //     const refreshToken = cookies.jwt;
-        //     const foundToken = await User.findOne({ refreshToken }).exec();
-
-        //     // Detected refresh token reuse!
-        //     if (!foundToken) {
-        //         console.log('attempted refresh token reuse at login!')
-        //         // clear out ALL previous refresh tokens
-        //         newRefreshTokenArray = [];
-        //     }
-
-        //     res.clearCookie('jwt', { httpOnly: true,secure:false ,sameSite: 'None', secure: true });
-        // }
-
-        // // Saving refreshToken with current user
+   

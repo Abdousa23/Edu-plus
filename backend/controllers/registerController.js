@@ -7,7 +7,6 @@ const register = async (req, res) => {
     if(!username || !email || !password || !role || !firstname || !lastname){
         return res.status(400).json({'message':"All fields are required"})
     }
-    // const duplicate = User.find({email:email}||{username:username})
     try {
     const duplicate = await User.find({ $or: [{email: email}, {username: username}] });
     if(duplicate.length!==0){
