@@ -36,6 +36,43 @@ const getAllCourses = async (req, res) => {
     }
 }
 
+const getAllStudentCourses = async (req , res)=>{
+    try {
+        const username = req.user
+        const user = await User.findOne({username : username}).exec()
+        const enrolledCourses = user.purchasedcourses
+        console.log(enrolledCourses)
+        const purchasedcourses = enrolledCourses.map(async (courseId)=>{
+            return await Course.findById(courseId)
+        })
+        const studentCourses = await Promise.all(purchasedcourses)
+        console.log(studentCourses)
+        res.status(200).json(studentCourses)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getStudentCourseByName = async (req , res)=>{
+    const username = req.user
+    const {name} = req.params
+    try {
+        console.log(name)
+        const user = await User.findOne({username : username}).exec()
+        const enrolledCourses = user.purchasedcourses
+        console.log(enrolledCourses)
+        const purchasedcourses = enrolledCourses.map(async (courseId)=>{
+            return await Course.find({_id : courseId , title: { $regex: name, $options: 'i' }})
+        })
+        const studentCourses = await Promise.all(purchasedcourses)
+        console.log(studentCourses)
+        res.status(200).json(studentCourses[0])
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 const getCoursesByName = async (req, res) => {
     const { name } = req.params;
     console.log(name);
@@ -335,6 +372,8 @@ const getTeacherAllCourses = async (req, res) => {
 }
 
 module.exports = {
+    getStudentCourseByName,
+    getAllStudentCourses,
     getTeacherAllCourses,
     getTeacherOfflineCourses,
     getTeacherOnlineCourses,

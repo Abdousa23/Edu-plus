@@ -77,6 +77,42 @@
         }
       }
     },
+    "/api/home/student/{name}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/api/home/categories": {
       "get": {
         "description": "",
@@ -734,6 +770,36 @@
         }
       }
     },
+    "/api/courses/all/student": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/api/courses/all/teacher/online": {
       "get": {
         "description": "",
@@ -1036,6 +1102,9 @@
                 "lesson": {
                   "example": "any"
                 },
+                "lesson": {
+                  "example": "any"
+                },
                 "title": {
                   "example": "any"
                 },
@@ -1052,6 +1121,9 @@
                   "example": "any"
                 },
                 "language": {
+                  "example": "any"
+                },
+                "type": {
                   "example": "any"
                 },
                 "type": {
@@ -2193,6 +2265,26 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/instructor/users/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"

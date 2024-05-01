@@ -28,6 +28,17 @@ import { getUserCourses } from '@/lib/getuserCourses';
         console.log(error.message)
        }
     }
+    const signGoogle = async ()=>{
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/google/protected`,{
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+      })
+      const result = await response.json();
+      console.log(result)
+  }
     const getMyCourses = async () => {
       const response = await getUserCourses(auth?.user._id);
       const usercourses = response.data.courses
@@ -38,6 +49,7 @@ import { getUserCourses } from '@/lib/getuserCourses';
 
 
     useEffect(()=>{
+      signGoogle()
       getCourses();
       getMyCourses()
       console.log(courses)

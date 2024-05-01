@@ -50,8 +50,8 @@ const addReview = async (req, res) => {
             courseOwner:course.owner
         })
         course.reviews.push(newReview)
-        await newReview.save()
         await course.save()
+        await newReview.save()
         adjustRating(course)
         return res.status(200).json(newReview)
 
@@ -113,6 +113,7 @@ const getAllReviews = async (req, res) => {
     const { courseId } = req.params
     try {
         const course = await courses.findById(courseId)
+        console.log(course.reviews)
         res.status(200).json(course.reviews)
     }
     catch (err) {

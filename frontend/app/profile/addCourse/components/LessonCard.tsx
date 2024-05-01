@@ -10,7 +10,7 @@ import { handleTitle, handleDeleteLesson } from './Handlers'
 const LessonCard = ({ formData, setFormData, lessonContent, setLessonContent, item }: any) => {
     return (
 
-        <div className='flex flex-row justify-between items-center my-4 w-full mx-4 max-sm:flex-col max-sm:gap-4'>
+        <div className='flex flex-row  justify-between items-start my-4 w-full mx-4 max-sm:flex-col max-sm:gap-4'>
             <div className="flex content-center items-center gap-2">
                 <BsList className='text-[#6E7485]' />
                 <input
@@ -22,7 +22,7 @@ const LessonCard = ({ formData, setFormData, lessonContent, setLessonContent, it
                 ></input>
                 </div>
             <div
-                className="flex flex-row gap-2 content-center items-center ml-auto"
+                className="flex flex-row gap-2 content-start items-start ml-auto"
             >
                 <PopoverTrigger>
                     <div

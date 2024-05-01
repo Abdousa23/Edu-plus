@@ -10,6 +10,7 @@ const verifyRoles = require('../../middlewares/verifyRoles');
 router.get('/',courseController.getAllCourses);
 
 router.get('/search/:name', courseController.getCoursesByName);
+router.get('/student/:name',verifyJWT ,courseController.getStudentCourseByName);
 
 
 router.get('/categories',categoryController.getAllCategories)
