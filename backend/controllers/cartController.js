@@ -17,9 +17,7 @@ const addToCart = async (req, res) => {
         }
         const cart = await Cart.findOne({ userId: user._id })
         if (!cart) {
-            // const newCart = await Cart.create({userId: user._id, items: [{courseId: course._id}]})
             const newCart = new Cart({ userId: user._id, items: [{ courseId: course._id }] });
-            // await newCart.save();
             newCart.save()
             return res.status(200).json(newCart)
         }
