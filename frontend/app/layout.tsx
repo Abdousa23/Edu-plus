@@ -28,10 +28,9 @@ export default function RootLayout({
       </head>
       <body>
         <AuthProvider>
-          <PersistLogin>
-          {children}
-          </PersistLogin>
+          
           {/* <SocketContextProvider> */}
+          {children}
           {/* </SocketContextProvider> */}
         </AuthProvider>
         

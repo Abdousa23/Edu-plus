@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
-    if (!cookies?.jwt) return res.sendStatus(401);
+    if (!cookies?.jwt) return res.status(401).json({ message: "No token provided" });
     const refreshToken = cookies.jwt;
 
     const user = await User.findOne({ refreshToken }).exec();
