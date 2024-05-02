@@ -49,7 +49,7 @@ import { getUserCourses } from '@/lib/getuserCourses';
 
 
     useEffect(()=>{
-      signGoogle()
+      // signGoogle()
       getCourses();
       getMyCourses()
       console.log(courses)

@@ -24,8 +24,10 @@ export default function HomeLayout({
     children
 } : Props) {
     return (
-        <PersistLogin>
+        <AuthProvider>
+            <PersistLogin>
             {children}
         </PersistLogin>
+        </AuthProvider>
             );
 }
