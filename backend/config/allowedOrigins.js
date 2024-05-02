@@ -1,5 +1,6 @@
 var allowedOrigins=[
     'https://edu-plus-nine.vercel.app/',
+    'https://edu-plus-abdous-projects-70fcba1a.vercel.app',
     'https://127.0.0.1:5500',
     'http://127.0.0.1:3001',
     'http://localhost:3001',
