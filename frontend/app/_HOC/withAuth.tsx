@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; 
 import useAuth from '../_hooks/useAuth';
+import useRefreshToken from '../_hooks/useRefreshToken';
 
 interface WithAuthProps {
 
@@ -11,7 +12,7 @@ const withAuth = <P extends WithAuthProps>(WrappedComponent: React.ComponentType
         const Router = useRouter();
         const [accessToken, setAccessToken] = useState<string | null>(null);
         const [loading, setLoading] = useState(true);
-
+        const refresh = useRefreshToken();
         useEffect(() => {
             const token = localStorage.getItem('accessToken');
             setAccessToken(token || '');
@@ -20,7 +21,21 @@ const withAuth = <P extends WithAuthProps>(WrappedComponent: React.ComponentType
 
         useEffect(() => {
             if (!loading && !accessToken) {
-                Router.replace('/auth/login');
+                const verifyRefreshToken = async () => {
+                    try {
+                        const data =await refresh();
+                        console.log(data);
+                        if(!data){
+                            throw new Error('token has been expired')
+                        }
+                    }
+                    catch (err) {
+                        localStorage.removeItem('accessToken');
+                        Router.push('/auth/login');
+                    }
+                
+            }
+            verifyRefreshToken();
             }
         }, [loading, accessToken]);
 

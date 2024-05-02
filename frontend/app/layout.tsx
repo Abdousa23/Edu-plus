@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { AuthProvider } from "@/context/authContext";
 import "./globals.css";
 // import { SocketContextProvider } from "@/context/SocketContext";
-
+import PersistLogin from "./_HOC/PersistLogin";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,8 +28,10 @@ export default function RootLayout({
       </head>
       <body>
         <AuthProvider>
+          <PersistLogin>
+          {children}
+          </PersistLogin>
           {/* <SocketContextProvider> */}
-        {children}
           {/* </SocketContextProvider> */}
         </AuthProvider>
         
