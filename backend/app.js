@@ -29,7 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(credentials)
-app.use(cors({...corsOptions,origin: 'http://localhost:3001',methods : 'GET,POST,PUT,DELETE' , credentials:true}));
+app.use(cors({...corsOptions,origin: 'https://edu-plus-nine.vercel.app',methods : 'GET,POST,PUT,DELETE' , credentials:true}));
 // app.use(cors({
 //   origin: 'http://localhost:3001', // specify the origin
 //   credentials: true, // allow credentials
