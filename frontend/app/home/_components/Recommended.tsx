@@ -47,7 +47,7 @@ export default function Recommended(mycourses:mycourses) {
         </div>
         <div className='flex justify-between mx-4'>
                     <h3 className='font-semibold text-[28px]'>In-person</h3>
-                    <Link href={'/'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
+                    <Link href={'/courses'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
         </div>
         <div className='flex flex-wrap justify-start gap-7 mt-8'>
                 {

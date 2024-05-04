@@ -13,7 +13,7 @@ const lessonAdder = async (uploadResult , lessons , course) =>{
         for (let j = 0; j < lessons.length; j++) {
             console.log('this is j : ', j  )
             console.log(lessons[0].videoUrl.videoName ,  uploadResult[0].original_filename+'.'+ uploadResult[0].format)
-            if (lessons[j].videoUrl.videoName == uploadResult[0].original_filename+'.'+ uploadResult[0].format) {
+            if (lessons[j].videoUrl.videoName == uploadResult[j].original_filename+'.'+ uploadResult[j].format) {
                 console.log(lessons[j] , uploadResult[i])
                 const lesson = new Lesson({ title: lessons[j].title, description: lessons[j].description, videoUrl: uploadResult[i].secure_url, publicId: uploadResult[i].public_id, course: course._id })
                 await lesson.save()

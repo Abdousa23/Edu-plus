@@ -7,6 +7,7 @@ import { useState } from 'react';
 import useFetchPrivate from '@/app/_hooks/useFetchPrivate';
 import useAuth from '@/app/_hooks/useAuth';
 import Success from '@/app/_components/Success';
+import {useRef} from 'react'
 import ErrorComponent from '@/app/_components/Error';
 type FormDataState = {
   firstName: string;
@@ -44,6 +45,7 @@ export default function Settings() {
     id: user?._id || '',
     pfp: null
   }
+  const imgRef = useRef<HTMLImageElement | null>(null);
   const fetchPrivate = useFetchPrivate()
   const [formData, setFormData] = useState<FormDataState>(initialFormData);
   const [error, setError] = useState<ErrorProps>({ errmessage: '' });
@@ -56,6 +58,11 @@ export default function Settings() {
   const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
     if (e.target.type === 'file') {
       const fileInput = e.target as HTMLInputElement;
+      if (fileInput.files && fileInput.files[0]) {
+        if (imgRef.current) {
+          imgRef.current.src = URL.createObjectURL(fileInput.files[0]);
+        }
+      }
       setFormData({
         ...formData,
         pfp: fileInput.files ? fileInput.files[0] : null as File | null,
@@ -212,7 +219,7 @@ export default function Settings() {
                 <div className='h-fit w-56 flex-none bg-[#f5f7fa] my-4'>
                   <input type="file" name='pfp' onChange={handleChange} id="file" accept='image/' multiple className="hidden" />
                   <label htmlFor="file" className=' mx-auto flex flex-col justify-center items-center '>
-                    <img src="/images/persons.svg" alt="" className='w-40 h-40 m-6 bg-white ' />
+                    <img ref={imgRef} src="/images/persons.svg" alt="" className='w-40 h-40 m-6 bg-white ' />
                     <div className="cursor-pointer bg-black opacity-50  w-fit h-fit text-white text-xs font-medium px-4 py-2">
                       <FileUploadOutlinedIcon className='mx-auto' />Upload photo
                     </div>

@@ -70,8 +70,8 @@ export default function Navbar() {
                     <Link href="/" className='max-md:hidden max'>
                         Home
                     </Link>
-                    <Link href="categories" className='max-md:hidden'>
-                        Categories
+                    <Link href="courses" className='max-md:hidden'>
+                        Courses
                     </Link>
 
                     { !isAuthenticated
@@ -113,19 +113,19 @@ export default function Navbar() {
                                     my profile
                                     </Link>
                                     </li>
-                                    <li className='px-4 py-2 text-gray-800'>
+                                    <li className='px-4 py-2 text-gray-800  hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
                                     <Link href={'/profile/settings'}  className='w-full'>
                                     <SettingsIcon className='mr-4' />
                                     settings
                                     </Link>
                                     </li>
-                                    <li className='px-4 py-2 text-gray-800'>
+                                    <li className='px-4 py-2 text-gray-800  hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
                                     <Link href={'/support'}  className='w-full'>
                                     <HelpIcon className='mr-4' />
                                     help & support
                                     </Link>
                                     </li>
-                                    <li className='px-4 py-2 text-gray-800'>
+                                    <li className='px-4 py-2 text-gray-800  hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
                                     <button onClick={signout}  className='flex w-full'>
                                         <LogoutIcon className='mr-4' />    
                                         logout

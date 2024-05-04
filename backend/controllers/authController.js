@@ -71,7 +71,7 @@ const signToken = async (req, res) => {
             await foundUser.save();
 
             try {
-                res.cookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'Strict', maxAge: 24 * 60 * 60 * 1000 });
+                res.cookie('jwt', newRefreshToken, { httpOnly: true,sameSite:'None',secure:true, maxAge: 24 * 60 * 60 * 1000});   
                 console.log("cookie set")
             } catch (error) {
                 console.log("cookie not set")

@@ -88,12 +88,6 @@ const sendMessageController = async (req, res) => {
             return res.status(404).json({message:"chat not found"})
         }
 
-
-        
-        // if(!chat.participent.includes(senderName)){
-        //     return res.status(403).json({message:"you are not allowed to send  the messages of this chat enrole on course to get in the chat "})
-        // }
-
         const message = new Message({
             sender: senderName.username,
             message: req.body.message,
@@ -104,10 +98,6 @@ const sendMessageController = async (req, res) => {
         chat.messages.push(message)
         await chat.save()
 
-        // implementing sockio
-
-        
-            // io.to(socket id ) is used to send the message to the specific clienct
             io.emit('newMessage',message)
         
 
