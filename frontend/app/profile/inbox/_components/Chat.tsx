@@ -22,7 +22,7 @@ export default function Chat({ _id, name , pic }: ChatProps) {
   };
 
   return (
-    <div className= {` flex gap-2 items-center rounded p-2 py-1 text-black  cursor-pointer ${selectedChat?.name==infoAbouTheChat.name ?'bg-[#C4E7E1]':' '} ` } onClick={handleClick}>
+    <div className= {` h-[10vh] flex gap-2 items-center rounded p-2 py-1 text-black  cursor-pointer ${selectedChat?.name==infoAbouTheChat.name ?'bg-[#C4E7E1]':' '} ` } onClick={handleClick}>
       <img src={infoAbouTheChat.pic} alt="category pic" className=' h-10 w-10 rounded-full' />
       <p className="hidden sm:inline-block   " >{infoAbouTheChat.name}</p>
       

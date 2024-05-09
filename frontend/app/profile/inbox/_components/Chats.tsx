@@ -6,7 +6,7 @@ export default function Chats() {
   const {loading,chats} = useGetallChats()
   useListenMessages()
   return (
-    <div className="flex flex-col  overflow-auto  overflow-x-hidden">
+    <div className="flex flex-col  overflow-auto  overflow-x-hidden ">
 
     
       {loading ? (

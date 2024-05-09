@@ -45,7 +45,7 @@ export default function Theconversations() {
 
   return (
 
-    <div className={`h-[82vh] overflow-y-auto scro`} >
+    <div className={`h-[82vh] overflow-y-auto scro `} >
   {messages.map((info:messageProps,key) => (
     <div key={key} ref={lastMessageRef} >
         <OneMessage  _id={info._id} message={info.message} sender={info.sender} createdAt={info.createdAt} senderphp={info.senderphp}/>

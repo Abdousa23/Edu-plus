@@ -115,13 +115,6 @@ type selectedChat = {
     name:string;
     pic:string;
   }
-
-
-
-
-
-
-
 type ChatType = {
     _id: string;
     name:string

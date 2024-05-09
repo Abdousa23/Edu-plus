@@ -15,7 +15,6 @@ export default function page() {
     <div className='flex'>
         
         <Sidebar />
-
         <SideBarMessages/>
         <ChatBox/>
         <Toaster />
