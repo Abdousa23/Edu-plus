@@ -1,5 +1,5 @@
 import { Facebook, Mail, Twitter, WhatsApp } from '@mui/icons-material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
@@ -20,6 +20,7 @@ export default function CourseSidebar({ course }: course) {
     const [error, setError] = useState<ErrorProps>({ errmessage: '' });
     const [successMessage,setSuccessMessage]=useState('')
     const fetchPrivate = useFetchPrivate();
+
     const addToCart = async ()=>{
         try {
             const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`,{ 
@@ -40,7 +41,8 @@ export default function CourseSidebar({ course }: course) {
             setError({ errmessage: error.message })
         }
     }
-    const body =`{"items":[{"price":"${course?.price}","quantity":1,"product_id":"${course?._id}"}],"success_url":"http://127.0.0.1:3001"}` 
+    
+    const body =`{"items":[{"price":"${course?.priceId}","quantity":1,"name":"${course?._id}"}],"success_url":"${process.env.NEXT_PUBLIC_API_URL}"}` 
     const options = {
         method: "POST",
         headers: {
@@ -50,12 +52,16 @@ export default function CourseSidebar({ course }: course) {
         body:body,
     };
     const purchaseCourse = ()=>{
-        console.log(body)
+        
+        console.log(body)   
         fetch("https://pay.chargily.net/test/api/v2/checkouts", options)
         .then((response) => response.json())
         .then((response) => console.log(response))
         .catch((err) => console.error(err));
     }
+    useEffect(()=>{
+        console.log('shut the fuck u p : ' ,course)
+    } , [])
     return (
         <div className='flex flex-col justify-center items-center  gap-7 relative w-full h-[fit]  top-[0px] bg-white border-[1.1934px] border-gray-100 shadow-md'>
             <div className='border-[1.1934px] border-gray-100 w-full flex items-center justify-start h-20'>

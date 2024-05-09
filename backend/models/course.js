@@ -92,6 +92,9 @@ const course = new schema({
         type:String,
         enum:['Online', 'In Person'],
         required:true
+    },
+    priceId : {
+        type:String,
     }
     },
     {timestamps:true});
