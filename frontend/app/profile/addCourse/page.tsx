@@ -12,10 +12,15 @@ import Navbar from '@/app/_components/Navbar'
 import Error from 'next/error'
 import useFetchPrivate from '@/app/_hooks/useFetchPrivate'
 import ChangeBar from './components/_BaseComponents/ChangeBar'
+import Course from '@/app/courses/[courseId]/_components/Course'
+import { useRouter } from 'next/navigation'
+import LoadingComponent from '@/app/_components/LoadingComponent'
+
 type Props = {}
 
-
 export default function page({ }: Props) {
+    const Router = useRouter()
+    const [loading, setLoading] = useState(false)
     const FetchPrivate = useFetchPrivate()
     const page = ["Basic Information", "Advanced Information", "Curriculum", "Publish Course"]
     const { formData, updateFormData, step, setStep } = useFormContext();
@@ -49,6 +54,7 @@ export default function page({ }: Props) {
         }
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true)
         e.preventDefault()
         if (formData.lesson) {
             formData?.lesson.map((lesson: any) => {
@@ -78,7 +84,6 @@ export default function page({ }: Props) {
             const response = await res?.json()
             console.log(response)
             product = response
-            alert('Course added successfully')
 
         }
         catch (err) {
@@ -112,10 +117,25 @@ export default function page({ }: Props) {
                 body: `{"amount":${formData.price},"currency":"dzd","product_id":"${responseResolved.id}"}`,
             };
 
-            fetch("https://pay.chargily.net/test/api/v2/prices", options1)
+            const response2 = fetch("https://pay.chargily.net/test/api/v2/prices", options1)
                 .then((response) => response.json())
-                .then((response) => console.log(response))
+                .then((response) => {console.log(response)
+                    return response
+                })
                 .catch((err) => console.error(err));
+            const responseResolved2 = await response2
+            console.log('response from chddddddddargily : ', responseResolved2.id)
+            const res = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/price/${product._id}`, {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": JSON.stringify({ "priceId": responseResolved2.id }),
+            })
+            const res2 = await res?.json()
+            console.log(res2)
+            setLoading(false)
+            Router.push('/profile/settings')
         }
         catch (err) {
             console.log(err)
@@ -140,10 +160,11 @@ export default function page({ }: Props) {
                                         <hr></hr>
                                     </div>
                                     {FormSelector()}
+                                    {loading &&< LoadingComponent/>}
 
                                 </div>
                                 <div className='footer flex justify-between'>
-                                    <button className='bg-[white] w-[90px] border' hidden={step === 0} onClick={() => setStep((currStep: number) => currStep - 1)}>
+                                    <button className='bg-[white] w-[90px] border' type='button' hidden={step === 0} onClick={() => setStep((currStep: number) => currStep - 1)}>
                                         <p className='my-1 text-[15px] text-[#6E7485] font-semibold'>
                                             Previous
                                         </p>

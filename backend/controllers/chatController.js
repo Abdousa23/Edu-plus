@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Message = require('../models/message');
 const Category = require('../models/category');
 const Chat = require('../models/chat');
-
+const User = require('../models/user');
+const  { getReceiverSocketId , io} =require('../socket/socket')
 
 
 // we usse this controller to create the chat rooms at the start of the application 
@@ -17,7 +18,8 @@ const createChatsController = async (req, res) => {
             const chat = new Chat({
                 name: cat.name,
                 participent:[],
-                messages: []
+                messages: [],
+                pic: cat.pic
             });
 
             // Save the chat room to the database
@@ -56,30 +58,18 @@ const addParticipentToChat = async (req,res) => {
     
     }
 }
-
-
 const getMessageContoller= async (req, res) =>  {
 
     try {
-        
-        const senderID = req.user._id
+        const username = req.user
+        const user = await User.findOne({username:username})
         const room = req.params.id
         const chat = await Chat.findById(room).populate("messages")
-        console.log("chat is ",chat)
-        if(!chat){
-            return res.status(404).json({message:"chat not found"})
-        }
-        
-        if(!chat.participent.includes(senderID)){
-            return res.status(403).json({message:"you are not allowed to see the messages of this chat enrole on course to get in the chat "})
-        }
-
-
+        const senderID = user._id
         const messages = await chat.messages
-        console.log("messages are ",messages)
+        
         return res.status(200).json({messages:messages})
         
-
     } catch (error) {
         console.log("errore in the chat contoller")
         console.log(error)
@@ -87,30 +77,31 @@ const getMessageContoller= async (req, res) =>  {
     }
 
 }
-
-
 const sendMessageController = async (req, res) => {
     try {
-        const senderID = req.user._id
+        const username = req.user
+        const user = await User.findOne({username:username})
+        const senderName = user
         const room = req.params.id
         const chat = await Chat.findById(room)
         if(!chat){
             return res.status(404).json({message:"chat not found"})
         }
 
-
-        
-        if(!chat.participent.includes(senderID)){
-            return res.status(403).json({message:"you are not allowed to send  the messages of this chat enrole on course to get in the chat "})
-        }
-
         const message = new Message({
-            sender: senderID,
-            message: req.body.message
+            sender: senderName.username,
+            message: req.body.message,
+            senderphp: senderName.pfp.url,
+            chat: chat._id
         })
         await message.save()
         chat.messages.push(message)
         await chat.save()
+
+            io.emit('newMessage',message)
+        
+
+
         return res.status(200).json({message:"message sent successfully",message:message})
     } catch (error) {
         console.log("error in the send message controller")
@@ -119,11 +110,11 @@ const sendMessageController = async (req, res) => {
 
 
 }
-
 const getallChatRoomsController = async (req, res) => {
     try {
         const chats = await Chat.find()
-        console.log(chats)
+        console.log("chats are ",chats)
+        
         return res.status(200).json({chats:chats})
     } catch (error) {
         console.log("error in the get all chat rooms controller")

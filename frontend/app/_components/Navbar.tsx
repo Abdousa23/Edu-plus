@@ -1,20 +1,20 @@
-'use client'
-import React, { useEffect } from 'react'
-import Link from 'next/link'
-import LanguageIcon from '@mui/icons-material/Language';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpIcon from '@mui/icons-material/Help';
-import LogoutIcon from '@mui/icons-material/Logout';
-import MailIcon from '@mui/icons-material/Mail';
-import Image from 'next/image'
-import useAuth from '../_hooks/useAuth';
-import { useState } from 'react';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import useLogout from '../_hooks/useLogout';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useEffect } from "react";
+import Link from "next/link";
+import LanguageIcon from "@mui/icons-material/Language";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SettingsIcon from "@mui/icons-material/Settings";
+import HelpIcon from "@mui/icons-material/Help";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MailIcon from "@mui/icons-material/Mail";
+import Image from "next/image";
+import useAuth from "../_hooks/useAuth";
+import { useState } from "react";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import useLogout from "../_hooks/useLogout";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
     const { auth } = useAuth()
@@ -46,7 +46,7 @@ export default function Navbar() {
     }, [auth])
     return (
         <>
-            <header className='container  py-2 mx-auto '>
+            <header className='md:container  py-2 mx-auto '>
 
                 <nav className=' flex items-center justify-around mt-8'>
 
@@ -57,7 +57,7 @@ export default function Navbar() {
                             alt="logo image"
                             width={100}
                             height={20}
-                            className=""
+                            className=" min-w-10"
                         />
 
                     </Link>
@@ -70,8 +70,8 @@ export default function Navbar() {
                     <Link href="/" className='max-md:hidden max'>
                         Home
                     </Link>
-                    <Link href="categories" className='max-md:hidden'>
-                        Categories
+                    <Link href="courses" className='max-md:hidden'>
+                        Courses
                     </Link>
 
                     { !isAuthenticated
@@ -101,9 +101,9 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className='relative' onClick={(e)=>setSelected(!selected)}>
-                                    <img src={auth?.user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full w-10 rounded-full' alt="" />
+                                    <img src={auth?.user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full w-10 min-w-10 rounded-full' alt="" />
                                 
-                                { selected && <ul className=' absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
+                                { selected && <ul className=' absolute z-10 right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
                                     <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>
                                         {<p>sign in as <span className='font-semibold'>{user?.username || 'guest'}</span></p>}
                                     </li>
@@ -113,19 +113,19 @@ export default function Navbar() {
                                     my profile
                                     </Link>
                                     </li>
-                                    <li className='px-4 py-2 text-gray-800'>
+                                    <li className='px-4 py-2 text-gray-800  hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
                                     <Link href={'/profile/settings'}  className='w-full'>
                                     <SettingsIcon className='mr-4' />
                                     settings
                                     </Link>
                                     </li>
-                                    <li className='px-4 py-2 text-gray-800'>
+                                    <li className='px-4 py-2 text-gray-800  hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
                                     <Link href={'/support'}  className='w-full'>
                                     <HelpIcon className='mr-4' />
                                     help & support
                                     </Link>
                                     </li>
-                                    <li className='px-4 py-2 text-gray-800'>
+                                    <li className='px-4 py-2 text-gray-800  hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
                                     <button onClick={signout}  className='flex w-full'>
                                         <LogoutIcon className='mr-4' />    
                                         logout

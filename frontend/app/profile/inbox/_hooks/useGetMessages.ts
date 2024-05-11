@@ -8,33 +8,36 @@ const {selectedChat , messages , setMessages } = useChat()
 const fetchPrivate = useFetchPrivate()
 
 
-useEffect(  () => {
-
 const getMessages = async () => {
-try {
-    setLoading(false)
-    console.log('selectedChat id ', selectedChat?._id)
-    const res= await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/chat/${selectedChat?._id}`, {
-        method:'GET',
-    })
+    try {
+        
+        setLoading(false)
+        if (!selectedChat) {
+            return
+        }
+        const res= await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/chat/${selectedChat?._id}`, 
+            {
+                method: 'GET',
+            }
+        )
+        if (!res?.ok) {
+            throw new Error('Failed to fetch messages')
+        }
+        
+        const data = await res.json()
+        console.log('data in the getMessages hook ', data)
+        console.log('selected chat  ', selectedChat)
+        setMessages(data.messages)
+    } catch (error) {
+        console.log('error in the getting messages getMessages hook ', error)
+        
+    }}
 
-    if (!res?.ok) {
-        throw new Error('Failed to fetch messages')
-    }
-    const data = await res.json()
-    console.log('data in the getMessages hook ', data)
-    setMessages(data.messages)
-} catch (error) {
-    console.log('error in the getting messages getMessages hook ', error)
-    
-}}
-
-
+useEffect(  () => {
+    console.log('selected chat in the getMessages hook ', selectedChat)
 getMessages()
+}, [selectedChat])
 
-
-
-}, [selectedChat ])
 return {loading , messages}
 }
 

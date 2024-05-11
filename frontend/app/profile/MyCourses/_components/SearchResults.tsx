@@ -29,7 +29,7 @@ export default function SearchResults({search}: props) {
 
     const getAllCourses = async () => {
         try {
-            const response = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/all/student` , {"Method" : "GET"})
+            const response = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/all/student` , {"method" : "GET"})
             const data : CourseType[] = await response?.json();
             console.log('kkolkk',data)
             if (response?.status === 404) {
@@ -47,7 +47,8 @@ export default function SearchResults({search}: props) {
     const getCourses = async () => {
         console.log("courezdedfezf : "  )
         if(search!=''){
-        const response = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/home/student/${search}` , {"methode" : "GET"})
+        const response = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/home/student/${search}` , {"method" : "GET"})
+        console.log("response" , response)
         const data: CourseType[] = await response?.json();
         console.log("data"  ,data)
         if (response?.status === 404) {

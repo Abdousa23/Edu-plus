@@ -1,58 +1,31 @@
-'use client'
-import Footer from '@/app/_components/Footer'
-import Navbar from '@/app/_components/Navbar'
-import { useEffect, useState } from 'react'
-import CourseHeader from './_components/CourseHeader'
-import CourseSidebar from './_components/CourseSidebar'
-import CourseContent from './_components/CourseContent'
-import { getUserData } from '@/lib/getUserData'
+
+import React from 'react'
+import Course from './_components/Course'
 type Params = {
   params: {
-    courseId: string
+      courseId: string
   }
 }
-export default function Page({ params: { courseId } }: Params) {
+export default function page({params:{courseId}}:Params) {
 
 
-
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>('');
-  const [course, setCourse] = useState<CourseType | undefined>(undefined);
-  const [user, setUser] = useState<userType | null>(null)
-  const getCourseData = async () => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/${courseId}`)
-      const data: CourseType = await response?.json();
-      if (response?.status === 404) {
-        throw new Error('Not Found');
-      }
-      console.log("a test to the moon")
-      console.log('hadi data : ', data)
-      setCourse(data);
-
-    } catch (error: any) {
-      setError(error.message)
-    }
-  }
-  const fetchUser = async (id: string) => {
-    const data = await getUserData(id)
-    if (data.data) {
-      setUser(data.data)
-    } else if (data.error) {
-      setError("error fetching data")
-    }
-  }
-  useEffect(() => {
-    getCourseData()
-    fetchUser(course?.owner?.toString() || '') // Fix: Ensure the argument is always a string
-    setLoading(false)
-  }, [])
   return (
-    <>
-      <Navbar />
-      <CourseHeader user={user} course={course} />
-      {loading ? <div>Loading...</div> : error ? <div>{error}</div> : <div> <CourseContent course={course} /></div>}
-      <Footer />
-    </>
+    <Course params={{courseId}} />
   )
+}
+
+export async function generateStaticParams() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/`)
+  const data = await response?.json();
+  if(response?.status === 404){
+      throw new Error('Not Found');
+  }
+  return data.map((course:CourseType) => {
+      return {
+          params: {
+              courseId: course._id
+          }
+      }
+  })
+  
 }

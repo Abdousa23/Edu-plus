@@ -19,3 +19,19 @@ export default function HomeLayout({
         </PersistLogin>
             );
 }
+
+export async function generateStaticParams() {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/instructor/users/`)
+    const data = await response?.json();
+    if(response?.status === 404){
+        throw new Error('Not Found');
+    }
+    return data.map((user:userType) => {
+        return {
+            params: {
+                userid: user._id
+            }
+        }
+    })
+    
+}

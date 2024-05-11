@@ -48,11 +48,11 @@ const userSchema = new schema ({
     },
     courses : {
         type : [schema.Types.ObjectId],
-        ref : 'courses',
+        ref : 'Course',
     },
     purchasedcourses : {
         type : [schema.Types.ObjectId],
-        ref : 'courses'
+        ref : 'Course'
     },
     phonenumber : {
         type : String,///make it an Array later

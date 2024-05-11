@@ -34,7 +34,7 @@ const FormContext = createContext<any>({});
 export const FormContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [formData, setFormData] = useState({
         title: '',
-        type: 'Online',
+        type: 'online',
         category: 'Web Development',
         topic: '',
         language: 'English',

@@ -4,10 +4,19 @@ const schema = mongoose.Schema
 
 const message = new schema({
     sender: {
-        type: schema.Types.ObjectId,
-        ref: "User",
+        type:String,
+        required:true,
     },
     message: {
+        type: String,
+        required: true,
+    },
+    chat:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chat',
+        required: true,
+    },
+    senderphp: {
         type: String,
         required: true,
     },

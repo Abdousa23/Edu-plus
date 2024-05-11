@@ -3,6 +3,7 @@ const verifyJWT = require("../../middlewares/verifyJWT")
 const verifyRoles = require('../../middlewares/verifyRoles')
 const ROLES_LIST = require('../../config/rolesList')
 const courseController = require('../../controllers/courseController')
+const paymenCheckout = require('../../controllers/paymentController')
 const  {updateCourse, deleteCourse, addOnlineCourse, addOfflineCourse, addOnlinelesson, updateLesson, deleteLesson} = require('../../controllers/courseController');
 const upload = require('../../middlewares/multer')
 
@@ -13,7 +14,10 @@ router.get('/all/student' , verifyJWT , courseController.getAllStudentCourses)
 router.get('/all/teacher/online', verifyJWT,courseController.getTeacherOnlineCourses);
 router.get('/all/teacher/inperson', verifyJWT,courseController.getTeacherOfflineCourses);
 router.get('/all/teacher', verifyJWT,courseController.getTeacherAllCourses);
-
+router.post('/payment', verifyJWT, paymenCheckout);
+router.post('/enroll/:courseId', verifyJWT, courseController.enrollOnlineCourse);
+router.post("/price/:courseId", verifyJWT, courseController.addPriceId);
+//
 router.get('/all',courseController.getAllCourses);
 router.get('/all/category/:category', courseController.getCoursesByCategory);
 router.get('/all/:courseId',verifyJWT ,courseController.getCourseResources);

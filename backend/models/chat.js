@@ -8,7 +8,7 @@ const chat= new schema({
 
         pic:{
             type:String,
-            default:"https://res.cloudinary.com/dzjzhwvix/image/upload/v1623317568/ChatApp/DefaultProfilePic_qzv9xj.png"
+            default:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
         },
 
         participent :[{

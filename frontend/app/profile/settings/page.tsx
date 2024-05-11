@@ -7,6 +7,7 @@ import { useState } from 'react';
 import useFetchPrivate from '@/app/_hooks/useFetchPrivate';
 import useAuth from '@/app/_hooks/useAuth';
 import Success from '@/app/_components/Success';
+import {useRef} from 'react'
 import ErrorComponent from '@/app/_components/Error';
 type FormDataState = {
   firstName: string;
@@ -44,6 +45,7 @@ export default function Settings() {
     id: user?._id || '',
     pfp: null
   }
+  const imgRef = useRef<HTMLImageElement | null>(null);
   const fetchPrivate = useFetchPrivate()
   const [formData, setFormData] = useState<FormDataState>(initialFormData);
   const [error, setError] = useState<ErrorProps>({ errmessage: '' });
@@ -56,6 +58,11 @@ export default function Settings() {
   const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
     if (e.target.type === 'file') {
       const fileInput = e.target as HTMLInputElement;
+      if (fileInput.files && fileInput.files[0]) {
+        if (imgRef.current) {
+          imgRef.current.src = URL.createObjectURL(fileInput.files[0]);
+        }
+      }
       setFormData({
         ...formData,
         pfp: fileInput.files ? fileInput.files[0] : null as File | null,
@@ -108,7 +115,9 @@ export default function Settings() {
       }
     });
   
+    console.log(data)
     try {
+      console.log(data)
       const response = await fetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/profile/${formData.id}`, {
         method: 'PUT',
         body: data,
@@ -172,15 +181,13 @@ export default function Settings() {
   },[])
 
   return (
-    <div className='flex bg-[#E9EAF0]'>
-    
-    <Sidebar />
-    
-    <div className='flex container mx-auto'>
+    <div className='flex bg-[#E9EAF0] w-full box-border'>
+      <Sidebar />
+    <div className='flex-grow  box-border w-3/4 '>
       <div className='flex-grow'>
         <div className=' text-[#1d2026]  '>
         <Navbar />
-          <h1 className=' font-semibold text-xl ml-8 my-4 '>Account Settings</h1>
+          <h1 className=' font-semibold text-xl ml-8 my-4 w-fit '>Account Settings</h1>
           <div className=' w-full gap-4'>
             <form encType="multipart/form-data" action={`profile/${formData.id}`} method='POST' onSubmit={(e) => handleSubmit(e, 'userData')} className=' mx-8 font-normal text-xs'>
               <div className='flex max-md:flex-col w-full gap-4 mb-4 '>
@@ -212,7 +219,7 @@ export default function Settings() {
                 <div className='h-fit w-56 flex-none bg-[#f5f7fa] my-4'>
                   <input type="file" name='pfp' onChange={handleChange} id="file" accept='image/' multiple className="hidden" />
                   <label htmlFor="file" className=' mx-auto flex flex-col justify-center items-center '>
-                    <img src="/images/persons.svg" alt="" className='w-40 h-40 m-6 bg-white ' />
+                    <img ref={imgRef} src="/images/persons.svg" alt="" className='w-40 h-40 m-6 bg-white ' />
                     <div className="cursor-pointer bg-black opacity-50  w-fit h-fit text-white text-xs font-medium px-4 py-2">
                       <FileUploadOutlinedIcon className='mx-auto' />Upload photo
                     </div>
@@ -229,7 +236,7 @@ export default function Settings() {
           </div>
         </div>
         <div className='w-2/5 max-md:w-full'>
-          <h1 className=' font-semibold text-xl ml-8 my-4 '>Change Password</h1>
+          <h1 className=' font-semibold text-xl ml-8 my-4 w-fit '>Change Password</h1>
           <form action="" method='POST' onSubmit={(e) => handleSubmit(e, 'passwordChange')} className='w-9/12 mx-8 font-normal text-xs'>
             <label htmlFor="">Old Password</label>
             <input type="password" name='oldPassword' className='abdouinput my-1' value={formData.oldPassword} onChange={handleChange} placeholder="Old Password" />

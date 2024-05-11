@@ -20,16 +20,16 @@ const course = new schema({
     owner: {
         type:schema.Types.ObjectId,
         required : true,
-        ref: 'users'
+        ref: 'User'
     },
     
     lessons:{
         type:[schema.Types.ObjectId],
-        ref:'lessons'
+        ref:'Lessons'
     },
     resources : {
         type : [schema.Types.ObjectId],
-        ref : 'resources'
+        ref : 'Resource'
     },
     level: {
         type: String,
@@ -43,7 +43,7 @@ const course = new schema({
     studentEnrolled:{
             students : {
                 type :[schema.Types.ObjectId],
-                ref:"users", // maybe have a problem with ss
+                ref:"User", // maybe have a problem with ss
                 default :[],
             },
             studentsNumber : {
@@ -63,6 +63,10 @@ const course = new schema({
 
     imageUrl:{
         type:String,
+    },
+    priceId : {
+        type:String,
+        default : "",
     },
 
     price : { 
@@ -90,15 +94,13 @@ const course = new schema({
     },
     type:{
         type:String,
-        enum:['Online', 'In Person'],
+        enum:['online', 'inperson'],
         required:true
     },
-    priceId : {
-        type:String,
-    }
+
     },
     {timestamps:true});
 
-const Course= mongoose.model('Courses', course);
+const Course= mongoose.model('Course', course);
 
 module.exports = Course;

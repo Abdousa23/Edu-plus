@@ -77,6 +77,42 @@
         }
       }
     },
+    "/api/home/student/{name}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/api/home/categories": {
       "get": {
         "description": "",
@@ -175,7 +211,48 @@
         }
       }
     },
-    "/api/auth/google/": {
+    "/api/home/categories/add": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "pic": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth/google/callback": {
       "get": {
         "description": "",
         "parameters": [
@@ -192,7 +269,24 @@
         }
       }
     },
-    "/api/auth/google/callback": {
+    "/api/auth/google/setToken": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/auth/google/protected": {
       "get": {
         "description": "",
         "parameters": [
@@ -206,8 +300,8 @@
           "200": {
             "description": "OK"
           },
-          "500": {
-            "description": "Internal Server Error"
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -606,6 +700,57 @@
         }
       }
     },
+    "/api/profile/changerole/{id}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/courses/enrolled": {
       "get": {
         "description": "",
@@ -667,6 +812,36 @@
       }
     },
     "/api/courses/all/offline": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/courses/all/student": {
       "get": {
         "description": "",
         "parameters": [
@@ -782,6 +957,159 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/courses/payment": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "example": "any"
+                },
+                "data": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/courses/enroll/{courseId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/courses/price/{courseId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "priceId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -1337,6 +1665,277 @@
         }
       }
     },
+    "/api/admin/totalusers": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/totalsales": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/totalcourses": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/newusersofweek": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/topcategories": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/topcreators": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin./newusersofeverymonth": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/totalroles/{role}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/multipleDelete": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ids": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/addMod": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ids": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/removeMod": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ids": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/login/": {
       "post": {
         "description": "",
@@ -1730,6 +2329,26 @@
         }
       }
     },
+    "/api/instructor/users/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/instructor/courses/{id}": {
       "get": {
         "description": "",
@@ -1876,12 +2495,6 @@
           },
           "401": {
             "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -1931,11 +2544,34 @@
           "401": {
             "description": "Unauthorized"
           },
-          "403": {
-            "description": "Forbidden"
-          },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/model/sentiment/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

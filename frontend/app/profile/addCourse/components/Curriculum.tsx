@@ -21,8 +21,8 @@ export default function Curriculum() {
             className="mx-auto w-[95%] flex flex-col items-center"
         >
             <div className="bg-[#F5F7FA] flex flex-col items-center justify-center mx-auto my-4 w-full" >
-                {console.log(lessonContent)}
-                {lessonContent.map((item: any) => {
+                {console.log('lessoncodddddddddddddddntent ' , lessonContent)}
+                {lessonContent?.map((item: any) => {
                     return (
                         <div
                             key={item.id}

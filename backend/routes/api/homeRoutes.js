@@ -20,4 +20,7 @@ router.get('/categories/', categoryController.getAllCategories);
 
 router.get('/:id', courseController.getCourseById);
 
+
+router.post ('/categories/add',categoryController.addCategory)
+
 module.exports = router;

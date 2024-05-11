@@ -17,8 +17,8 @@ export default function Recommended(mycourses:mycourses) {
         let OflineCourses = 
             courses?.length > 0 ?
             courses?.filter((course: CourseType) => course.type === 'inperson') : [];
-        OnlineCourses = OnlineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4);
-        OflineCourses = OflineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4);
+        OnlineCourses = OnlineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 6 && course.rating >= 3);
+        OflineCourses = OflineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 6 && course.rating >= 3);
         console.log(OnlineCourses, OflineCourses)
         setRecommendedOnlineCourses(OnlineCourses);
         setRecommendedOflineCourses(OflineCourses);
@@ -34,7 +34,7 @@ export default function Recommended(mycourses:mycourses) {
         <h1 className='font-semibold text-[43px]'>Best <span className='text-green+'>Recommended course</span></h1>
         <div className='flex justify-between mx-4'>
                     <h3 className='font-semibold text-[28px]'>Online</h3>
-                    <Link href={'/'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
+                    <Link href={'/courses'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
         </div>
         <div className='flex flex-wrap justify-start gap-7 mt-8'>
                 {
@@ -47,7 +47,7 @@ export default function Recommended(mycourses:mycourses) {
         </div>
         <div className='flex justify-between mx-4'>
                     <h3 className='font-semibold text-[28px]'>In-person</h3>
-                    <Link href={'/'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
+                    <Link href={'/courses'} className='font-medium text-[21px] text-[#b4b4b4] underline'>View more &gt; </Link>
         </div>
         <div className='flex flex-wrap justify-start gap-7 mt-8'>
                 {

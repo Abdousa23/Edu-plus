@@ -18,7 +18,7 @@ const WelcomHeader = (props: Props) => {
     const getPurchasedCourse = async ()=>{
         const response = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/all/student` , {"Method" : "GET"})
         const data : CourseType[] = await response?.json();
-        setNumber(data.length)
+        setNumber(data?.length)
 
     }
 

@@ -1,5 +1,7 @@
 const express = require('express');
-const app = express();
+// const app = express();
+const {app }= require('./socket/socket')
+const {server}= require('./socket/socket.js')
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const credentials = require('./middlewares/credentials');
@@ -11,9 +13,10 @@ const session = require('express-session');
 const passport = require('passport');
 const swaggerUi = require('swagger-ui-express');
 const Swagger = require('./swagger.json');
-const bodyParser = require('body-parser')
-
+const rateLimitMiddleware = require('./middlewares/rateLimiter');
 require('./controllers/googleAuthController')
+const mongoSanitize = require('express-mongo-sanitize');
+const bodyParser = require('body-parser');
 dotenv.config();
 // what is is the perpose of this line
 app.use(express.urlencoded({ extended: true }));
@@ -26,12 +29,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(credentials)
-app.use(cors({...corsOptions,origin: 'http://localhost:3001',methods : 'GET,POST,PUT,DELETE' , credentials:true}));
-// app.use(cors({
-//   origin: 'http://localhost:3001', // specify the origin
-//   credentials: true, // allow credentials
-// }));
-
+// app.use(cors({...corsOptions,origin: 'https://edu-plus-nine.vercel.app',methods : 'GET,POST,PUT,DELETE' , credentials:true}));
+app.use(cors({
+  origin: 'http://localhost:3001', // specify the origin
+  credentials: true, // allow credentials
+}));
+app.use(mongoSanitize());
+// app.use(rateLimitMiddleware);
 
 app.get('/', (_req, res) => {
     res.send('Welcome to my API');
@@ -39,13 +43,6 @@ app.get('/', (_req, res) => {
 
 app.use('/api', router);
 
-
-
-// app.post('/upload',fileExtLimiter ,upload.single("image"),
-// cloudinaryMW, (req, res) => {
-//     console.log(req.fileUrls);
-//     res.send('Image uploaded');
-// });
 
 
 app.use('/documentation', swaggerUi.serve, swaggerUi.setup(Swagger));
@@ -60,4 +57,4 @@ connectDB()
 
 .catch((err) => {
     console.error(err.message);
-});
+});  
