@@ -18,7 +18,7 @@ const userSchema = new schema ({
     username : {
         type : String,
         required : true,
-        maxlength : 15,
+        maxlength : 20,
         minlength : 4,
         trim : true
     },

@@ -1,20 +1,20 @@
-'use client'
-import React, { useEffect } from 'react'
-import Link from 'next/link'
-import LanguageIcon from '@mui/icons-material/Language';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpIcon from '@mui/icons-material/Help';
-import LogoutIcon from '@mui/icons-material/Logout';
-import MailIcon from '@mui/icons-material/Mail';
-import Image from 'next/image'
-import useAuth from '../_hooks/useAuth';
-import { useState } from 'react';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import useLogout from '../_hooks/useLogout';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useEffect } from "react";
+import Link from "next/link";
+import LanguageIcon from "@mui/icons-material/Language";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SettingsIcon from "@mui/icons-material/Settings";
+import HelpIcon from "@mui/icons-material/Help";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MailIcon from "@mui/icons-material/Mail";
+import Image from "next/image";
+import useAuth from "../_hooks/useAuth";
+import { useState } from "react";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import useLogout from "../_hooks/useLogout";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
     const { auth } = useAuth()
@@ -46,8 +46,7 @@ export default function Navbar() {
     }, [auth])
     return (
         <>
-        
-            <header className='container  py-2 mx-auto '>
+            <header className='md:container  py-2 mx-auto '>
 
                 <nav className=' flex items-center justify-around mt-8'>
 
@@ -58,7 +57,7 @@ export default function Navbar() {
                             alt="logo image"
                             width={100}
                             height={20}
-                            className=""
+                            className=" min-w-10"
                         />
 
                     </Link>
@@ -102,7 +101,7 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className='relative' onClick={(e)=>setSelected(!selected)}>
-                                    <img src={auth?.user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full w-10 rounded-full' alt="" />
+                                    <img src={auth?.user?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full w-10 min-w-10 rounded-full' alt="" />
                                 
                                 { selected && <ul className=' absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 divide-y divide-gray-100'>
                                     <li className='px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer'>

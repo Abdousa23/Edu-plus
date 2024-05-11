@@ -12,8 +12,6 @@ const totalUsers = async (req,res)=>{
 
 
     } catch (error) {
-        console.log("error in the total result controller")
-        console.log(error)
         res.status(500).json({error:"an error occured while getting the total result"})
         
     }

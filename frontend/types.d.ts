@@ -2,12 +2,12 @@
 
 type CourseType = {
     map(arg0: (course: CourseType) => void): unknown;
-    _id: number;
+    _id: string;
     title: string;
     category: string;
     description: string;
     owner :  userType ;
-    lessons: [string];
+    lessons: [LessonType];
     ressources: [string];
     level: string;
     language: string;
@@ -23,6 +23,14 @@ type CourseType = {
     imageUrl: string;
     type : string;
     category: string;
+}
+
+type LessonType ={
+    _id:String
+    title: String,
+    description: String,
+    videoUrl: String,
+    course : [String],
 }
 
 
@@ -46,6 +54,7 @@ type pfp = {
     publicId: string;
 }
 type userType ={ 
+    map(arg0: (course: CourseType) => void): unknown;
     _id: string;
     username: string;
     email: string;
@@ -92,10 +101,12 @@ type ressource = {
 }
 
 type review = {
+    user?: any;
     username: string,
     rating:number,
-    reviewtext : string,
-    courseId : string
+    reviewText : string,
+    courseId : string,
+    courseOwner:string
 }
 
 type CartContextType = {
@@ -104,6 +115,12 @@ type CartContextType = {
     getCartCourses:  () => Promise<void>;
     removeCourseFromCart: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
     purchaseCourse: (course: CourseType) => void; // replace string with the type of your course id if it's not a string
+ };
+
+  type lessonContextType = {
+    lessons: LessonType[]; 
+    setLessons: (lessons: [string]) => void;
+    getCoursLesssons:  () => Promise<void>;
   };
 
 

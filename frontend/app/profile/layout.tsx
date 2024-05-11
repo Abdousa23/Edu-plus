@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { AuthProvider } from "@/context/authContext";
 import PersistLogin from "../_HOC/PersistLogin";
@@ -14,7 +13,7 @@ export async function generateMetadata():Promise<Metadata> {
 interface Props {
     children: React.ReactNode;
 }
-export default function SearchLayout({
+export default function ProfileLayout({
     children
 } : Props) {
     return (

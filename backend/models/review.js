@@ -18,8 +18,12 @@ const reviewSchema = new schema({
     },
     courseId:{
         type:schema.Types.ObjectId,
-        ref:'course',
+        ref:'Course',
     },
+    courseOwner : {
+        type:schema.Types.ObjectId,
+        ref:'User'
+    }
     },
     {timestamps:true}
     )

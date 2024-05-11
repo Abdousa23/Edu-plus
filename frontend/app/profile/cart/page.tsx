@@ -1,15 +1,17 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import Sidebar from '../_components/Sidebar'
-import Navbar from '@/app/_components/Navbar' 
+import Navbar from '@/app/_components/Navbar'
 import CartContent from './_components/CartContent'
+import CartCourseCard from './_components/CartCourseCard'
+
 export default function page() {
-    const [cartCourses, setCartCourses] = useState<CourseType[]>([])
+    // const [cartCourses, setCartCourses] = useState<CourseType[]>([])/* --- */
     return (
-        <div className='flex bg-[#E9EAF0]'>
+        <div className='flex bg-[#E9EAF0] w-full box-border'>
             <Sidebar />
-            <div className='flex container mx-auto'>
+            <div className='flex-grow  box-border w-3/4 '>
                 <div className='flex-grow'>
                     <div className=' text-[#1d2026]  '>
                         <Navbar />

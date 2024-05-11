@@ -1,11 +1,14 @@
 import CourseCard from '@/app/_components/CourseCard'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 type compType = {
     courses: CourseType[] | null,
 }
 
 export default function Courses({courses}:compType) {
+    useEffect(() => {
+        console.log(courses)
+    },[])
     return (
         <>
         {

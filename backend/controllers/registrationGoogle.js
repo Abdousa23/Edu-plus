@@ -11,7 +11,6 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true,
 },
     function (request, accessToken, refreshToken, profile, done) {
-        console.log(profile);
         const foundUser =  User.find({email: profile.email })
         if(foundUser){
             return res.sendStatus(401); //Unauthorized

@@ -9,6 +9,10 @@ const lessonSchema = new schema({
         type: schema.Types.ObjectId,
         ref: 'course'
     },
+    publicId: {
+      type: String,
+      default: ''
+    }
   });
 
 

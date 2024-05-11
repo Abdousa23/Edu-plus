@@ -25,15 +25,16 @@ const course = new schema({
     
     lessons:{
         type:[schema.Types.ObjectId],
-        ref:'lessons'
+        ref:'Lessons'
     },
     resources : {
         type : [schema.Types.ObjectId],
-        ref : 'resources'
+        ref : 'Resource'
     },
     level: {
         type: String,
-        enum: ['beginner', 'intermediate', 'pro']
+        enum: ['Beginner', 'Intermediate', 'Advanced'],
+        required: true
     },
     language:{
         type:String,
@@ -42,7 +43,7 @@ const course = new schema({
     studentEnrolled:{
             students : {
                 type :[schema.Types.ObjectId],
-                ref:"users", // maybe have a problem with ss
+                ref:"User", // maybe have a problem with ss
                 default :[],
             },
             studentsNumber : {
@@ -89,11 +90,12 @@ const course = new schema({
     },
     type:{
         type:String,
-        enum:['online', 'inperson']
+        enum:['Online', 'In Person'],
+        required:true
     }
     },
     {timestamps:true});
 
-const Course= mongoose.model('Courses', course);
+const Course= mongoose.model('Course', course);
 
 module.exports = Course;

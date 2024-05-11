@@ -9,6 +9,7 @@ const newUsersOfWeek = require('../../controllers/totalResult')
 const topCategories = require('../../controllers/topCategoriesController')
 const topCreators= require('../../controllers/topCreatorsController')
 const  getUsersCountByMonth=require('../../controllers/newUsersOfEveryMonth')
+const usersController = require('../../controllers/usersController')
 
 
 router.post('/',(req,res)=>{
@@ -22,6 +23,9 @@ router.get('/newusersofweek',totalResult.newUsersOfWeek)
 router.get('/topcategories',topCategories)
 router.get('/topcreators', topCreators)
 // the only one that is not working ill cheak it later 
-router.get('/newusersofeverymonth',getUsersCountByMonth)
-
+router.get('./newusersofeverymonth',getUsersCountByMonth)
+router.get('/totalroles/:role',usersController.getAllUsersByRole)
+router.delete('/multipleDelete',usersController.multipleDelete)
+router.put('/addMod',usersController.addMod)
+router.put('/removeMod',usersController.removeMod)
 module.exports = router;

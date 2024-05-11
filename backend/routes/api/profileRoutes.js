@@ -16,11 +16,11 @@ router.get('/:id',userController.getUserById);
 
 // router.put('/:id',verifyJWT,verifyRoles(ROLES_LIST.User),userController.updateUser);
 
-router.put('/:id' ,verifyJWT,verifyRoles([ROLES_LIST.User]),upload.single("pfp"),fileSizeLimiter(1),fileExtLimiter(['.png','.jpeg','.jpg']),cloudinaryMW,userController.updateUser);
+router.put('/:id' ,verifyJWT,verifyRoles([ROLES_LIST.User]),upload.single("pfp"),fileSizeLimiter(10),fileExtLimiter(['.png','.jpeg','.jpg']),cloudinaryMW,userController.updateUser);
 
 router.post('/:id',verifyJWT,verifyRoles(ROLES_LIST.User),userController.addCourseToUser)
 
-router.delete('/:id',verifyJWT,verifyRoles(ROLES_LIST.User),userController.deleteUser)
+router.delete('/:id',verifyJWT,verifyRoles([ROLES_LIST.User,ROLES_LIST.Admin,ROLES_LIST.Editor]),userController.deleteUser)
 
 router.post('/changerole/:id',verifyJWT,userController.changeRoles)
 
