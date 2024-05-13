@@ -2,8 +2,6 @@ import { BsSend } from "react-icons/bs";
 import { useContext, useState } from "react";
 import useAuth from "@/app/_hooks/useAuth";
 import { ChatContext } from "@/context/chatContext";
-import { text } from "stream/consumers";
-
 
 
 export default function MessageInput() {

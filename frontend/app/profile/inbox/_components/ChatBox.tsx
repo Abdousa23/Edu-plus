@@ -2,7 +2,6 @@ import React, { useContext, useEffect , useRef } from 'react'
 import HeaderOfMessages from './HeaderOfChat'
 import Theconversataions from './Theconversations'
 import MessageInput from './MessageInput'
-import useChat from '../zustand/useChat'
 import SelectChat from './SelectChat'
 import { ChatContext } from '@/context/chatContext'
 

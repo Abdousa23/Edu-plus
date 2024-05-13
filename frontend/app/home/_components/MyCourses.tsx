@@ -12,8 +12,8 @@ export default function MyCourses(mycourses:mycourses) {
     const handleCourses = (courses:[CourseType])=>{
         let OnlineCourses = courses?.filter((course: CourseType) => course.type.toLowerCase() === 'online');
         let OflineCourses = courses?.filter((course: CourseType) => course.type.toLowerCase() === 'inperson');
-        OnlineCourses = OnlineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4.5);
-        OflineCourses = OflineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 3 && course.rating >= 4.5);
+        OnlineCourses = OnlineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 6 );
+        OflineCourses = OflineCourses?.sort((a, b) => b.rating - a.rating).filter((course: CourseType, index: number) => index < 6 );
         setMyOnlineCourses(OnlineCourses);
         setMyOflineCourses(OflineCourses);
     }

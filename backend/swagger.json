@@ -252,6 +252,77 @@
         }
       }
     },
+    "/api/auth/google/callback": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/auth/google/setToken": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/auth/google/protected": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/auth/google/failure": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/cart/add/": {
       "post": {
         "description": "",
@@ -890,19 +961,53 @@
         }
       }
     },
-    "/api/courses/all": {
-      "get": {
+    "/api/courses/payment": {
+      "post": {
         "description": "",
         "parameters": [
           {
             "name": "origin",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "example": "any"
+                },
+                "data": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -910,37 +1015,8 @@
         }
       }
     },
-    "/api/courses/all/{category}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "category",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "origin",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/courses/resource/{courseId}": {
-      "get": {
+    "/api/courses/enroll/{courseId}": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -984,100 +1060,16 @@
         }
       }
     },
-    "/api/courses/online": {
-      "get": {
+    "/api/courses/price/{courseId}": {
+      "post": {
         "description": "",
         "parameters": [
           {
-            "name": "origin",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/courses/offline": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "origin",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/coursesenrolled/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
+            "name": "courseId",
             "in": "path",
             "required": true,
             "type": "string"
           },
-          {
-            "name": "origin",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/courses/addOnlineCourse": {
-      "post": {
-        "description": "",
-        "parameters": [
           {
             "name": "origin",
             "in": "header",
@@ -1099,34 +1091,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "lesson": {
-                  "example": "any"
-                },
-                "lesson": {
-                  "example": "any"
-                },
-                "title": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "category": {
-                  "example": "any"
-                },
-                "price": {
-                  "example": "any"
-                },
-                "level": {
-                  "example": "any"
-                },
-                "language": {
-                  "example": "any"
-                },
-                "type": {
-                  "example": "any"
-                },
-                "type": {
+                "priceId": {
                   "example": "any"
                 }
               }
@@ -1142,6 +1107,26 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/courses/all": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1213,6 +1198,75 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/courses/addOnlineCourse": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "lesson": {
+                  "example": "any"
+                },
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "level": {
+                  "example": "any"
+                },
+                "language": {
+                  "example": "any"
+                },
+                "type": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -1724,6 +1778,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

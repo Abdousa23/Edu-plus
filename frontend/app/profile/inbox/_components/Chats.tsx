@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import  Chat  from './Chat'
-import { useState } from 'react'
-import useFetchPrivate from '@/app/_hooks/useFetchPrivate'
 import { ChatContext } from '@/context/chatContext'
 
 export default function Chats() {

@@ -40,6 +40,7 @@ export default function Footer() {
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/profile/inbox'}>Community</Link></li>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/aboutus'}>About us</Link></li>
+            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/home/contact'}>Contact us</Link></li>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/FAQ'}>FAQ</Link></li>
           </ul>
         </div>
@@ -47,9 +48,9 @@ export default function Footer() {
           <h1 className="font-semibold text-[26px] mb-8">Main menu</h1>
           <ul>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/home'}>Home</Link></li>
-            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>online</Link></li>
-            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>In-person</Link></li>
-            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Categories</Link></li>
+            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/profile'}>Profile</Link></li>
+            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/profile/cart'}>Cart</Link></li>
+            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/courses'}>Courses</Link></li>
           </ul>
         </div>
       </div>

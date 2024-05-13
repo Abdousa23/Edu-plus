@@ -16,7 +16,10 @@ export default function CourseCard(course: course) {
         <h1 className='font-extrabold text-2xl'>{Course?.title}</h1>
         <p className='font-regular text-base text-[#4d4d4d]'>Course description:{Course?.description}</p>
         <div className='flex justify-between'>
-            <p className=''>price : {Course?.price} $</p>
+          <div className='flex flex-col'>
+            <p className=''>Price : {Course?.price && Course?.price > 0 ? Course?.price+' DZD' : 'free'}</p>
+            <p className=''>Type : {Course?.type === 'online' || Course?.type==='Online' ? 'Online' : 'In Person'}</p>
+            </div>
             <div>
             <Link href={`/courses/${Course?._id}`}  className='flex flex-row justify-center items-center mx-1 px-4 py-2 w-[100%] max-sm:w-16 max-sm:h-8 max-sm:text-sm h-11 border border-green+ rounded-lg order-5 self-stretch flex-grow-0 text-base text-green+'>show details</Link>
             </div>

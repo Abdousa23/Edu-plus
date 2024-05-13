@@ -14,9 +14,8 @@ export default function BasicInformation({ categories }: Props) {
     const [duration, setDuration] = useState<string>('0')
 
     const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-
         updateFormData({
-
+            
             type: event.target.value,
         });
     };
@@ -104,8 +103,8 @@ export default function BasicInformation({ categories }: Props) {
                     onChange={(e) => handleTypeChange(e)}
                     className="w-full  border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-[#abe2d0]"
                 >
-                    <option value="Online">Online</option>
-                    <option value="in person">In Person</option>
+                    <option value="online">Online</option>
+                    <option value="inperson">In Person</option>
                 </select>
             </div>
             <div className='flex flex-col my-auto justify-between content-center'>

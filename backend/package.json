@@ -41,6 +41,7 @@
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
+    "passport-oauth2": "^1.8.0",
     "qrcode": "^1.5.3",
     "random-bytes": "^1.0.0",
     "signature": "^0.0.2",

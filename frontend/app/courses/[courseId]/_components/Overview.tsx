@@ -10,8 +10,8 @@ export default function Overview({course}:course) {
       <p className=' text-lg font-normal'>{course?.description}</p>
     </div>
     <div>
-        <h1 className='text-[24px] font-medium'>who is this course for</h1>
-        <p className=' text-lg font-normal'>this course i suitable to {course?.level} users,it is presented in the {course?.language} language and it contain {course?.lessons?.length} lesson</p>
+        <h1 className='text-[24px] font-medium border-b-2 border-green+ w-fit'>Who is this course for : </h1>
+        <p className=' text-lg font-normal'>This course is suitable for {course?.level} users , it is presented in the {course?.language} Language and it contains {course?.lessons?.length} Lessons.</p>
     </div>
     </div>
   )

@@ -30,7 +30,8 @@ export default function Search({params:{search}}:Params) {
             setCourses([]);
         }else{
         setCourses(data);
-        setFilteredList(data.filter(data=>data.type  == 'online'));
+        // setFilteredList(data.filter(data=>data.type  == 'online'));
+        setFilteredList(data)
         }
     }
     const getAllCategories = async () => {
@@ -94,6 +95,7 @@ export default function Search({params:{search}}:Params) {
     useEffect(()=>{
         getCourses();
         getAllCategories();
+        console.log(filteredList)
     },[search])
 
 

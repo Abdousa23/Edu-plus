@@ -75,7 +75,7 @@ export default function Sidebar() {
                 <ul className='flex flex-col'>
                 <Link href={'/profile/settings'} className={`px-4 py-2 ${pathname === '/profile/settings' ? ' text-green+' : 'text-black'} `}> <HomeIcon /> <span className=' max-md:hidden'>account Settings</span></Link>
                 <Link href={'/profile/inbox'} className={`px-4 py-2 ${pathname === '/profile/inbox' ? ' text-green+' : 'text-black'} `}> <MailIcon /> <span className=' max-md:hidden'>inbox</span></Link>
-                <Link href={'/profile/courses'}className={`px-4 py-2 ${pathname === '/profile/courses' ? ' text-green+' : 'text-black'} `}> <FolderIcon /> <span className=' max-md:hidden'>Courses</span></Link>
+                <Link href={'/profile/MyCourses'}className={`px-4 py-2 ${pathname === '/profile/MyCourses' ? ' text-green+' : 'text-black'} `}> <FolderIcon /> <span className=' max-md:hidden'>Courses</span></Link>
                 <Link href={'/profile/'} className={`px-4 py-2 ${pathname === '/profile/' ? ' text-green+' : 'text-black'} `}> <FavoriteBorderIcon /> <span className=' max-md:hidden'>wishlist</span></Link>
                 <Link href={'/profile/cart'} className={`px-4 py-2 ${pathname === '/profile/cart' ? ' text-green+' : 'text-black'} `}> <ShoppingCartOutlinedIcon /> <span className=' max-md:hidden'>Cart</span></Link>
                 </ul>

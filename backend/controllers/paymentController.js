@@ -2,6 +2,7 @@ const {mailer} = require('../utils/nodemail')
 const Users = require('../models/user');
 const { options } = require('../routes');
 const crypto = require('crypto')
+const Course = require("../models/course")
 require('dotenv').config({ path: '../.env' });
 
 const paymentCheckout =  async (req, res) => {
@@ -34,14 +35,15 @@ const paymentCheckout =  async (req, res) => {
         case 'checkout.paid':
             try{
             const checkout = event.data;
+            console.log(checkout)
             const username = req.user
             const user = await Users.find({username:username}).exec()
             const email = user.email
-            courseId = req.params.courseID
-            const course = await Courses.findById(courseId).exec()
+            const courseId = req.params.courseID
+            const course = await Course.findById(courseId).exec()
             user.purchasedcourses.push(courseId)
             course.studentEnrolled.studentsNumber += 1
-            mailer.buyMail(email , courseID , username)
+            mailer.buyMail(email , courseId , username)
             }
             catch(error){
                 console.error('Error fetching user' , error)
@@ -59,4 +61,4 @@ const paymentCheckout =  async (req, res) => {
     res.sendStatus(200);
 }
 
-module.exports = {paymentCheckout}
+module.exports = paymentCheckout

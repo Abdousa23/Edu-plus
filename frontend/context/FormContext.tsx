@@ -34,7 +34,7 @@ const FormContext = createContext<any>({});
 export const FormContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [formData, setFormData] = useState({
         title: '',
-        type: 'Online',
+        type: 'online',
         category: 'Web Development',
         topic: '',
         language: 'English',
@@ -64,10 +64,11 @@ export const FormContextProvider = ({ children }: { children: React.ReactNode })
     function updateFormData(newData: any) {
         setFormData(prevData => ({ ...prevData, ...newData }));
     };
+    
 
     return (
 
-        <FormContext.Provider value={{ formData, setFormData, updateFormData, step, setStep, maxLength, setMaxLength, selectedImage, setSelectedImage }}>
+        <FormContext.Provider value={{ formData, setFormData, updateFormData, step, setStep, maxLength, setMaxLength, selectedImage, setSelectedImage , lessonContent , setLessonContent }}>
             {children}
         </FormContext.Provider>
     );

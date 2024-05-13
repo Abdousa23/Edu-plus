@@ -22,6 +22,7 @@ type CourseType = {
     isAvailable: boolean;
     imageUrl: string;
     type : string;
+    priceId: string;
     category: string;
 }
 

@@ -64,6 +64,10 @@ const course = new schema({
     imageUrl:{
         type:String,
     },
+    priceId : {
+        type:String,
+        default : "",
+    },
 
     price : { 
         type: Number ,
@@ -90,9 +94,10 @@ const course = new schema({
     },
     type:{
         type:String,
-        enum:['Online', 'In Person'],
+        enum:['online', 'inperson'],
         required:true
-    }
+    },
+
     },
     {timestamps:true});
 
