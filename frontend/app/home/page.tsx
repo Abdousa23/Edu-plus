@@ -41,7 +41,7 @@ import { getUserCourses } from '@/lib/getuserCourses';
   }
     const getMyCourses = async () => {
       const response = await getUserCourses(auth?.user._id);
-      const usercourses = response.data.courses
+      const usercourses = response?.data?.courses
       console.log(usercourses)
       console.log('ss')
       setMyCourses(usercourses);
