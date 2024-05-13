@@ -39,7 +39,7 @@ export const CartProvider = ({ children }:CartContextProps) => {
     }
 
     const purchaseCourse = (course: CourseType) => {
-        const body = `{"items":[{"price":"${course?.price}","quantity":1,"product_id":"${course?._id}"}],"success_url":"http://127.0.0.1:3001"}`
+        const body = `{"items":[{"price":"${course?.price}","quantity":1,"product_id":"${course?._id}"}],"success_url":"https://edu-plus-nine.vercel.app/"}`
         const options = {
             method: "POST",
             headers: {

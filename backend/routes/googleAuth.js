@@ -20,7 +20,7 @@ router.get('',
 
 router.get('/callback',
     passport.authenticate('google', {
-        successRedirect : 'http://localhost:3000/api/auth/google/setToken',
+        successRedirect : 'https://edu-plus-1.onrender.com/api/auth/google/setToken',
         failureRedirect: '/failure'
     })
 );
@@ -28,7 +28,7 @@ router.get('/callback',
 router.get('/setToken', async (req, res, next) => {
     try {
         const result = await signToken(req, res);
-        res.redirect("http://localhost:3001/home");
+        res.redirect("https://edu-plus-1.onrender.com/home");
     } catch (error) {
         next(error);
     }

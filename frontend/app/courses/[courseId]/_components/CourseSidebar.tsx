@@ -48,7 +48,7 @@ export default function CourseSidebar({ course }: course) {
             Authorization: `Bearer test_sk_0ofp9nTLMQWqlHLFsHF3AGAmx3wQjVTKnFGpRHAT` ,
             "Content-Type": "application/json",
         },
-        body:`{"items":[{"price":"${course?.priceId}","quantity":1,"name":"${course?._id}"}],"success_url":"http://localhost:3001/success/${course?._id}"}`,
+        body:`{"items":[{"price":"${course?.priceId}","quantity":1,"name":"${course?._id}"}],"success_url":"https://edu-plus-nine.vercel.app//success/${course?._id}"}`,
     };
     const purchaseCourse = async ()=>{
         console.log(course?.price)
