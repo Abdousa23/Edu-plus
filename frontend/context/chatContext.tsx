@@ -4,7 +4,7 @@ import { createContext, useState, ReactNode } from "react";
 import useFetchPrivate from "@/app/_hooks/useFetchPrivate";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://edu-plus-1.onrender.com");
 
 type chatContextProps = {
     children: ReactNode,
