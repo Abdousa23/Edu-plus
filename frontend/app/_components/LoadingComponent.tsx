@@ -1,6 +1,6 @@
 import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
-import Modal from '../profile/addCourse/components/popUP';
+import GlobalModal from './GolbalModal';
 
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 const LoadingComponent = (props: Props) => {
     return (
         <div>
-            <Modal open={true} close={false}>
+            <GlobalModal>
                 <div className='flex flex-col gap-8 content-center items-center '>
                     <CircularProgress color="success" />
                     <svg width="94" height="74" viewBox="0 0 44 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +24,7 @@ const LoadingComponent = (props: Props) => {
                     <h1 className="text-2xl font-bold text-center">Loading...</h1>
 
                 </div>
-            </Modal>
+            </GlobalModal>
         </div>
     )
 }
