@@ -39,11 +39,12 @@ export const SocketContextProvider = ({ children }: SocketContextProps) => {
                 socket.close();
             };
         } else {
+            console.log('No user found');
             // If there's no user or authentication, close the socket connection
             socket?.close();
             setSocket(null);
         }
-    }, [auth?.user]); 
+    }, [socket, auth?.user]); 
 
     return (
         <SocketContext.Provider value={{ socket, onlineUsers }}>

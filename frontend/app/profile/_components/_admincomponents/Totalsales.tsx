@@ -7,17 +7,19 @@ import GroupIcon from '@mui/icons-material/Group';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+
+
 const GetTopSales = () => {
     const fetchprivet = useFetchPrivate();
-    const [TotalSales, setTotalSales] = useState(null);
-    const [TotalUsers, setTotalUsers] = useState(null);
-    const [TotalCourses, setTotalCourses] = useState(null);
-    const [NewUsersOfWeek, setNewUsersOfWeek] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [TotalSales, setTotalSales] = useState<any>(null);
+    const [TotalUsers, setTotalUsers] = useState<any>(null);
+    const [TotalCourses, setTotalCourses] = useState<any>(null);
+    const [NewUsersOfWeek, setNewUsersOfWeek] = useState<any>(null);
+    const [loading, setLoading] = useState<any>(true);
+    const [error, setError] = useState<any>(null);
     const fetchData = async () => {
         try {
-            const response1 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/totalsales`, { method: 'GET' });
+            const response1 = await fetchprivet(`${process.env.NEXT_PUBLIC_API_URL}/admin/totalsales`, { method: 'GET' });
             const data1 = await response1?.json();
             setTotalSales(data1);
             console.log('data1', data1);
@@ -52,28 +54,29 @@ const GetTopSales = () => {
 
 
     return (
-        <div className=' w-full h-[35vh]  flex-col flex  gap-5  justify-around py-[5vh] sm:flex-row'> 
-{/* 
+        <div className=' w-full   flex-col flex  gap-[2vw]  justify-around py-[5vh] sm:flex-row  items-center'> 
 
-        <DataCube
+
+        <DataCube 
+
     data={TotalSales?.totalSales}
-    dataOf="$Total Sales"
+    dataOf="Total Sales"
     Icon={AttachMoneyIcon}
-    colors={{ background: '', textColor: 'text-black' }}
+    colors={{ background: '#A4760C', textColor: '#151D48' }}
 />
 
 <DataCube
     data={TotalUsers?.totalUsers}
     dataOf="Total users"
     Icon={GroupIcon}
-    colors={{ background: '', textColor: 'text-black' }}
+    colors={{ background: '#A4B49E', textColor: '#151D48' }}
 
 
 
 
 />
-        <DataCube data={TotalCourses?.totalCourses} dataOf="Total Courses" Icon={AssessmentIcon} colors={{ background: '', textColor: 'text-black' } } />
-        <DataCube data={NewUsersOfWeek?.newUsers} dataOf="new users of the week" Icon={PersonAddIcon} colors={{ background: '', textColor: 'text-black' } } /> */}
+        <DataCube data={TotalCourses?.totalCourses} dataOf="Total Courses" Icon={AssessmentIcon} colors={{ background: '#00977D', textColor: '#151D48' } } />
+        <DataCube data={NewUsersOfWeek?.newUsers} dataOf="new users of the week" Icon={PersonAddIcon} colors={{ background: '#9E9E9E', textColor: '#151D48' } } />
 
     </div>
     );

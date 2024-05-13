@@ -41,7 +41,9 @@ export default function Sidebar() {
     <div className=' justify-around sticky  flex flex-col items-center px-2 py-8  w-1/4 min-h-[100vh] h-full top-0 left-0 bg-white shadow-md rounded-l-[20px]'>
         <div className='flex justify-between flex-col h-[45%] w-full'>
         <div className='w-28 max-md:w-16 mx-auto mb-4'>
-            <img src={user?.pfp.url} className='max-w-full rounded-full' alt="" />
+            <div className='flex flex-col items-center w-20 h-20 max-md:w-10 max-md:h-10 rounded-full object-cover object-center overflow-hidden ml-4'>
+            <img src={user?.pfp.url} className='max-w-full' alt="" />
+            </div>
             <h2 className=' font-normal text-xl text-center overflow-auto max-md:text-base'>{user?.username}</h2>
         </div>
         <div className='mx-auto'>

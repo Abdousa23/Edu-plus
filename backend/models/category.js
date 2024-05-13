@@ -17,6 +17,11 @@ const categorySchema = new schema ({
         ref : 'courses',
         default : []
     }
+    ,
+    totalStudent: {
+        type : Number,
+        default : 0
+    },
 })
 const category = mongoose.model('category', categorySchema);
 module.exports = category ;

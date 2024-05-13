@@ -1,42 +1,47 @@
-const http = require('http');
-const { Server } = require('socket.io'); // Changed to Server
-const express = require('express');
-const app = express();
-
-const server = http.createServer(app); // Removed const server = ...
-const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:3001",
-        methods: ["GET", "POST"]
-    }
-});
-console.log('Socket server running')
-
-const userSocketMap = {} // this object will have  {chatId: socketId}
-
-const getReceiverSocketId= (chatId) => {
-    return userSocketMap[chatId];
-}
-
-
-
-
-
-io.on('connection', (socket) => {
-    console.log('a user connected to socket room ', socket.id);
-
-    const  userId = socket.handshake.query.userId;
-    if(userId!==undefined){
-        userSocketMap[userId] = socket.id
-    }
-    console.log("user socket map is ",userSocketMap)
-
-
-    // socket.on is for listening to the event from the client and server side both
-    socket.on('disconnect', () => {
-        console.log('user disconnected frome socket room', socket.id);
-        delete userSocketMap[userId]
-    });
-});
-
-module.exports = { app, io, server ,getReceiverSocketId }; // Changed export to module.exports
+// const io = require("socket.io")(8900, {
+//     cors: {
+//       origin: "http://localhost:3001",
+//     },
+//   });
+  
+//   let users = [];
+  
+//   const addUser = (userId, socketId) => {
+//     !users.some((user) => user.userId === userId) &&
+//       users.push({ userId, socketId });
+//   };
+  
+//   const removeUser = (socketId) => {
+//     users = users.filter((user) => user.socketId !== socketId);
+//   };
+  
+//   const getUser = (userId) => {
+//     return users.find((user) => user.userId === userId);
+//   };
+  
+//   io.on("connection", (socket) => {
+//     //when ceonnect
+//     console.log("a user connected.");
+  
+//     //take userId and socketId from user
+//     socket.on("addUser", (userId) => {
+//       addUser(userId, socket.id);
+//       io.emit("getUsers", users);
+//     });
+  
+//     //send and get message
+//     socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+//       const user = getUser(receiverId);
+//       io.to(user.socketId).emit("getMessage", {
+//         senderId,
+//         text,
+//       });
+//     });
+  
+//     //when disconnect
+//     socket.on("disconnect", () => {
+//       console.log("a user disconnected!");
+//       removeUser(socket.id);
+//       io.emit("getUsers", users);
+//     });
+//   });

@@ -130,20 +130,15 @@ type CartContextType = {
 type selectedChat = {
     _id:string;
     name:string;
+    members:[userType] | [string];
+    messages:[MessageType]|[string];
     pic:string;
   }
-
-
-
-
-
-
-
 type ChatType = {
     _id: string;
     name:string
-    members:? [string];
-    messages:? [string];
+    members?: [string];
+    messages?: [string];
     pic: string;
     createdAt:? string;
     updatedAt:? string;
