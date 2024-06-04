@@ -21,7 +21,7 @@ router.post("/price/:courseId", verifyJWT, courseController.addPriceId);
 router.get('/all',courseController.getAllCourses);
 router.get('/all/category/:category', courseController.getCoursesByCategory);
 router.get('/all/:courseId',verifyJWT ,courseController.getCourseResources);
-router.post('/addOnlineCourse' ,  verifyJWT/* , verifyRoles(ROLES_LIST.School) */ ,upload.any("video") ,  addOnlineCourse);
+router.post('/addOnlineCourse' ,  verifyJWT, verifyRoles(ROLES_LIST.School) ,upload.any("video") ,upload.single('thumbnail') ,  addOnlineCourse);
 router.post('/addOfflineCourse', verifyJWT, verifyRoles(ROLES_LIST.School), addOfflineCourse);
 router.post('/addLesson', verifyJWT, verifyRoles(ROLES_LIST.School), addOnlinelesson);
 router.put('/updateLesson/:id', verifyJWT, verifyRoles(ROLES_LIST.School), updateLesson);

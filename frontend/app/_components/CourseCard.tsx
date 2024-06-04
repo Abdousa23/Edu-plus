@@ -9,7 +9,7 @@ export default function CourseCard(course: course) {
   return (
      <div className='w-[280px] h-[420px] m-2 shadow-md rounded-lg order-0 '>
     
-        <img src="/images/landing.svg" className='w-full h-2/5 ' alt="" />
+        <img src={ Course?.imageUrl ||`/images/landing.svg`} className='w-full h-2/5 ' alt="" />
     
     <div className='p-4 w-full h-3/5 flex flex-col items-stretch justify-evenly'>
         <p className='font-regular text-sm text-[#777795]'>{Course?.date}</p>

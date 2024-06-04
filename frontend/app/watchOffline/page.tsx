@@ -9,17 +9,6 @@ import SidebarWatchCourse from '../watchCourse/_components/SidebarWatchCourse';
 export default function page() {
   const [lessons, setLessons] = useState<LessonType[]>([])
   const [selectedLesson, setSelectedLesson] = useState<LessonType | null>(null)
-
-  // const fetchCourses = async () => {
-  //   try {
-  //     const db = await openDB('VideosDb', 1);
-  //     const downloadedCourses = await db.getAll('downloadedCourses');
-  //     console.log(downloadedCourses)
-  //     setLessons(downloadedCourses);
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
   const fetchCourses = async () => {
     const db = await openDB('VideosDb', 1);
     const downloadedCourses = await db.getAll('downloadedCourses');
@@ -29,20 +18,11 @@ export default function page() {
       ...course,
       videoUrl: URL.createObjectURL(course.videoBlob),
     }));
-  
-    console.log(coursesWithUrls);
-    console.log("here")
     setLessons(coursesWithUrls);
   }
   useEffect(() => {
     fetchCourses()
-    console.log('this is the selected lesson')
-    console.log(selectedLesson)
-  }, [])
-  useEffect(() => {
-    console.log('this is the selected lesson')
-    console.log(selectedLesson)
-  }, [selectedLesson])
+   }, [])
   return (
     <div>
       <Navbar />

@@ -27,7 +27,7 @@ export default function AdvancedInformation() {
             })
             return (
                 <div>
-                    <input type="file" onChange={(e) => handleImageChange(e)} />
+                    <input type="file" accept='image/' name='thumbnail' onChange={(e) => handleImageChange(e)} />
                     {formData.thumbnail && <img src={URL.createObjectURL(formData.thumbnail)} alt="Selected Image" />}
                 </div>
             );

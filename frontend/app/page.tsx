@@ -15,12 +15,16 @@ import { useEffect,useState } from 'react';
 const Home = () => {
     const [courses,setCourses] = useState<CourseType[]>([]);
     const getCourses = async () => { 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home`)
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home`)
       const data = await response?.json();
       if(response?.status === 403){
         throw new Error('Unauthorized');
       }
       setCourses(data);
+      } catch (error) {
+        console.log('error')
+      }
   }
   
   useEffect(()=>{

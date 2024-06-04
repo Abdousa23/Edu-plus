@@ -131,6 +131,7 @@ const addOnlineCourse = async (req, res) => {
     const lessons = JSON.parse(req.body.lesson)
     /* console.log('else : ' , title , category) */
 
+
     const ownerId = req.user;
     try {
         const courseCategory = await Category.findOne({ name: category })
@@ -142,12 +143,7 @@ const addOnlineCourse = async (req, res) => {
             return res.status(404).json({ message: "Category not found , please choose an existing category" })
         }
         const id = courseCategory?._id
-        const course = new Course({ title, description, category: id, price, owner: user._id, level, language , type })
-        courseCategory.courses.push(course._id)
-        await courseCategory.save()
-        user.courses.push(course._id)
-        user.purchasedcourses.push(course._id)
-        await user.save()
+        
         if (req.files) {
             console.log(req.files)
             let uploadResult = req.files.map(async (file) => {
@@ -158,7 +154,18 @@ const addOnlineCourse = async (req, res) => {
                 }
             });
             uploadResult = await Promise.all(uploadResult);
-            await (lessonAdder(uploadResult , lessons , course))
+            const videos = uploadResult.filter((video) => video.resource_type === "video")
+            const thumbnail = uploadResult.filter((image) => image.resource_type === "image")
+            console.log('test thumbnail')
+            console.log(thumbnail[0].secure_url)
+            console.log(thumbnail[0])
+            const course = new Course({ title, description, category: id, price, owner: user._id, level, language , type,imageUrl:thumbnail[0].secure_url })
+            courseCategory.courses.push(course._id)
+            await courseCategory.save()
+            user.courses.push(course._id)
+            user.purchasedcourses.push(course._id)
+            await user.save()
+            await (lessonAdder(videos , lessons , course))
             await course.save()
         }
         res.status(200).json(course)

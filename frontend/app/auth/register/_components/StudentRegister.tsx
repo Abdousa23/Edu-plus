@@ -112,15 +112,15 @@ export default function StudentRegister({ role }: RegisterProps) {
           </div>
           <div className='w-full'>
             <label htmlFor="email" className='my-2 text-[14px] text-black'>Email</label>
-            <input type="text" onChange={handleChange} className='box-border flex flex-row items-center p-3 space-x-2 w-[100%] h-10 bg-white border border-[#E9EAF0] flex-none order-1 self-stretch flex-grow-0' placeholder='Email' id='email' />
+            <input type="email" onChange={handleChange} className='box-border flex flex-row items-center p-3 space-x-2 w-[100%] h-10 bg-white border border-[#E9EAF0] flex-none order-1 self-stretch flex-grow-0' placeholder='Email' id='email' />
           </div>
           <div className='w-full'>
             <label htmlFor="password" className='my-2 text-[14px] text-black'>Password</label>
-            <input type="text" onChange={handleChange} className='box-border flex flex-row items-center p-3 space-x-2 w-[100%]  h-10 bg-white border border-[#E9EAF0] flex-none order-1 self-stretch flex-grow-0' placeholder='Password' id='password' />
+            <input type="password" onChange={handleChange} className='box-border flex flex-row items-center p-3 space-x-2 w-[100%]  h-10 bg-white border border-[#E9EAF0] flex-none order-1 self-stretch flex-grow-0' placeholder='Password' id='password' />
           </div>
           <div className='w-full'>
             <label htmlFor="confirm" className='my-2 text-[14px] text-black'>Confirm Password</label>
-            <input type="text" onChange={handleChange} className='box-border flex flex-row items-center p-3 space-x-2 w-[100%]  h-10 bg-white border border-[#E9EAF0] flex-none order-1 self-stretch flex-grow-0' placeholder='Confirm Password' id='confirm' />
+            <input type="password" onChange={handleChange} className='box-border flex flex-row items-center p-3 space-x-2 w-[100%]  h-10 bg-white border border-[#E9EAF0] flex-none order-1 self-stretch flex-grow-0' placeholder='Confirm Password' id='confirm' />
           </div>
           <div className='my-4'>
             <input type="checkbox" name="terms" className='mx-4' id="terms" required />

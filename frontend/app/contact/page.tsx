@@ -34,20 +34,24 @@ const page = () =>{
           </div>
           <div className="flex justify-around gap-3">
             <div>
-                <FacebookOutlinedIcon className="text-[#4dc39e] w-full h-full" />
-                <Link href="/">Edu+_fb</Link>
+                <Link href="/">
+                <FacebookOutlinedIcon className="text-[#4dc39e] w-10 h-10" />
+                </Link>
             </div>
             <div>
-                <LinkedInIcon className="text-[#4dc39e] w-full h-full" />
-                <Link href="/">Edu+_in</Link>
+                <Link href="/">
+                <LinkedInIcon className="text-[#4dc39e] w-10 h-10" />
+                </Link>
             </div>
             <div>
-                <InstagramIcon className="text-[#4dc39e] w-full h-full" />
-                <Link href="/">Edu+_ig</Link>
+                <Link href="/">
+                <InstagramIcon className="text-[#4dc39e] w-10 h-10" />
+                </Link>
             </div>
             <div>
-                <XIcon className="text-[#4dc39e] w-full h-full" />
-                <Link href="/">Edu+_X</Link>
+                <Link href="/">
+                <XIcon className="text-[#4dc39e] w-10 h-10" />  
+                </Link>
             </div>
           </div>
         </div>
