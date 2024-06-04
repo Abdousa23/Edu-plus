@@ -4,6 +4,8 @@ export default function SearchSection() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const [search, setSearch] = useState('')
     const router = useRouter()
+    let speech;
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }

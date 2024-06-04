@@ -1,5 +1,5 @@
 'use client'
-import Search from "../MyCourses/_components/Search";
+import Search from "./_components/SearchPublished";
 import Sidebar from "../_components/Sidebar";
 import Navbar from "@/app/_components/Navbar";
 

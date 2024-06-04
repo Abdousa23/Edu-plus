@@ -8,8 +8,8 @@ type Props = {
 
 const PiesChart = ({ value, value1 }: Props) => {
     return (
-        <div className='mx-auto my-auto z-0'>
-            <PieChart
+        <div className='my-auto z-0'>
+            <PieChart 
                 series={[
                     {
                         data: [

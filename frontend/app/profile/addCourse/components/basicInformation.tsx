@@ -68,7 +68,7 @@ export default function BasicInformation({ categories }: Props) {
         }
     }
     return (
-        <div className="flex flex-wrap w-full mb-20 justify-between">
+        <div className="flex flex-wrap w-full mb-20 justify-between max-md:flex-col">
             <div className='flex flex-col justify-around w-[100%] my-1'>
                 <label htmlFor="title" className="block font-sans text-[12px] mb-1">
                     Title
@@ -93,7 +93,7 @@ export default function BasicInformation({ categories }: Props) {
                 </div>
             </div>
 
-            <div className='flex flex-col justify-around w-[51%] my-1'>
+            <div className='flex flex-col justify-around w-[51%] my-1 max-md:w-full'>
                 <label htmlFor="type" className="block font-sans text-[12px] mb-1">
                     Course Type
                 </label>
@@ -101,7 +101,7 @@ export default function BasicInformation({ categories }: Props) {
                     id="type"
                     value={formData.type}
                     onChange={(e) => handleTypeChange(e)}
-                    className="w-full  border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-[#abe2d0]"
+                    className="w-full border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-[#abe2d0]"
                 >
                     <option value="online">Online</option>
                     <option value="inperson">In Person</option>
@@ -120,7 +120,7 @@ export default function BasicInformation({ categories }: Props) {
                     onChange={(e) => handlePriceChange(e)}
                 />
             </div>
-            <div className='flex flex-col justify-around w-[51%] my-1'>
+            <div className='flex flex-col justify-around w-[51%] my-1 max-md:w-full'>
                 <label htmlFor="category" className="block font-sans text-[12px] mb-1">
                     Category
                 </label>
@@ -156,8 +156,8 @@ export default function BasicInformation({ categories }: Props) {
 
 
             
-            <div className="flex flex-row w-full mb-6 justify-between content-center max-md:flex-wrap">
-                <div className='flex flex-col justify-around w-1/4'>
+            <div className="flex flex-row w-full mb-6 justify-between content-center max-md:flex-col">
+                <div className='flex flex-col justify-around w-1/4 max-md:w-full'>
                 <label htmlFor="language" className="block font-sans text-[12px] mb-1">
                     Course Language
                 </label>
@@ -172,7 +172,7 @@ export default function BasicInformation({ categories }: Props) {
                     <option value="French">French</option>
                 </select>
                 </div>
-                <div className='flex flex-col justify-around w-1/4'>
+                <div className='flex flex-col justify-around w-1/4 max-md:w-full'>
                 <label htmlFor="level" className="block font-sans text-[12px] mb-1">
                     Course Level
                 </label>

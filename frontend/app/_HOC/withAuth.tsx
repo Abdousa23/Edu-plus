@@ -24,9 +24,9 @@ const withAuth = <P extends WithAuthProps>(WrappedComponent: React.ComponentType
             }
         }, [loading, accessToken]);
 
-        if (loading) {
-            return <div>Loading...</div>; // Or your custom loading component
-        }
+        // if (loading) {
+        //     return <div>Loading...</div>; // Or your custom loading component
+        // }
 
         return <WrappedComponent {...props} />;
     };

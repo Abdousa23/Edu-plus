@@ -40,7 +40,7 @@ import { getUserCourses } from '@/lib/getuserCourses';
       console.log(result)
   }
     const getMyCourses = async () => {
-      const response = await getUserCourses(auth?.user._id);
+      const response = await getUserCourses(auth?.user?._id);
       const usercourses = response?.data?.courses
       console.log(usercourses)
       console.log('ss')

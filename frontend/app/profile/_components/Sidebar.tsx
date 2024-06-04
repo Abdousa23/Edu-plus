@@ -38,7 +38,7 @@ export default function Sidebar() {
       console.log(ROLES.Admin)
     }, [auth])
   return (
-    <div className=' justify-around sticky  flex flex-col items-center px-2 py-8  w-1/4 min-h-[100vh] h-full top-0 left-0 bg-white shadow-md rounded-l-[20px]'>
+    <div className=' justify-around sticky flex-grow  flex flex-col items-center px-2 py-8  w-1/4 min-h-[100vh] h-full top-0 left-0 bg-white shadow-md rounded-l-[20px]'>
         <div className='flex justify-between flex-col h-[45%] w-full'>
         <div className='w-28 max-md:w-16 mx-auto mb-4'>
             <img src={user?.pfp.url} className='max-w-full rounded-full' alt="" />
@@ -56,6 +56,7 @@ export default function Sidebar() {
                 <Link href={'/profile/admin/students'} className={`px-4 py-2 ${pathname === '/profile/admin/students' ? ' text-green+' : 'text-black'} `}>  <span className=''>students</span></Link>
                 <Link href={'/profile/admin/teachers'} className={`px-4 py-2 ${pathname === '/profile/admin/teachers' ? ' text-green+' : 'text-black'} `}> <span className=' '>teachers</span></Link>
                 <Link href={'/profile/admin/courses'} className={`px-4 py-2 ${pathname === '/profile/admin/courses' ? ' text-green+' : 'text-black'} `}>   <span className=' '>courses</span></Link>
+                <Link href={'/profile/inbox'} className={`px-4 py-2 ${pathname === '/profile/inbox' ? ' text-green+' : 'text-black'} `}> <MailIcon /> <span className=' max-md:hidden'>inbox</span></Link>
                 <Link href={'/profile/settings'} className={`px-4 py-2 ${pathname === '/profile/settings' ? ' text-green+' : 'text-black'} `}> <SettingsOutlinedIcon/>  <span className=' max-md:hidden'>settings</span></Link>
                 </ul>
                 :
@@ -65,6 +66,7 @@ export default function Sidebar() {
                 <Link href={'/profile/dashboard'} className={`px-4 py-2 ${pathname === '/profile/dashboard' ? ' text-green+' : 'text-black'} `}><LeaderboardIcon /> <span className=' max-md:hidden'>dashbord</span></Link>
                 <Link href={'/profile/addCourse'} className={`px-4 py-2 ${pathname === '/profile/addCourse' ? ' text-green+' : 'text-black'} `}> <AddCircleOutlineIcon /> <span className=' max-md:hidden'>create new course</span></Link>
                 <Link href={'/profile/publishedCourses'} className={`px-4 py-2 ${pathname === '/profile/publishedCourses' ? ' text-green+' : 'text-black'} `}> <FolderIcon/> <span className=' max-md:hidden'>published courses</span></Link>
+                <Link href={'/profile/inbox'} className={`px-4 py-2 ${pathname === '/profile/inbox' ? ' text-green+' : 'text-black'} `}> <MailIcon /> <span className=' max-md:hidden'>inbox</span></Link>
                 <Link href={'/profile/settings'} className={`px-4 py-2 ${pathname === '/profile/settings' ? ' text-green+' : 'text-black'} `}> <SettingsOutlinedIcon/>  <span className=' max-md:hidden'>settings</span></Link>
 
                 </ul>
@@ -74,7 +76,6 @@ export default function Sidebar() {
                 <Link href={'/profile/settings'} className={`px-4 py-2 ${pathname === '/profile/settings' ? ' text-green+' : 'text-black'} `}> <HomeIcon /> <span className=' max-md:hidden'>account Settings</span></Link>
                 <Link href={'/profile/inbox'} className={`px-4 py-2 ${pathname === '/profile/inbox' ? ' text-green+' : 'text-black'} `}> <MailIcon /> <span className=' max-md:hidden'>inbox</span></Link>
                 <Link href={'/profile/MyCourses'}className={`px-4 py-2 ${pathname === '/profile/MyCourses' ? ' text-green+' : 'text-black'} `}> <FolderIcon /> <span className=' max-md:hidden'>Courses</span></Link>
-                <Link href={'/profile/'} className={`px-4 py-2 ${pathname === '/profile/' ? ' text-green+' : 'text-black'} `}> <FavoriteBorderIcon /> <span className=' max-md:hidden'>wishlist</span></Link>
                 <Link href={'/profile/cart'} className={`px-4 py-2 ${pathname === '/profile/cart' ? ' text-green+' : 'text-black'} `}> <ShoppingCartOutlinedIcon /> <span className=' max-md:hidden'>Cart</span></Link>
                 </ul>
                 

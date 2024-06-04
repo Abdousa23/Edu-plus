@@ -9,7 +9,7 @@ export default function Resources({ course }: course) {
   const fetchPrivate = useFetchPrivate()
   const getRessources = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses/65cf6571a5ca4966a74d5cd1`,
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses/all/65cf6571a5ca4966a74d5cd1`,
         {
           method: 'GET',
           headers: {
@@ -53,8 +53,10 @@ export default function Resources({ course }: course) {
       <h1 className=' text-xl font-semibold'>Attach Files</h1>
 
       {
-        error ? <ErrorComponent errmessage={error.errmessage} /> :
-          ressources.length > 0 ? ressources.map((ressource: any,index) => (
+        
+          ressources.length > 0 ? 
+          error ? <ErrorComponent errmessage={error.errmessage} /> :
+          ressources.map((ressource: any,index) => (
             <div key={index} className='my-1 bg-gray-200 flex justify-between w-[90%]'>
               <div className='mx-4 my-4 flex justify-around'>
                 <div className='text-neworg mx-4 '>

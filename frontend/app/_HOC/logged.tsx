@@ -23,9 +23,9 @@ const Logged = <P extends LoggedProps>(WrappedComponent: React.ComponentType<P>)
             }
         }, [loading, accessToken]);
 
-        if (loading || shouldRedirect) {
-            return <div>Loading...</div>; // Or your custom loading component
-        }
+        // if (loading || shouldRedirect) {
+        //     return <div>Loading...</div>; // Or your custom loading component
+        // }
 
         return <WrappedComponent {...props} />;
     };

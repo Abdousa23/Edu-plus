@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import SearchResults from './SearchResults'
+import SearchResults from './PublishedCourses'
 import useFetchPrivate from '@/app/_hooks/useFetchPrivate'
 
 

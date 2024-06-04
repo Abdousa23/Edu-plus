@@ -32,7 +32,7 @@ export default function CourseContent({ course, purshased,user }: course) {
     }
     const selectLesson = (lesson: LessonType) => {
         setSelectedLesson(lesson);
-      };
+    };
     const usercourses = async (id: string) => {
         const data = await getUserCourses(id)
         if (data.data) {
@@ -44,15 +44,16 @@ export default function CourseContent({ course, purshased,user }: course) {
     }
     useEffect(() => {
         usercourses(course?.owner?._id || '')
+        console.log(purshased)
     }, [])
     return (
         <div className="relative min-h-96 w-full container mx-auto flex max-md:flex-col-reverse">
             <div className='flex-grow'>
-                <div className='w-[90%] border rounded-xl  h-fit'>
+                <div className='w-[90%] border rounded-xl  h-fit my-8'>
                     {
-                        purshased ?
+                        purshased && course?.type === 'online' ?
                             <video className='w-full' src={selectedLesson?.videoUrl as string} controls></video>
-                            : <img src="/images/landing.svg" className='w-full max-h-[400px]' alt="" />
+                            : <img src={course?.imageUrl || "/images/landing.svg"} className='w-full max-h-[400px] rounded-sm' alt="" />
 
                     }
                 </div>
@@ -81,9 +82,6 @@ export default function CourseContent({ course, purshased,user }: course) {
                     <Reviews user={user} />
                 }
 
-                <div>
-                    {course?.type === 'inperson' && <CourseLocation course={course} />}
-                </div>
                 <ProfileHeader courses={courses} user={user} />
                 <div>
                     {/* <h1 className=' font-medium text-2xl '>Course Instructor</h1>
@@ -105,10 +103,15 @@ export default function CourseContent({ course, purshased,user }: course) {
         </div> */}
                 </div>
             </div>
-            <div className='max-md:relative sticky my-8 top-0 w-[35%] max-md:w-full'>
+            <div className='max-md:relative sticky h-auto my-6 top-0 w-[35%] max-md:w-full'>
                 {
-                    purshased ?
+                    purshased && course?.type === 'online' ?
                         <SidebarWatchCourse course={course} setSelectedLesson={setSelectedLesson as any} selectedLesson={selectedLesson} />
+                        :
+                        purshased &&course?.type === 'inperson' ?
+                        <div>
+                            <CourseLocation course={course} />
+                        </div>
                         :
                         <CourseSidebar course={course} />
                 }

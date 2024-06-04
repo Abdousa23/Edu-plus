@@ -47,7 +47,7 @@ function PersistLogin({ children }: props) {
     }, [isLoading]);
 return (
         <>
-            {isLoading ? <div>Loading...</div> : children}
+            {children}
         </> );
 }
 

@@ -11,6 +11,7 @@ router.get('/',courseController.getAllCourses);
 
 router.get('/search/:name', courseController.getCoursesByName);
 router.get('/student/:name',verifyJWT ,courseController.getStudentCourseByName);
+router.get('/teacher/:name',verifyJWT ,courseController.getTeacherCourseByName);
 
 
 router.get('/categories',categoryController.getAllCategories)

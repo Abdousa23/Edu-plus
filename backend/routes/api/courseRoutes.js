@@ -17,12 +17,13 @@ router.get('/all/teacher', verifyJWT,courseController.getTeacherAllCourses);
 router.post('/payment', verifyJWT, paymenCheckout);
 router.post('/enroll/:courseId', verifyJWT, courseController.enrollOnlineCourse);
 router.post("/price/:courseId", verifyJWT, courseController.addPriceId);
+router.post('/confirm/:courseId' , verifyJWT , courseController.confirmArrival)
 //
 router.get('/all',courseController.getAllCourses);
 router.get('/all/category/:category', courseController.getCoursesByCategory);
 router.get('/all/:courseId',verifyJWT ,courseController.getCourseResources);
-router.post('/addOnlineCourse' ,  verifyJWT/* , verifyRoles(ROLES_LIST.School) */ ,upload.any("video") ,  addOnlineCourse);
-router.post('/addOfflineCourse', verifyJWT, verifyRoles(ROLES_LIST.School), addOfflineCourse);
+router.post('/addOnlineCourse' ,  verifyJWT/* , verifyRoles(ROLES_LIST.School) */ ,upload.any("video") , addOnlineCourse);
+router.post('/addOfflineCourse', verifyJWT/* , verifyRoles(ROLES_LIST.School) */, upload.any("video"),addOfflineCourse);
 router.post('/addLesson', verifyJWT, verifyRoles(ROLES_LIST.School), addOnlinelesson);
 router.put('/updateLesson/:id', verifyJWT, verifyRoles(ROLES_LIST.School), updateLesson);
 router.delete('/deleteLesson/:id', verifyJWT, verifyRoles(ROLES_LIST.School), deleteLesson);

@@ -63,7 +63,7 @@ export default function CourseSidebar({ course }: course) {
 
     }
     useEffect(()=>{
-        console.log('shut the fuck up : ' ,course)
+        console.log(course)
     } , [])
     return (
         <div className='flex flex-col justify-center items-center  gap-7 relative w-full h-[fit]  top-[0px] bg-white border-[1.1934px] border-gray-100 shadow-md'>
