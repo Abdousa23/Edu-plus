@@ -1,13 +1,35 @@
-const mongoose = require('mongoose');
+const Chat = require('../models/chat');
 const Message = require('../models/message');
 const Category = require('../models/category');
-const Chat = require('../models/chat');
 const User = require('../models/user');
-const  { getReceiverSocketId , io} =require('../socket/socket')
+const getChatsMessages = async (req, res) => {
+    const chatId = req.params.chatId;
+    try {
+        // Find chat room by chatId
+        const chat = await Chat.findById(chatId);
+        if (!chat) {
+            return res.status(404).json({ message: "Chat room not found" });
+        }
 
+        // Find all messages in the chat room
+        const messages = await Message.find({ chatId: chatId }).populate("sender");
+        // console.log(messages)
+        return res.status(200).json( messages);
+    } catch (error) {
+        return res.status(500).json({ error: "An error occurred while fetching messages" });
+    }
+}
+const getChats = async (req, res) => {
+    try {
+        // Find all chat rooms
+        const chats = await Chat.find();
+        return res.status(200).json({ chats: chats });
+    } catch (error) {
+        return res.status(500).json({ error: "An error occurred while fetching chat rooms" });
+    }
 
-// we usse this controller to create the chat rooms at the start of the application 
-const createChatsController = async (req, res) => {
+}
+const createChat = async (req, res) => {
     try {
         // Find all categories
         const categories = await Category.find();
@@ -27,7 +49,7 @@ const createChatsController = async (req, res) => {
         });
 
         // Respond with success message
-        return res.json({ message: "Chat rooms created successfully" });
+        return res.status(200).json({ message: "Chat rooms created successfully" });
 
     } catch (error) {
         console.log("Error in the chat controller");
@@ -37,18 +59,18 @@ const createChatsController = async (req, res) => {
     }
 }
 
-
-const addParticipentToChat = async (req,res) => {
+const addParticipant = async (req,res) => {
     try {
         const chat = await Chat.findById(req.body.chatID)
+        const username = req.body.username
+        const user = await User.findOne({username:username})
         if(!chat){
             return res.status(404).json({message:"chat not found"})
         }   
-        const user = req.user._id
-        if(chat.participent.includes(user)){
+        if(chat.members.includes(user._id)){
             return res.status(403).json({message:"you are already in the chat"})
         }
-        chat.participent.push(user)
+        chat.members.push(user._id)
         await chat.save()
         return res.status(200).json({message:"user added to chat successfully"})
 
@@ -58,67 +80,10 @@ const addParticipentToChat = async (req,res) => {
     
     }
 }
-const getMessageContoller= async (req, res) =>  {
 
-    try {
-        const username = req.user
-        const user = await User.findOne({username:username})
-        const room = req.params.id
-        const chat = await Chat.findById(room).populate("messages")
-        const senderID = user._id
-        const messages = await chat.messages
-        
-        return res.status(200).json({messages:messages})
-        
-    } catch (error) {
-        console.log("errore in the chat contoller")
-        console.log(error)
-        
-    }
-
+module.exports = {
+    getChatsMessages,
+    getChats,
+    createChat,
+    addParticipant,
 }
-const sendMessageController = async (req, res) => {
-    try {
-        const username = req.user
-        const user = await User.findOne({username:username})
-        const senderName = user
-        const room = req.params.id
-        const chat = await Chat.findById(room)
-        if(!chat){
-            return res.status(404).json({message:"chat not found"})
-        }
-
-        const message = new Message({
-            sender: senderName.username,
-            message: req.body.message,
-            senderphp: senderName.pfp.url,
-            chat: chat._id
-        })
-        await message.save()
-        chat.messages.push(message)
-        await chat.save()
-
-            io.emit('newMessage',message)
-        
-
-
-        return res.status(200).json({message:"message sent successfully",message:message})
-    } catch (error) {
-        console.log("error in the send message controller")
-        console.log(error)
-    }
-
-
-}
-const getallChatRoomsController = async (req, res) => {
-    try {
-        const chats = await Chat.find()
-        console.log("chats are ",chats)
-        
-        return res.status(200).json({chats:chats})
-    } catch (error) {
-        console.log("error in the get all chat rooms controller")
-        console.log(error)
-    }
-}
-module.exports = {getMessageContoller,sendMessageController,createChatsController,addParticipentToChat , getallChatRoomsController}

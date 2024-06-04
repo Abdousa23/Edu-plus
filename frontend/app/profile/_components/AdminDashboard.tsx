@@ -5,12 +5,16 @@ import Sidebar from '../_components/Sidebar'
 
 export default function AdminDashboard() {
   return (
-    <div className=' '>
-      <Navbar />
-      <div className='flex'>
+    <div className='flex bg-[#FAFBFC] w-full box-border'>
       <Sidebar />
-      <Dashboard/>
-      </div>
-    </div>
-  )
+      <div className='flex-grow bg-[#FAFBFC]  box-border w-3/4 '>
+        <div className='flex-grow'>
+          <div className=' text-[#1d2026]  '>
+            <Navbar />
+            <Dashboard />
+          </div>
+          </div>
+          </div>
+        </div>
+        )
 }

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { use, useEffect } from 'react'
 import Modal from '@/app/profile/addCourse/components/popUP'
 import CircularProgress from '@mui/material/CircularProgress';
 import useFetchPrivate from '@/app/_hooks/useFetchPrivate';
@@ -10,7 +10,7 @@ type Params = {
         courseId: string
     }
 }
-export default function page({ params: { courseId } }: Params) {
+export default function SuccessComponent({ params: { courseId } }: Params) {
     const fetchPrivate = useFetchPrivate()
     const [loading, setLoading] = React.useState(true)
     const Router = useRouter()

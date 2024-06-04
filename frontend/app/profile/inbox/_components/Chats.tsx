@@ -1,29 +1,27 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import  Chat  from './Chat'
-import useGetallChats from '../_hooks/useGetallChats'
-import {useListenMessages} from '../_hooks/useListenMessages'
-export default function Chats() {
-  const {loading,chats} = useGetallChats()
-  useListenMessages()
-  return (
-    <div className="flex flex-col  overflow-auto  overflow-x-hidden">
+import { ChatContext } from '@/context/chatContext'
 
-    
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        chats.map((chat: chatProps) => {
+export default function Chats() {
+  const {chats,getAllChats,selectedChat,setSelectedChat} = useContext(ChatContext)
+  
+  useEffect(() => {
+    getAllChats()
+  }, [])
+  return (
+    <div className=" flex flex-col  max-md:flex-row overflow-x-auto ">
+      {chats && chats?.length > 0 ? (
+        chats.map((chat: any) => {
           return (
             <Chat
               key={chat._id}
-              _id={chat._id}
-              name={ chat.name }
-              pic={chat.pic}
-              
-            />
+              chat={chat}
+             />
           );
         })
-      )}
+      ):
+        <p>no chats available</p>
+      }
     </div>
   );
 }

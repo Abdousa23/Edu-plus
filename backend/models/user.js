@@ -90,7 +90,12 @@ const userSchema = new schema ({
         type : schema.Types.ObjectId,
         ref : 'cart'
     },
-} , 
+    totaolIncome:{
+        type : Number,
+        default : 0
+    },
+    }
+,
 {timestamps : true}
 )
 

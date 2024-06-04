@@ -1,5 +1,4 @@
 import {AuthProvider} from '@/context/authContext';
-import { SocketContextProvider } from '@/context/SocketContext';
 import PersistLogin from './_HOC/PersistLogin';
 import Head from 'next/head';
 
