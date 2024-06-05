@@ -14,6 +14,7 @@ export const getCoordinates = async (address: string): Promise<[number, number] 
 
     if (response.data.features && response.data.features.length > 0) {
       const [longitude, latitude] = response.data.features[0].geometry.coordinates;
+      console.log("nigga" , [latitude, longitude])
       return [latitude, longitude];
     }
 

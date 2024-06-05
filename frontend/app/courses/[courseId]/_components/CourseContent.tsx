@@ -108,12 +108,19 @@ export default function CourseContent({ course, purshased,user }: course) {
                     purshased && course?.type === 'online' ?
                         <SidebarWatchCourse course={course} setSelectedLesson={setSelectedLesson as any} selectedLesson={selectedLesson} />
                         :
-                        purshased &&course?.type === 'inperson' ?
+                        !purshased &&course?.type === 'inperson' ?
+                        <div>
+                            <CourseSidebar course={course} />
+                            <CourseLocation course={course} />
+                        </div>
+                        :
+                        purshased && course?.type === 'inperson' ?
                         <div>
                             <CourseLocation course={course} />
                         </div>
                         :
-                        <CourseSidebar course={course} />
+                        <></>
+                        
                 }
             </div>
         </div>

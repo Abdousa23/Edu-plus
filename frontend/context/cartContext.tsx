@@ -38,21 +38,24 @@ export const CartProvider = ({ children }:CartContextProps) => {
         }
     }
 
-    const purchaseCourse = (course: CourseType) => {
-        const body = `{"items":[{"price":"${course?.price}","quantity":1,"product_id":"${course?._id}"}],"success_url":"https://edu-plus-nine.vercel.app/"}`
+    const purchaseCourse = async (course: CourseType) => {
         const options = {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_apiPaymentSecretKey}`,
+                Authorization: `Bearer test_sk_0ofp9nTLMQWqlHLFsHF3AGAmx3wQjVTKnFGpRHAT` ,
                 "Content-Type": "application/json",
             },
-            body: body,
+            body:`{"items":[{"price":"${course?.priceId}","quantity":1,"name":"${course?._id}"}],"success_url":"https://edu-plus-nine.vercel.app/success/${course?._id}"}`,
         };
-        console.log(body)
-        fetch("https://pay.chargily.net/test/api/v2/checkouts", options)
-            .then((response) => response.json())
-            .then((response) => console.log(response))
-            .catch((err) => console.error(err));
+        const res =  fetch("https://pay.chargily.net/test/api/v2/checkouts", options)
+        .then((response) => response.json())
+        .then((response) =>{ console.log(response)
+            return response
+        })
+        .catch((err) => console.error(err));
+        const response = await res
+        console.log(response.checkout_url)
+        window.location.href = response.checkout_url
     }
     const removeCourseFromCart = async (course: CourseType) => {
         try {

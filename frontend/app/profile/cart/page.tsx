@@ -8,6 +8,7 @@ import CartCourseCard from './_components/CartCourseCard'
 
 export default function page() {
     // const [cartCourses, setCartCourses] = useState<CourseType[]>([])/* --- */
+ 
     return (
         <div className='flex bg-[#E9EAF0] w-full box-border'>
             <Sidebar />
