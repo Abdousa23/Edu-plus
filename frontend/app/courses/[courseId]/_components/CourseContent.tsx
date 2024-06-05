@@ -104,20 +104,11 @@ export default function CourseContent({ course, purshased,user }: course) {
                 </div>
             </div>
             <div className='max-md:relative sticky h-auto my-6 top-0 w-[35%] max-md:w-full'>
+             { course?.type === 'inperson' && <CourseLocation course={course} /> }
+
                 {
                     purshased && course?.type === 'online' ?
                         <SidebarWatchCourse course={course} setSelectedLesson={setSelectedLesson as any} selectedLesson={selectedLesson} />
-                        :
-                        !purshased &&course?.type === 'inperson' ?
-                        <div>
-                            <CourseSidebar course={course} />
-                            <CourseLocation course={course} />
-                        </div>
-                        :
-                        purshased && course?.type === 'inperson' ?
-                        <div>
-                            <CourseLocation course={course} />
-                        </div>
                         :
                         <div>
                             <CourseSidebar course={course} />

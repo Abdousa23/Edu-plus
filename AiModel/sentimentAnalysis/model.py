@@ -22,6 +22,6 @@ def predict_sentiment(comments):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('comments', type=str, nargs='+', help='The movie reviews to analyze')
+    parser.add_argument('comments', type=str, nargs='+', help='The course reviews to analyze')
     args = parser.parse_args()
     print(predict_sentiment(args.comments))
