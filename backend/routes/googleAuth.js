@@ -28,7 +28,7 @@ router.get('/callback',
 router.get('/setToken', async (req, res, next) => {
     try {
         const result = await signToken(req, res);
-        res.redirect("http://localhost:3001/home");
+        res.redirect("localhost:3001/home");
     } catch (error) {
         next(error);
     }

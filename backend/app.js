@@ -18,7 +18,7 @@ require('./controllers/googleAuthController')
 const mongoSanitize = require('express-mongo-sanitize');
 const bodyParser = require('body-parser');
 const http = require('http')
-const {Server} =require ('socket.io')
+const { Server } = require('socket.io')
 const Message = require('./models/message')
 const Chat = require('./models/chat')
 dotenv.config();
@@ -28,16 +28,16 @@ app.use(bodyParser.urlencoded({ extended: true })); // Add this line
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET , resave: false, saveUninitialized: true ,cookie: { maxAge: 60000 }}));
+app.use(session({ secret: process.env.ACCESS_TOKEN_SECRET, resave: false, saveUninitialized: true, cookie: { maxAge: 60000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(credentials)
-app.use(cors({...corsOptions,origin: 'https://edu-plus-nine.vercel.app',methods : 'GET,POST,PUT,DELETE' , credentials:true}));
-//  app.use(cors({
-//     origin: 'http://localhost:3001', // specify the origin
-//    credentials: true, // allow credentials
-//  }));
+/* app.use(cors({...corsOptions,origin: 'https://edu-plus-nine.vercel.app',methods : 'GET,POST,PUT,DELETE' , credentials:true}));
+ */  app.use(cors({
+    origin: 'http://localhost:3001', // specify the origin
+    credentials: true, // allow credentials
+}));
 app.use(mongoSanitize());
 // app.use(rateLimitMiddleware);
 
@@ -50,36 +50,36 @@ app.get('/', (_req, res) => {
 
 app.use('/api', router);
 
-const io = new Server(server,{
-    cors:{
+const io = new Server(server, {
+    cors: {
         origin: 'https://edu-plus-nine.vercel.app',
-        methods: ["GET","POST"],   
+        methods: ["GET", "POST"],
     }
 })
-io.on('connection',(socket)=>{
-    socket.on('join_room',(data)=>{
+io.on('connection', (socket) => {
+    socket.on('join_room', (data) => {
         socket.rooms.forEach(room => {
             if (room !== socket.id) { // Don't leave the default room
                 socket.leave(room);
             }
         });
-    
+
         socket.join(data.id)
-        socket.broadcast.to(data.id).emit('new_user_joined',{name:data.user.username})
+        socket.broadcast.to(data.id).emit('new_user_joined', { name: data.user.username })
     })
-    
-    socket.on('send_message', async (data)=>{
-        socket.broadcast.to(data.id).emit('receive_message',data.message)
+
+    socket.on('send_message', async (data) => {
+        socket.broadcast.to(data.id).emit('receive_message', data.message)
         try {
             await addingMessage(data) // Use await keyword here
         } catch (error) {
             console.error(`Failed to add message: ${error}`)
         }
-   })
-    
+    })
+
 })
-const addingMessage = async (data)=>{
-    try{
+const addingMessage = async (data) => {
+    try {
         const message = new Message({
             chatId: data.message.chatId,
             sender: data.message.sender._id,
@@ -90,7 +90,7 @@ const addingMessage = async (data)=>{
         // chat.members.push(data.message.sender._id)
         // console.log(chat)
         chat.save()
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
@@ -98,13 +98,13 @@ const addingMessage = async (data)=>{
 app.use('/documentation', swaggerUi.serve, swaggerUi.setup(Swagger));
 
 connectDB()
-.then(() => {
-    server.listen(3000, () => {
-        console.log(`Server is running on port 3000`);
-    });
-})
+    .then(() => {
+        server.listen(3000, () => {
+            console.log(`Server is running on port 3000`);
+        });
+    })
 
 
-.catch((err) => {
-    console.error(err.message);
-});  
+    .catch((err) => {
+        console.error(err.message);
+    });  
