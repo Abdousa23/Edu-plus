@@ -28,7 +28,7 @@ export default function OneMessage({ message }: messageProps) {
                         :
                         <div>
                             <div className='w-10 h-10'>
-                                <img src={message?.sender?.pfp.url} alt="php pic" className='max-w-full rounded-full' />
+                                <img src={message?.sender?.pfp.url || 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} alt="php pic" className='max-w-full rounded-full' />
                             </div>
                             <div className="" > {message?.sender?.username} </div>
                         </div>

@@ -42,7 +42,7 @@ export default function Sidebar() {
         <div className='flex justify-between flex-col h-[45%] w-full'>
         <div className='w-28 max-md:w-16 mx-auto mb-4'>
             <div className='flex flex-col items-center w-20 h-20 max-md:w-10 max-md:h-10 rounded-full object-cover object-center overflow-hidden ml-4'>
-            <img src={user?.pfp.url} className='max-w-full' alt="" />
+            <img src={user?.pfp.url ||'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'} className='max-w-full' alt="" />
             </div>
             <h2 className=' font-normal text-xl text-center overflow-auto max-md:text-base'>{user?.username}</h2>
         </div>

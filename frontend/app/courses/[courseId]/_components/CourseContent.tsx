@@ -52,7 +52,7 @@ export default function CourseContent({ course, purshased,user }: course) {
                 <div className='w-[90%] border rounded-xl  h-fit my-8'>
                     {
                         purshased && course?.type === 'online' ?
-                            <video className='w-full' src={selectedLesson?.videoUrl as string} controls></video>
+                            <video className='w-full' src={selectedLesson?.videoUrl as string} controls controlsList="nodownload"></video>
                             : <img src={course?.imageUrl || "/images/landing.svg"} className='w-full max-h-[400px] rounded-sm' alt="" />
 
                     }
@@ -119,7 +119,9 @@ export default function CourseContent({ course, purshased,user }: course) {
                             <CourseLocation course={course} />
                         </div>
                         :
-                        <></>
+                        <div>
+                            <CourseSidebar course={course} />
+                        </div>
                         
                 }
             </div>

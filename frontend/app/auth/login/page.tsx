@@ -68,9 +68,6 @@ const Login = () => {
             const checkWindowClosed = setInterval(() => {
                 if (newWindow.closed) {
                     clearInterval(checkWindowClosed);
-
-                    // Execute your operation here
-                    console.log('The window has been closed.');
                 }
             }, 1000);
         } catch (err) {

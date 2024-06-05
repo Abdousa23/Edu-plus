@@ -79,7 +79,7 @@ const userSchema = new schema ({
     pfp : {
         url: {
             type: String,
-            default: 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+            default: 'https://res-console.cloudinary.com/dqnwniezl/thumbnails/v1/image/upload/v1717552336/c3R1ZGVudDU2NTFfdGp4aGtj/drilldown'
           },
           publicId: {
             type: String,

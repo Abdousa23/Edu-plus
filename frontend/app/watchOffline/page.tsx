@@ -35,7 +35,7 @@ export default function page() {
         <div className='flex-grow'>
           <div className='w-[90%]  mx-auto border rounded-xl  h-fit'>
             {
-              <video className='w-full' src={selectedLesson?.videoUrl as string} controls></video>
+              <video className='w-full' src={selectedLesson?.videoUrl as string}  controls controlsList="nodownload"></video>
             }
           </div>
         </div>
