@@ -23,15 +23,15 @@ export default function Dashboard() {
   };
 
   return (
-    <div className='flex flex-col w-full   bg-slate-200 '>
-     
-      <Totalsales />      
-       <div className='gap-[8vh] md:flex flex-row m-5  gap-[8vh] mx-[2vh]'>
-      <TopCreators />
-      <TopCategories />
+    <div className='flex flex-col w-full'>
+
+      <Totalsales />
+      <div className='gap-[8vh] md:flex flex-row m-5 mx-[2vh]'>
+        <TopCreators />
+        <TopCategories />
       </div>
       <div className='w-[50vw]  flex justify-center items-center' >
-      <NewUsersPerMonth userData={sampleUserData} />
+        <NewUsersPerMonth userData={sampleUserData} />
       </div>
     </div>
   )

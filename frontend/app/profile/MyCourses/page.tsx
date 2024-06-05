@@ -9,15 +9,15 @@ import Search from './_components/Search'
 const page = () => {
 
     return (
-        <div className='flex bg-[#E9EAF0]'>
+        <div className='flex bg-[#E9EAF0] w-full box-border'>
             <Sidebar />
-            <div className='flex container mx-auto'>
+            <div className='flex-grow  box-border w-3/4 '>
                 <div className='flex-grow'>
-                    <div className=' text-[#1d2026]  grid grid-flow-dense my-2'>
+                    <div className=' text-[#1d2026]  '>
                         <Navbar />
-                        <WelcomHeader/>
-                        <Search/>
-                        
+                        <WelcomHeader />
+                        <Search />
+
 
                     </div>
                 </div>

@@ -14,6 +14,9 @@ interface contextProps {
         thumbnail: any;
         description : string
         price : number
+        location : string
+        date : Date,
+        availableSeats : number
     };
     setFormData: Dispatch<SetStateAction<{
         title: string;
@@ -26,6 +29,9 @@ interface contextProps {
         thumbnail: any;
         description : string
         price : number
+        location : string
+        date : Date,
+        availableSeats : number
     }>>;
 }
 
@@ -40,6 +46,9 @@ export const FormContextProvider = ({ children }: { children: React.ReactNode })
         language: 'English',
         level: 'Beginner',
         duration: '',
+        location : '',
+        date : null,
+        availableSeats : 0,
         thumbnail: null,
         description : '',
         lesson : [{id: 0, title: 'lesson title', description: '' , videoUrl : null , videoName : ''}],

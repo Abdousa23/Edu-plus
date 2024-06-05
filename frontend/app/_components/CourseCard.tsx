@@ -6,15 +6,20 @@ type course = {
 }
 export default function CourseCard(course: course) {
   const Course = course?.course
+  const imageUrl = Course?.imageUrl ? Course?.imageUrl : "/images/landing.svg"
   return (
-     <div className='w-[280px] h-[420px] m-2 shadow-md rounded-lg order-0 '>
+    <div className='w-[280px] h-[420px] m-3 shadow-md rounded-lg order-0 max-md:w-[200px] '>
+
+
+  <img src={imageUrl} className='w-[90%] h-[40%] rounded-md mx-auto my-1 ' alt="" />
     
-        <img src={ Course?.imageUrl ||`/images/landing.svg`} className='w-full h-2/5 ' alt="" />
+        
     
-    <div className='p-4 w-full h-3/5 flex flex-col items-stretch justify-evenly'>
+
+    <div className='p-4 w-full h-3/5 flex flex-col items-stretch justify-evenly '>
         <p className='font-regular text-sm text-[#777795]'>{Course?.date}</p>
         <h1 className='font-extrabold text-2xl'>{Course?.title}</h1>
-        <p className='font-regular text-base text-[#4d4d4d]'>Course description:{Course?.description}</p>
+        <p className='font-regular text-base text-[#4d4d4d] overflow-hidden my-2'>Course description:{Course?.description}</p>
         <div className='flex justify-between'>
           <div className='flex flex-col'>
             <p className=''>Price : {Course?.price && Course?.price > 0 ? Course?.price+' DZD' : 'free'}</p>

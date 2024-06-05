@@ -35,8 +35,8 @@ export default function OneMessage({ message }: messageProps) {
                 }
 
             </div>
-            <div className={"px-5 w-fit " + `${message?.sender?.username === user?.username ?"self-end":" "} `}>
-                <div className={` text-black ${user?.username === message?.sender?.username ? 'bg-[#C4E7E1]' : ' bg-slate-200 pb-2'}   px-2 px-auto   `} > {message.text} </div>
+            <div className={"px-5 w-fit   text-wrap " + `${message?.sender?.username === user?.username ?"self-end":" "} `}>
+                <p className={` text-black  text-wrap ${user?.username === message?.sender?.username ? 'bg-[#C4E7E1]' : ' bg-slate-200 pb-2'}   px-2 px-auto   `} > {message.text} </p>
                 <div className='opacity-50 text-xs flex gap-1 items-center'>{formattedTime}</div>
             </div>
         </div>

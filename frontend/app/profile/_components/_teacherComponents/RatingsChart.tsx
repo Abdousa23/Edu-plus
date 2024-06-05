@@ -24,7 +24,7 @@ const RatingsChart = ({ ratings }: Props) => {
     }
 
     return (
-        <div className=' bg-white flex flex-col w-[50%] h-[70%] my-auto'>
+        <div className=' bg-white flex flex-col w-[50%] h-[70%] my-auto max-sm:w-[90%] max-md:h-[100%]'>
             <h1 className='font-medium text-[15px] leading-5 my-5 mx-6'>Overall course rating</h1>
             <hr className='my-2'></hr>
             <div className='flex flex-col w-[30%] bg-[#FFF2E5] content-center  h-[153px] items-center overflow-hidden mx-auto'>

@@ -28,7 +28,7 @@ router.get('/callback',
 router.get('/setToken', async (req, res, next) => {
     try {
         const result = await signToken(req, res);
-        res.redirect("https://edu-plus-1.onrender.com/home");
+        res.redirect("https://edu-plus-nine.vercel.app/home");
     } catch (error) {
         next(error);
     }

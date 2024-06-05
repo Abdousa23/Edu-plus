@@ -62,6 +62,9 @@ export default function CourseSidebar({ course }: course) {
         window.location.href = response.checkout_url
 
     }
+    useEffect(()=>{
+        console.log(course)
+    } , [])
     return (
         <div className='flex flex-col justify-center items-center  gap-7 relative w-full h-[fit]  top-[0px] bg-white border-[1.1934px] border-gray-100 shadow-md'>
             <div className='border-[1.1934px] border-gray-100 w-full flex items-center justify-start h-20'>

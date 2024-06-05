@@ -25,10 +25,12 @@ export default function page({ }: Props) {
     const page = ["Basic Information", "Advanced Information", "Curriculum", "Publish Course"]
     const { formData, updateFormData, step, setStep } = useFormContext();
     const [categories, setCategories] = useState([])
+    const endPoint = formData.type === "online" ? "courses/addOnlineCourse" : 'courses/addOfflineCourse'
     const getAllCategories = async () => {
         const getCategories = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home/categories`, { method: 'GET' })
         const data = await getCategories.json()
         const categories = data.map((category: any) => { return category.name })
+        
         setCategories(categories)
     }
     useEffect(() => {
@@ -56,10 +58,10 @@ export default function page({ }: Props) {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         setLoading(true)
         e.preventDefault()
-        if (formData.lesson) {
+        if (formData.lesson&&formData.type==="online") {
             formData?.lesson.map((lesson: any) => {
                 /* lesson.videoUrl = lesson.videoUrl.name */
-                lesson.videoUrl.videoName = lesson.videoUrl.name
+                lesson.videoUrl.videoName = lesson?.videoUrl?.name
             })
             updateFormData(formData)
         }
@@ -74,29 +76,31 @@ export default function page({ }: Props) {
                 }
             }
         });
-        let product;
+        let product
         try {
             console.log('this formdata is  :', data)
-            const res = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/addOnlineCourse`, {
+            const res = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/${endPoint}`, {
                 "method": "POST",
                 "body": data,
             })
             const response = await res?.json()
             console.log(response)
             product = response
+            
 
         }
         catch (err) {
             console.log(err)
         }
         try {
+            console.log("ddddddddddddd" ,product)
             const options = {
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer test_sk_0ofp9nTLMQWqlHLFsHF3AGAmx3wQjVTKnFGpRHAT',
                     'Content-Type': 'application/json'
                 },
-                body: `{"name":"${product._id}"}`
+                body: `{"name":"${product?._id}"}`
             };
 
             const response = fetch('https://pay.chargily.net/test/api/v2/products', options)
@@ -125,7 +129,8 @@ export default function page({ }: Props) {
                 .catch((err) => console.error(err));
             const responseResolved2 = await response2
             console.log('response from chddddddddargily : ', responseResolved2.id)
-            const res = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/price/${product._id}`, {
+            console.log("id 0000000000000 : ", product?._id)
+            const res = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/price/${product?._id}`, {
                 "method": "POST",
                 "headers": {
                     "Content-Type": "application/json"
@@ -146,11 +151,11 @@ export default function page({ }: Props) {
     return (
         <div className='flex bg-[#E9EAF0]'>
             <Sidebar />
-            <div className='flex container mx-auto'>
+            <div className='flex container max-md:p-0  '>
                 <div className='flex-grow'>
                     <div className=' text-[#1d2026]  grid grid-flow-dense'>
                         <Navbar />
-                        <div className='bg-white w-[80%] m-8 p-8'>
+                        <div className='bg-white w-[80%] m-8 p-8 max-md:mx-auto'>
                             <form encType="multipart/form-data" action={`/addOnlineCourse`} method='POST' onSubmit={(e) => { handleSubmit(e) }}>
 
                                 <div >
@@ -163,18 +168,18 @@ export default function page({ }: Props) {
                                     {loading &&< LoadingComponent/>}
 
                                 </div>
-                                <div className='footer flex justify-between'>
+                                <div className='footer flex justify-between max-md:flex-col'>
                                     <button className='bg-[white] w-[90px] border' type='button' hidden={step === 0} onClick={() => setStep((currStep: number) => currStep - 1)}>
                                         <p className='my-1 text-[15px] text-[#6E7485] font-semibold'>
                                             Previous
                                         </p>
                                     </button>
-                                    <button className='bg-[#00977D] w-[90px]' type='button' hidden={step === 2} onClick={() => setStep((currStep: number) => currStep + 1)} >
+                                    <button className='bg-[#00977D] w-[90px]' type='button' hidden={step === 2||formData.type!="online"&&step===1} onClick={() => setStep((currStep: number) => currStep + 1)} >
                                         <p className='my-1 text-[15px] text-white font-semibold'>
                                             Next
                                         </p>
                                     </button>
-                                    <button className='bg-[#00977D] w-[90px]' type='submit' hidden={step !== 2} >
+                                    <button className='bg-[#00977D] w-[90px]' type='submit' hidden={formData.type=="online"&&step !== 2||(formData.type!="online"&&step!=1)} >
                                         <p className='my-1 text-[15px] text-white font-semibold'>
                                             Save
                                         </p>

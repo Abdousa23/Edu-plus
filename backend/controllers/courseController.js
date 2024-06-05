@@ -4,16 +4,17 @@ const User = require('../models/user');
 const Resource = require('../models/resources');
 const Lesson = require('../models/lesson');
 const { ObjectId } = require('mongoose').Types;
-const cloudinary = require("../utils/cloudinary")
+const cloudinary = require("../utils/cloudinary");
+const { buyMail } = require('../utils/nodemail');
 
-const lessonAdder = async (uploadResult , lessons , course) =>{
+const lessonAdder = async (uploadResult, lessons, course) => {
     for (let i = 0; i < uploadResult.length; i++) {
-        console.log('lessons : ' , lessons)
-        console.log('uploadResult : ' , uploadResult)
+        console.log('lessons : ', lessons)
+        console.log('uploadResult : ', uploadResult)
         for (let j = 0; j < lessons.length; j++) {
-            console.log('this is j : ', j  )
-            if (lessons[j].videoUrl.videoName == uploadResult[i].original_filename+'.'+ uploadResult[i].format) {
-                const lesson = new Lesson({ title: lessons[j].title, description: lessons[j].description, videoUrl: uploadResult[i].secure_url, publicId: uploadResult[i].public_id, course: course._id })
+            console.log('this is j : ', j)
+            if (lessons[j].videoUrl.videoName == uploadResult[i].original_filename + '.' + uploadResult[i].format) {
+                const lesson = new Lesson({ title: lessons[j].title, description: lessons[j].description, videoUrl: uploadResult[i]?.secure_url, publicId: uploadResult[i].public_id, course: course._id })
                 await lesson.save()
                 console.log(lesson)
                 await course.lessons.push(lesson._id)
@@ -32,10 +33,10 @@ const getAllCourses = async (req, res) => {
     }
 }
 
-const getAllStudentCourses = async (req , res)=>{
+const getAllStudentCourses = async (req, res) => {
     try {
         const username = req.user
-        const user = await User.findOne({username : username}).populate('purchasedcourses').exec()
+        const user = await User.findOne({ username: username }).populate('purchasedcourses').exec()
         console.log(user)
         console.log('this is the purchased courses')
         console.log(user.purchasedcourses)
@@ -52,19 +53,35 @@ const getAllStudentCourses = async (req , res)=>{
     }
 }
 
-const getStudentCourseByName = async (req , res)=>{
+const getStudentCourseByName = async (req, res) => {
     const username = req.user
-    const {name} = req.params
+    const { name } = req.params
     try {
         /* console.log(name) */
-        const user = await User.findOne({username : username}).exec()
+        const user = await User.findOne({ username: username }).exec()
         const enrolledCourses = user.purchasedcourses
-        console.log("these are : " ,enrolledCourses)
-        const purchasedcourses = enrolledCourses.map(async (courseId)=>{
-            return await Course.find({_id : courseId , title: { $regex: name, $options: 'i' }})
+        console.log("these are : ", enrolledCourses)
+        const purchasedcourses = enrolledCourses.map(async (courseId) => {
+            return await Course.find({ _id: courseId, title: { $regex: name, $options: 'i' } })
         })
         const studentCourses = await Promise.all(purchasedcourses)
-       /*  console.log(studentCourses) */
+        /*  console.log(studentCourses) */
+        res.status(200).json(studentCourses[0])
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getTeacherCourseByName = async (req, res) => {
+    const username = req.user
+    const { name } = req.params
+    try {
+        /* console.log(name) */
+        const user = await User.findOne({ username: username }).exec()
+        const courses = user.courses
+        const publishedCourses = enrolledCourses.map(async (courseId) => {
+            return await Course.find({ _id: courseId, title: { $regex: name, $options: 'i' } })
+        })
+        const studentCourses = await Promise.all(publishedCourses)
         res.status(200).json(studentCourses[0])
     } catch (error) {
         console.log(error)
@@ -104,9 +121,11 @@ const getCourseById = async (req, res) => {
     }
 }
 const addOfflineCourse = async (req, res) => {
-    const { title, description, category, price, level, language, location, availableSeats } = req.body
+    const { title, description, category, price, level, language, location, availableSeats, date } = req.body
+    const parsedDate = date ? new Date(date) : null;
     const owner = req.user;
     try {
+        console.log(parsedDate)
         const courseCategory = await Category.findOne({ name: category })
         const user = await User.findOne({ username: owner })
         if (!user) {
@@ -115,7 +134,25 @@ const addOfflineCourse = async (req, res) => {
         if (!courseCategory) {
             return res.status(404).json({ message: "Category not found , please choose an existing category" })
         }
-        const course = await Course.create({ title, description, category: courseCategory._id, price, owner: user._id, level, language, location, availableSeats })
+        let thumbnail;
+        const course = new Course({ title, description, category: courseCategory._id, price, owner: user._id, level, language, location, availableSeats, date: parsedDate, type: "inperson" })
+        if (req.files) {
+            let uploadResult = req.files.map(async (file) => {
+                try {
+                    return await cloudinary.uploader.upload(file.path, { resource_type: "auto" });
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+            uploadResult = await Promise.all(uploadResult);
+            thumbnail = uploadResult.filter((file) => {
+                if (file.resource_type == "image") return file
+            })
+            if (thumbnail.length != 0) {
+                course.imageUrl = thumbnail[0]?.secure_url
+            }
+        }
+
         await course.save()
         courseCategory.courses.push(course._id)
         await courseCategory.save()
@@ -123,11 +160,11 @@ const addOfflineCourse = async (req, res) => {
         await user.save()
         res.status(200).json(course)
     } catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" })
+        res.status(500).json({ error: error, message: error.message })
     }
 }
 const addOnlineCourse = async (req, res) => {
-    const { title, description, category, price, level, language , type } = req.body
+    const { title, description, category, price, level, language, type } = req.body
     const lessons = JSON.parse(req.body.lesson)
     /* console.log('else : ' , title , category) */
 
@@ -143,7 +180,12 @@ const addOnlineCourse = async (req, res) => {
             return res.status(404).json({ message: "Category not found , please choose an existing category" })
         }
         const id = courseCategory?._id
-        
+        const course = new Course({ title, description, category: id, price, owner: user._id, level, language, type })
+        courseCategory.courses.push(course._id)
+        await courseCategory.save()
+        user.courses.push(course._id)
+        user.purchasedcourses.push(course._id)
+        await user.save()
         if (req.files) {
             console.log(req.files)
             let uploadResult = req.files.map(async (file) => {
@@ -154,23 +196,18 @@ const addOnlineCourse = async (req, res) => {
                 }
             });
             uploadResult = await Promise.all(uploadResult);
-            const videos = uploadResult.filter((video) => video.resource_type === "video")
-            const thumbnail = uploadResult.filter((image) => image.resource_type === "image")
-            console.log('test thumbnail')
-            console.log(thumbnail[0].secure_url)
-            console.log(thumbnail[0])
-            const course = new Course({ title, description, category: id, price, owner: user._id, level, language , type,imageUrl:thumbnail[0].secure_url })
-            courseCategory.courses.push(course._id)
-            await courseCategory.save()
-            user.courses.push(course._id)
-            user.purchasedcourses.push(course._id)
-            await user.save()
-            await (lessonAdder(videos , lessons , course))
+            const thumbnail = uploadResult.filter((file) => {
+                if (file.resource_type == "image") return file
+            })
+            if (thumbnail.length != 0) {
+                course.imageUrl = thumbnail[0]?.secure_url
+            }
+            await (lessonAdder(uploadResult, lessons, course))
             await course.save()
         }
         res.status(200).json(course)
     } catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" })
+        res.status(500).json({ error: error, message: error.message })
     }
 }
 const addOnlinelesson = async (req, res) => {
@@ -278,6 +315,7 @@ const getCoursesByCategory = async (req, res) => {
 const getCourseResources = async (req, res) => {
     const { courseId } = req.params
     const username = req.user
+
     try {
         const resources = await Resource.find({ course: courseId })
         const user = await User.findOne({ username: username })
@@ -286,11 +324,11 @@ const getCourseResources = async (req, res) => {
             return res.status(404).json({ message: "Course not found" })
         }
         if (!user) {
-            return res.status(404).json({ message: "User not found" })
+            return res.status(404).json({ message: "User not found , please connect to your account" })
         }
 
         if (!user.courses.includes(courseId)) {
-            return res.status(403).json({ message: "You are not enrolled in this course,you can't access the resources" })
+            return res.status(401).json({ message: "You are not enrolled in this course,you can't access the resources" })
         }
         if (resources.length === 0) {
             return res.status(404).json({ message: "No resources found for this course" })
@@ -303,29 +341,7 @@ const getCourseResources = async (req, res) => {
 
 }
 
-/* const buyCourse = async (req, res) => {
-    const username = req.user
-    const courseId = req.params.courseId
-    try {
-        const user = await User.findOne({
-            username: username
-        })
-        const course = await Course.findById(courseId)
-        if (!user) {
-            return res.status(404).json({ message: "User not found" })
-        }
-        if (!course) {
-            return res.status(404).json({ message: "Course not found" })
-        }
-        if (user.courses.includes(courseId)) {
-            return res.status(403).json({ message: "You are already enrolled in this course" })
-        }
-        user.purchasedcourses.push(courseId)
-        course.studentEnrolled.studentsNumber += 1}
-        catch(error){
-            res.status(500).json({error:error,message:"Something went wrong"})
-        }
-    } */
+
 
 const getEnrolledCourses = async (req, res) => {
     const username = req.user
@@ -365,41 +381,55 @@ const getTeacherAllCourses = async (req, res) => {
     const username = req.user
     const user = await User.findOne({ username: username })
     const courses = await Course.find({ owner: user._id }).exec()
+    console.log("wait a second : "  , courses)
     res.status(200).json(courses)
 }
 
 const enrollOnlineCourse = async (req, res) => {
-    const username = req.user
-    const courseId = req.params.courseId
-    console.log(courseId)
+    const username = req.user;
+    const courseId = req.params.courseId;
+
     try {
-        const user = await User.findOne({ username: username }).exec()
-        const course = await Course.findById(courseId)
+        const user = await User.findOne({ username: username }).exec();
+        const course = await Course.findById(courseId);
+
         if (!user) {
-            return res.status(404).json({ message: "User not found" })
+            return res.status(404).json({ message: "User not found" });
         }
+
         if (!course) {
-            return res.status(404).json({ message: "Course not found" })
+            return res.status(404).json({ message: "Course not found" });
         }
+
         if (user.purchasedcourses.includes(courseId)) {
-            return res.status(403).json({ message: "You are already enrolled in this course" })
+            return res.status(403).json({ message: "You are already enrolled in this course" });
         }
-        user.purchasedcourses.push(courseId)
-        course.studentEnrolled.studentsNumber += 1
-        await user.save()
-        await course.save()
-        res.status(200).json({ message: "Course added successfully" })
+
+        if (course.type === "inperson") {
+            if (!course.isAvailable) {
+                return res.status(400).json({ message: "The course isn't available" });
+            } else {
+                course.availableSeats -= 1;
+                course.isAvailable = course.availableSeats === 0 ? false : true;
+            }
+        }
+
+        user.purchasedcourses.push(courseId);
+        course.studentEnrolled.studentsNumber += 1;
+        await user.save();
+        await course.save();
+
+        res.status(200).json({ message: "Course added successfully" });
+    } catch (error) {
+        res.status(500).json({ error: error.message, message: "Something went wrong" });
     }
-    catch (error) {
-        res.status(500).json({ error: error, message: "Something went wrong" })
-    }
-}
+};
 
 const addPriceId = async (req, res) => {
     const { priceId } = req.body
     console.log(req.body)
     const { courseId } = req.params
-    console.log("qqqqqqqqqqq" , priceId)
+    console.log("qqqqqqqqqqq", priceId)
     try {
         const course = await Course.findById(courseId)
         if (!course) {
@@ -414,7 +444,37 @@ const addPriceId = async (req, res) => {
     }
 }
 
+const confirmArrival = async (req, res) => {
+    try {
+        const { courseId } = req.params
+        const username = req.user
+        const client = await User.findOne({ username: username })
+        console.log(client)
+        const course = await Course.findById(courseId).exec()
+        const owner = await User.findById(course.owner)
+        const subject = "Arrival Confirmed"
+        const textToStudent = `you have confirmed your arrival to : ${course.title} course`
+        const textToteacher = `${client.username} has confirmed his arrival to ${course.title} course`
+
+        buyMail(client.email, owner.email, course.title, client.username, subject, textToteacher)
+        buyMail(client.email, client.email, course.title, client.username, subject, textToStudent)
+        console.log(client.purchasedcourses)
+
+        const filteredCourses = client.purchasedcourses.filter((id) => {
+            id != courseId
+        })
+        client.purchasedcourses = filteredCourses
+        await client.save()
+        return res.status(200).json('All done')
+
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
 module.exports = {
+    confirmArrival,
+    getTeacherCourseByName,
     enrollOnlineCourse,
     addPriceId,
     getStudentCourseByName,

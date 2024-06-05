@@ -16,7 +16,8 @@ export default function page() {
     const getCourses = async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/home`)
-        const courses = await response?.json();
+        let courses = await response?.json();
+        courses = courses.sort((a: CourseType, b: CourseType) => a.title.localeCompare(b.title));
         setCourses(courses)
       } catch (error) {
         console.log('error')

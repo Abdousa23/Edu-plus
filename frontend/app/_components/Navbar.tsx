@@ -90,12 +90,6 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className='mx-4'>
-                                    <Link href={'/profile/notification'}>
-                                        <NotificationsNoneOutlinedIcon />
-                                    </Link>
-
-                                </div>
-                                <div className='mx-4'>
                                     <Link href={'/profile/inbox'}>
                                         <MailIcon />
                                     </Link>
@@ -108,9 +102,9 @@ export default function Navbar() {
                                         {<p>sign in as <span className='font-semibold'>{user?.username || 'guest'}</span></p>}
                                     </li>
                                     <li className='px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>
-                                    <Link href={'/profile'} className='w-full'>
+                                    <Link href={'/watchOffline'} className='w-full'>
                                     <AccountCircleIcon className='mr-4' />
-                                    my profile
+                                    Downloaded Courses
                                     </Link>
                                     </li>
                                     <li className='px-4 py-2 text-gray-800  hover:bg-gray-200 cursor-pointer flex items-center space-x-2'>

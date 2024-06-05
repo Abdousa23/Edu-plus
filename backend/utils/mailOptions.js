@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 require('dotenv').config({ path: '../.env' });
 
+console.log(process.env.MY_MAIL)
+console.log(process.env.MY_PASS)
 const transporter = nodemailer.createTransport({
     service : "gmail",
     host: "smtp.gmail.com",
@@ -16,7 +18,7 @@ const options ={
     to: "m_zeghdar@estin.dz, olip17740@gmail.com",
     subject: "TEST", // Subject line
     text: "is it working", // plain text body
-    html:"<b>Hello world?</b>", // html body
+    html:"<b>Hello world?</b>" // html body
 }
 
 

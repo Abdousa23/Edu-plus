@@ -20,7 +20,7 @@ export default function watchOfflineLayout({
 } : Props) {
     return (
             // <PersistLogin>
-            {children}
+            children
             // {/* </PersistLogin> */}
             );
 }

@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import CourseCard from '@/app/_components/CourseCard';
-import Footer from '@/app/_components/Footer';
 import useFetchPrivate from '@/app/_hooks/useFetchPrivate';
 
 
@@ -143,7 +142,7 @@ export default function SearchResults({search}: props) {
                     </>
                     }
                     <div className='flex justify-between mx-5 my-8'>
-                        <ul className='flex gap-4 max-md:flex-col'>
+                        <ul className='flex gap-4 max-lg:grid  max-xl:grid-cols-4 max-md:flex max-md:flex-col'>
                             <li className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm' >
                                 <select onChange={handleSelectChange} name="ratings" id="">
                                     <option value=""> ratings</option>
@@ -181,8 +180,8 @@ export default function SearchResults({search}: props) {
                                     <option value="0">Free</option>
                                 </select>
                             </li>
-                            <li className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm' >
-                                <select onChange={handleSelectChange} name="category" id="">
+                            <li className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm max-md:w-[80%]' >
+                                <select className='w-full' onChange={handleSelectChange} name="category" id="">
                                     <option value="">categories</option>
                                     {
                                         categories.map((category: CategoryType) => {
@@ -198,17 +197,17 @@ export default function SearchResults({search}: props) {
                                 </select>
                             </li>
 
-                        </ul>
-                        <div className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm'>
-                            <select onChange={handleSort} name="sort" id="sort">
+                                    <li className='flex items-center px-3 space-x-2 w-fit h-10 bg-white border border-gray-300 rounded-sm'>
+                                    <select onChange={handleSort} name="sort" id="sort">
                                 <option value="">Sort By </option>
                                 <option value="name">name</option>
                                 <option value="Price">Price</option>
                                 <option value="Rating">Rating</option>
                             </select>
-                        </div>
+                                    </li>
+                        </ul>
                     </div>
-                    <div className='flex justify-around w-60 mx-4 my-8'>
+                    <div className='flex justify-around w-60 mx-4 my-8 max-md:flex-col'>
                         <button onClick={handleTypeChange}
                             className={`${currentType === 'online' ? ' text-black' : 'text-[#737373]'} font-semibold text-[28px] mr-4'`}
                         >
@@ -220,7 +219,7 @@ export default function SearchResults({search}: props) {
                             In-person
                         </button>
                     </div>
-                    <div className="flex flex-wrap my-20">
+                    <div className="flex flex-wrap my-20 max-md:flex-col">
                         {
                             filteredList.length > 0 ? filteredList.map((course: any) => {
                                 return (
@@ -232,8 +231,6 @@ export default function SearchResults({search}: props) {
                 </div>
                 {/* {typeof window !== 'undefined' && <Footer />} */}
             </div>
-
-            <Footer />
         </>
     )
 }

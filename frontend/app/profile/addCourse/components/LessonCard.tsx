@@ -17,7 +17,7 @@ const LessonCard = ({ formData, setFormData, lessonContent, setLessonContent, it
                     type="text"
                     required
                     placeholder="Lesson title"
-                    className='my-auto'
+                    className='my-auto max-md:w-[50%]'
                     onChange={(e) => handleTitle(item.id, e, lessonContent, setLessonContent, formData, setFormData)}
                 ></input>
                 </div>

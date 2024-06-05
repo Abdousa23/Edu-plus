@@ -1,9 +1,25 @@
 
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import useFormContext from '../hooks/useFormContext';
-import PhotoSizeSelectActualOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActualOutlined';
-const PH = PhotoSizeSelectActualOutlinedIcon
+import AdvancedInfo from './_AdvancedComponents/AdvancedInfo';
+import { Wilayas } from './_AdvancedComponents/Wilayas';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import dayjs from 'dayjs';
+
+export function BasicDatePicker() {
+    return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['DatePicker']}>
+                <DatePicker label="Basic date picker" />
+            </DemoContainer>
+        </LocalizationProvider>
+    );
+}
+
 
 interface ImageProps {
     selectedImage: File | null;
@@ -12,77 +28,123 @@ interface ImageProps {
 
 
 export default function AdvancedInformation() {
-    const {formData , updateFormData , /* selectedImage, setSelectedImage */} = useFormContext();
-    /* const [selectedVideo, setSelectedVideo] = useState<File | null>(null); */
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files === null) {
-            return;
-        }
-        const selectedFile: File = event.target.files[0];
-        console.log(selectedFile.type.split('/')[0])
-        if (selectedFile.type.split('/')[0] === 'image') {
-            /* setSelectedImage(selectedFile); */
-            updateFormData({
-                thumbnail: selectedFile
-            })
-            return (
-                <div>
-                    <input type="file" accept='image/' name='thumbnail' onChange={(e) => handleImageChange(e)} />
-                    {formData.thumbnail && <img src={URL.createObjectURL(formData.thumbnail)} alt="Selected Image" />}
-                </div>
-            );
-        } else {
-            console.log(('the file must be of type image'))
-        }
+    const { formData, updateFormData, /* selectedImage, setSelectedImage */ } = useFormContext();
+    const today = dayjs()
+    const [wilaya , setWilaya] = useState(Wilayas[15])
+    const [adress , setAdress] = useState("")
+    const handleAdressChange = (e :React.ChangeEvent<HTMLInputElement>)=>{
+        setAdress(e.target.value)
+        const location = "Algeria " + wilaya + " " + adress
+        formData.location = location
+        updateFormData(formData)
+    }
 
-
-    };
-    const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleWilayaChange = (e : React.ChangeEvent<HTMLSelectElement>)=>{
+        setWilaya(e.target.value)
+        const location = "Algeria " + wilaya + " " + adress
         updateFormData({
-            description: event.target.value
+            location : location
         })
     }
+
+    const handleDateChanger = (e : any )=>{  
+        updateFormData({
+            date : e.toISOString()
+        })
+    }
+
+    const handleSeatsChange = (e : React.ChangeEvent<HTMLInputElement>)=>{
+        updateFormData({
+            availableSeats : e.target.value
+        })
+    }
+
+    const typeHandler = () => {
+        if (formData?.type == "online") {
+            return (
+                <AdvancedInfo />
+            )
+        } else {
+            return (
+                <>
+                    <div className='grid grid-rows-2 grid-cols-2 gap-4 justify-between content-center items-center my-2 max-md:flex max-md:flex-col '>
+                        <div>
+                            <label htmlFor="adress" className="block font-sans text-[12px] mb-1">
+                                Adress
+                            </label>
+                            <div className='flex justify-between content-center items-center'>
+                                <input
+                                    id="adress"
+                                    value={adress}
+                                    type="text"
+                                    placeholder="Course full adress"
+                                    maxLength={80}
+                                    required
+                                    className="w-full  border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-[#abe2d0]"
+                                    onChange={(e)=>handleAdressChange(e)}
+                                />
+
+                            </div>
+                        </div>
+
+                        <div className='flex flex-col justify-around'>
+                            <label htmlFor="category" className="block font-sans text-[12px] mb-1">
+                                Wilaya
+                            </label>
+                            <select
+                                id="category"
+                                className="w-full  border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-[#abe2d0]"
+                                value={wilaya}
+                                onChange={(e)=>handleWilayaChange(e)}
+                            >
+                                {Wilayas.map((wilaya: any) => (
+                                    <option key={wilaya} value={wilaya}>
+                                        {wilaya}
+                                    </option>
+                                ))}
+
+                            </select>
+                        </div>
+                        <div className='flex flex-col justify-around'>
+                        <label htmlFor="Basic date picker" className="block font-sans text-[12px]">
+                                Start
+                            </label>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePicker label="Basic date picker"  minDate={today} onChange={handleDateChanger}/>
+                        </LocalizationProvider>
+                        </div>
+                        <div>
+
+            <div>
+                            <label htmlFor="Availabe seats" className="block font-sans text-[12px] mb-1">
+                                Available seats
+                            </label>
+                            <div className='flex justify-between content-center items-center'>
+                                <input
+                                    id="Availabe seats"
+                                    value={formData.availableSeats}
+                                    type="text"
+                                    placeholder="Enter the availabe seats number"
+                                    maxLength={80}
+                                    required
+                                    className="w-full  border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-[#abe2d0]"
+                                    onChange={(e)=>handleSeatsChange(e)}
+                                />
+
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                    <AdvancedInfo />
+                </>
+            )
+        }
+    }
+
     return (
-        <div>
-            <div className='w-[80%]'>
-            <label htmlFor="imageFile">
-                <div className='flex flex-col gap-6 w-[50%]'>
-                    <h1 className='text-[15px] leading-5 font-medium'>Course thumbnail</h1>
-                    <div className='flex flex-row content-center items-center gap-6'>
-                        <div className='w-[30% bg-[#F5F7FA] p-4 my-4'>
-                <PH style={{fontSize : 80 , color : '#B7BAC7'}} className='mx-auto'/>              
-                </div>
-                <div className='text-[12px]'>
-                <p className='text-[#6E7485]'>Upload your course Thumbnail here.</p><p className='text-black font-semibold'>Important guidelines : </p>
-                <p className='text-[#6E7485]'>1200x800 pixels or 12:8 Ratio . Supported formats:</p>
-                <p className='text-black font-semibold'>.jpg, .jpeg, or .png</p>
-                </div>
-                    </div>
-                </div>
-            </label>
-            <input type="file" id="imageFile" name="imageFile" accept='image/' onChange={handleImageChange} hidden/>
-            </div>
-            {/* <label htmlFor='videoFile'>Select Video:</label>
-            <input type='file' id='videoFile' name='videoFile' accept='video/'  onChange={handleImageChange}/> */}
-            {formData.thumbnail && (
-                <div>
-                    <p>Selected image: {formData.thumbnail.name}</p>
-                    {/* Optionally display a preview of the image */}
-                    <img src={URL.createObjectURL(formData.thumbnail)} alt="Selected Image Preview" width={"50px"} />
-                </div>
-            )}
-            {/* {selectedVideo && (
-                <div>
-                    <p>Selected video: {selectedVideo.name}</p>
-                    
-                    <video src={URL.createObjectURL(selectedVideo)} width={"500px"}  controls/> 
-                </div>
-            )} */}
-            <div className='flex flex-col justify-center p-[20px] '>
-                <label className='text-[15px] text-semibold my-2 '>Course description</label>
-                <textarea value={formData.description} onChange={(e)=>handleDescriptionChange(e)} className='w-full p-4 border text-[14px] resize min-h-[200px] focus:outline-none focus:ring-1 focus:ring-[#abe2d0]' placeholder="Enter your course description" required rows={10} cols={15}></textarea>
-            </div>
-        </div >
+        <>
+            {typeHandler()}
+        </>
     );
     ;
 

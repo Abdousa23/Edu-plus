@@ -39,7 +39,7 @@ export default function Footer() {
           <ul>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/'}>Home</Link></li>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/profile/inbox'}>Community</Link></li>
-            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/aboutus'}>About us</Link></li>
+            <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/contact'}>About us</Link></li>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/contact'}>Contact us</Link></li>
             <li className='font-medium text-2xl text-[#363636] px-2 py-4'><Link href={'/FAQ'}>FAQ</Link></li>
           </ul>

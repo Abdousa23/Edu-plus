@@ -64,37 +64,29 @@ export default function TeacherDashboard() {
     try {
       const getCourses = await FetchPrivate(`${process.env.NEXT_PUBLIC_API_URL}/courses/all/teacher/${type}`, { 'Method': 'GET' })
       const courses = await getCourses?.json()
-      console.log(courses)
-
       if (type === 'online') {
-        const tot = courses.reduce((acc: any, course: any) => {
-          console.log('111111', course.studentEnrolled.studentsNumber)
+        setData3(prevData => prevData +courses.reduce((acc: any, course: any) => {
           return acc + course?.studentEnrolled?.studentsNumber * course.price
-        }, 0)
+        }, 0) )
         const tot2 = courses.reduce((acc: any, course: any) => {
-          console.log('111111', course.studentEnrolled.studentsNumber)
           return acc + course?.studentEnrolled?.studentsNumber
         }, 0)
-        const tot3 = courses.length
-        setData1(tot3)
+        setData1(courses.length)
         setOnlineStudents(tot2)
-        setData3(prevData => prevData + tot)
 
       }
 
       else {
         setData2(courses.length)
-        const tot = courses.reduce((acc: any, course: any) => {
+        setData3(prevData => prevData +courses.reduce((acc: any, course: any) => {
           return acc + course?.studentEnrolled?.studentsNumber * course.price
-        }, 0)
-        setData3(prevData => prevData + tot)
-        const tot2 = courses.reduce((acc: any, course: any) => {
-          console.log('111111', course.studentEnrolled.studentsNumber)
+        }, 0) )
+        const studentsNumber = courses.reduce((acc: any, course: any) => {
           return acc + course?.studentEnrolled?.studentsNumber
         }, 0)
-        setOfflineStudents(tot2)
+        setOfflineStudents(studentsNumber)
       }
-      console.log('sss', data3)
+      console.log('what is data 3 ?', data3)
     }
 
     catch (err) {
@@ -147,14 +139,14 @@ export default function TeacherDashboard() {
   return (
     <div className='flex bg-[#E9EAF0]'>
       <Sidebar />
-      <div className='flex container mx-auto'>
+      <div className='flex container mx-auto max-md:p-0'>
         <div className='flex-grow'>
-          <div className=' text-[#1d2026]  grid grid-flow-dense my-2'>
+          <div className=' text-[#1d2026]  grid grid-flow-dense my-2 mx-auto'>
             <Navbar />
 
 
 
-            <div className='flex flex-col sm:flex-row gap-[2%] my-6'>
+            <div className='flex gap-6 my-6 max-md:mx-auto max-xl:grid max-xl:grid-rows-2 max-xl:grid-cols-2 max-lg:flex max-lg:flex-col '>
               <DataCube data={data} dataOf='Enrolled students' Icon={PP} colors={colors1} />
               <DataCube data={data1} dataOf='Online courses' Icon={DV} colors={colors2} />
               <DataCube data={data2} dataOf='in person courses' Icon={EN} colors={colors3} />
@@ -163,9 +155,9 @@ export default function TeacherDashboard() {
             </div>
 
 
-            <div className='flex content-center justify-between max-md:flex-col'>
+            <div className='flex content-center max-md:mx-auto justify-between max-md:flex-col max-lg:flex-col'>
               <RatingsChart ratings={rating} />
-              <div className='flex flex-col'>
+              <div className='flex flex-col max-sm:hidden'>
                 <PiesChart value={onlineStudents} value1={offlineStudents} />
                 <YourBestCourses course={courses} />
               </div>
